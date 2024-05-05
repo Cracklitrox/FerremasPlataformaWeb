@@ -25,8 +25,8 @@ class UsuarioManager(BaseUserManager):
 
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
-    run = models.IntegerField(8, unique=True)
-    dv_run = models.CharField(1)
+    run = models.IntegerField(unique=True)
+    dv_run = models.CharField(max_length=1)
     primer_nombre = models.CharField(max_length=30)
     primer_apellido = models.CharField(max_length=45)
     numero_telefonico = models.CharField(max_length=12)
@@ -36,29 +36,53 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
 
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['run', 'correo']
 
+    groups = models.ManyToManyField(
+        'auth.Group',
+        verbose_name='Grupos',
+        blank=True,
+        help_text='Los grupos a los que pertenece este usuario. Un usuario obtendrá todos los permisos concedidos a cada uno de sus grupos.',
+        related_name="%(app_label)s_%(class)s_related",
+        related_query_name="%(app_label)s_%(class)ss",
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        verbose_name='permisos de usuario',
+        blank=True,
+        help_text='Permisos específicos para este usuario.',
+        related_name="%(app_label)s_%(class)s_related",
+        related_query_name="%(app_label)s_%(class)ss",
+    )
+
     def __str__(self):
         return self.username
 
 
 class Administrador(Usuario):
-    debe_cambiar_password = models.BooleanField(default=True)
+    contrasena_cambiada = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        self.is_staff = True  # Los administradores pueden acceder al panel de admin
+        self.is_superuser = False  # Establecer todos los permisos
+        super().save(*args, **kwargs)
+
+# Cliente
+class Cliente(Usuario):
+    pass
 
 # Vendedor
 class Vendedor(Usuario):
-    area_de_venta = models.CharField(max_length=100, null=True, blank=True)
+    pass
 
 # Contador
 class Contador(Usuario):
-    nivel_de_acceso = models.IntegerField(default=1)
+    pass
 
 # Bodeguero
 class Bodeguero(Usuario):
-    almacen_asignado = models.CharField(max_length=100, null=True, blank=True)
+    pass
