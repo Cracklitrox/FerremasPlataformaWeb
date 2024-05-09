@@ -1,0 +1,38 @@
+{% extends 'base_usuario.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/logueo_administrador.css' %}">
+{% endblock %}
+
+{% block title %}
+Inicio de Sesión
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container mt-5">
+    <h2>Ingreso de Administrador</h2>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form action="{% url 'logueo_administrador' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Nombre de usuario</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Ingresa tu nombre de usuario">
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña">
+        </div>
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+    </form>
+</div>
+{% endblock %}
+{% block js %}
+{% endblock %}

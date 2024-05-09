@@ -1,7 +1,6 @@
 from django.db import models
 from Usuario.models import Cliente
 
-
 # Create your models here.
 
 class TipoComunicacion(models.Model):

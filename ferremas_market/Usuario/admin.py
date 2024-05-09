@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Cliente, Administrador, Cliente, Vendedor, Bodeguero, Contador
+from .models import Cliente, Administrador, Cliente, Vendedor, Bodeguero, Contador, Usuario
 from .forms import AdministradorCreacionForm
 
 class AdministradorAdmin(UserAdmin):
@@ -23,3 +23,4 @@ admin.site.register(Cliente)
 admin.site.register(Vendedor)
 admin.site.register(Bodeguero)
 admin.site.register(Contador)
+admin.site.register(Usuario)

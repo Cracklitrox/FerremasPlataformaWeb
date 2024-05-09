@@ -1,0 +1,25 @@
+{% extends 'base_usuario.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/logueo_administrador.css' %}">
+{% endblock %}
+
+{% block title %}
+Inicio de Sesión
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+    <h2>Activar Cuenta</h2>
+    <p>Por favor, establece una contraseña segura para activar tu cuenta.</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Activar cuenta</button>
+    </form>
+</div>
+{% endblock %}
+{% block js %}
+{% endblock %}

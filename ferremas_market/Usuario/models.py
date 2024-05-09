@@ -10,6 +10,18 @@ class UsuarioManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
+    
+    def create_administrador(self, username, password=None, **extra_fields):
+        if not username:
+            raise ValueError('El nombre de usuario debe ser rellenado.')
+        administrador = self.model(username=username, **extra_fields)
+        administrador.set_password(password)
+        administrador.is_staff = True
+        administrador.activado  = False
+        administrador.save(using=self._db)
+        grupo, _ = Group.objects.get_or_create(name='Administrador')
+        administrador.groups.add(grupo)
+        return administrador
 
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
@@ -55,8 +67,8 @@ class Administrador(Usuario):
     contrasena_cambiada = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        self.is_staff = True
-        self.is_superuser = False
+        if not self.activado:
+            self.is_staff = False
         super().save(*args, **kwargs)
 
 # Cliente
