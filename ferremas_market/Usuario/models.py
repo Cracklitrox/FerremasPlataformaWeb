@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 # Create your models here.
-
 class UsuarioManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
         if not username:
@@ -12,17 +11,6 @@ class UsuarioManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, password, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('El campo "is_staff" debe esta activo')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('El campo "is_superuser"" debe estar activo')
-
-        return self.create_user(username, password, **extra_fields)
-
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
     run = models.IntegerField(unique=True)
@@ -31,7 +19,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     primer_apellido = models.CharField(max_length=45)
     numero_telefonico = models.CharField(max_length=12)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-    username = models.CharField(max_length=20, unique=True)
+    username = models.CharField(max_length=20)
     correo = models.EmailField(max_length=70)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
@@ -40,7 +28,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['run', 'correo']
+    REQUIRED_FIELDS = ['primer_nombre', 'primer_apellido', 'correo', 'run', 'dv_run']
 
     groups = models.ManyToManyField(
         'auth.Group',
@@ -52,7 +40,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     )
     user_permissions = models.ManyToManyField(
         'auth.Permission',
-        verbose_name='permisos de usuario',
+        verbose_name='Permisos de usuario',
         blank=True,
         help_text='Permisos específicos para este usuario.',
         related_name="%(app_label)s_%(class)s_related",
@@ -67,8 +55,8 @@ class Administrador(Usuario):
     contrasena_cambiada = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        self.is_staff = True  # Los administradores pueden acceder al panel de admin
-        self.is_superuser = False  # Establecer todos los permisos
+        self.is_staff = True
+        self.is_superuser = False
         super().save(*args, **kwargs)
 
 # Cliente
