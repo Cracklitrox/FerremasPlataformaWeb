@@ -3,7 +3,7 @@ from Usuario.models import Cliente
 from django.utils import timezone
 
 class Producto(models.Model):
-    nombre = models.CharField(max_length=30)
+    nombre = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=120)
     precio = models.IntegerField()
     stock = models.IntegerField()

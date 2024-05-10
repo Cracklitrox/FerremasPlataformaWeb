@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from django.contrib.auth.forms import SetPasswordForm
-from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from .models import Administrador
+from Pedidos.models import Producto
 
 
 # Create your views here.
@@ -48,3 +47,15 @@ def logueo_administrador(request):
 
 def dashboard_administrador(request):
     return render(request, 'administrador/dashboard_administrador.html')
+
+
+##################################
+##            Cliente           ##
+##################################
+
+def index_cliente(request):
+    productos = Producto.objects.all()
+    context = {
+        'productos': productos,
+    }
+    return render(request, 'cliente/index_cliente.html', context)

@@ -1,0 +1,154 @@
+{% extends 'base_usuario.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/index_cliente.css' %}">
+{% endblock %}
+
+{% block title %}
+Inicio
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+    <!--NavBar-->
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa-solid fa-envelope text-light contact-info"></i>
+                        <a href="" class="navbar-sm-brand text-light text-decoration-none contact-info">Ferremas@company.com</a>
+                    <i class="fa-solid fa-phone contact-info text-light"></i>
+                        <a href="" class="navbar-sm-brand text-white text-decoration-none contact-info">+(56)98765435</a>
+                </div>
+                <div>
+                    <a href="" class="text-white">
+                        <i class="fa-brands fa-facebook me-2"></i></a>
+                    <a href="" class="text-white">
+                        <i class="fa-brands fa-instagram me-2"></i></a>
+                    <a href="" class="text-white">
+                        <i class="fa-brands fa-linkedin me-2"></i></a>
+                    <a href="" class="text-white">
+                        <i class="fa-brands fa-twitter me-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ---main-nav --- -->
+
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container d-flex justify-content-between">
+            <div>
+                <h1 class="text-success">Ferremas</h1>
+            </div>
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item nav-items">
+                                <a class="nav-link nav-links" ria-current="page" href="#">Inicio</a>
+                            </li>
+                            <li class="nav-item nav-items">
+                                <a class="nav-link nav-links" href="#">Productos</a>
+                            </li>
+                            <li class="nav-item nav-items">
+                                <a class="nav-link nav-links" href="#">Tiendas</a>
+                            </li>
+                            <li class="nav-item nav-items">
+                                <a class="nav-link nav-links" href="#">Contacto</a>
+                            </li>
+                        </ul>
+                        <div class="position-relative">
+                            <a href="" class="text-decoration-none text-dark">
+                                <i class="fa-solid fa-magnifying-glass nav-icon"></i>
+                            </a>
+                            <a href="" class="text-decoration-none text-dark">
+                                <i class="fa-solid fa-cart-arrow-down nav-icon"></i>
+                            </a>
+                            <a href="" class="text-decoration-none text-dark">
+                                <i class="fa-solid fa-user nav-icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>                    
+            </nav>
+        </div>
+    </nav>
+
+    <!--Banner-->
+
+    <div class="banner">
+        <div class="container">
+            <div class="slider-container has-scrollbar">
+                <div class="slider-item">
+                    <img src="{% static 'images/index_cliente/portada1.jpg' %}" alt="women's latest fashion sale" class="banner-img">
+                    <div class="banner-content">
+                        <p class="banner-subtitle">Herramientas Manuales</p>
+                        <h2 class="banner-title">Taladro Percutor Inalambrico 20V + Set De Accesorios</h2>
+                        <a href="#" class="banner-btn">Comprar</a>
+                    </div>
+                </div>
+                <div class="slider-item">
+                    <img src="{% static 'images/index_cliente/portada2.jpg' %}" alt="modern sunglasses" class="banner-img">
+                    <div class="banner-content">
+                        <p class="banner-subtitle">Herramientas Manuales</p>
+                        <h2 class="banner-title">Set 150 Piezas Herramientas Manuales - Maletín Portátil</h2>
+                        <a href="#" class="banner-btn">Comprar</a>
+                    </div>
+                </div>
+                <div class="slider-item">
+                    <img src="{% static 'images/index_cliente/portada3.jpg' %}" alt="new fashion summer sale" class="banner-img">
+                    <div class="banner-content">
+                        <p class="banner-subtitle">Pintura</p>
+                        <h2 class="banner-title">Esmalte al agua standard interior semibrillo blanco 1 galón</h2>
+                        <a href="#" class="banner-btn">Comprar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <!--PRODUCTOS-->
+
+    <section id="collection" class="py-5">
+        <div class="container">
+            <div class="title text-center">
+                <h2 class="position-relative d-inline-block">Productos</h2>
+            </div>
+            <div class="row g-0">
+                <div class="d-flex flex-wrap justify-content-center mt-5 filter-button-group">
+                    <button type="button" class="btn m-2 text-dark" data-filter="*">Todos</button>
+                    <button type="button" class="btn m-2 text-dark" data-filter=".best">Más vendidos</button>
+                    <button type="button" class="btn m-2 text-dark" data-filter=".new">Nuevos</button>
+                </div>
+                <div class="collection-list mt-4 row gx-0 gy-3">
+                    {% load moneda_filtro %}
+                    {% for p in productos %}
+                    <div class="col-md-6 col-lg-4 col-xl-3 p-2 feat">
+                        <div class="collection-img position-relative">
+                            <img src="{{ p.foto.url }}" class="w-100" style="height: 200px;">
+                            <span class="position-absolute bg-primary text-white d-flex align-items-center justify-content-center">Oferta</span>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-capitalize my-1">{{ p.nombre }}</p>
+                            <span class="fw-bold">{{ p.precio|formateo_precio }}</span>
+                            <div>Stock: {{ p.stock }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container text-center">
+            <p>&copy; 2024 Ferremas. Todos los derechos reservados.</p>
+            <!-- Agrega aquí otros elementos del footer, como enlaces a redes sociales o información de contacto -->
+        </div>
+    </footer>
+{% endblock %}
+{% block js %}
+{% endblock %}
