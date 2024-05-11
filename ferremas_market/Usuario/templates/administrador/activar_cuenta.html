@@ -12,12 +12,19 @@ Inicio de Sesión
 {% block content %}
 {% load crispy_forms_tags %}
 <div class="container">
-    <h2>Activar Cuenta</h2>
-    <p>Por favor, establece una contraseña segura para activar tu cuenta.</p>
+    <h2>Cambiar Contraseña</h2>
+    <p>Por favor, ingresa tu nueva contraseña dos veces para confirmar.</p>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Activar cuenta</button>
+        <p>
+            <label for="password1">Nueva contraseña:</label>
+            <input type="password" name="password1" id="password1" required>
+        </p>
+        <p>
+            <label for="password2">Confirma la nueva contraseña:</label>
+            <input type="password" name="password2" id="password2" required>
+        </p>
+        <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
     </form>
 </div>
 {% endblock %}
