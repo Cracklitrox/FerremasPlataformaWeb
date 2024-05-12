@@ -1,0 +1,20 @@
+{% extends 'base_usuario.html' %}
+
+{% load static %}
+{% block css %}
+{% endblock %}
+
+{% block title %}
+Pagina Vendedor
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<h1>Titulo</h1>
+<form action="{% url 'cerrar_sesion_vendedor' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-warning" onclick="return confirm('¿Estás seguro que deseas cerrar sesión?');">Cerrar Sesión</button>
+</form>
+{% endblock %}
+{% block js %}
+{% endblock %}

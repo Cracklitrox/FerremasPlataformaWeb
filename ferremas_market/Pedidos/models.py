@@ -3,8 +3,8 @@ from Usuario.models import Cliente
 from django.utils import timezone
 
 class Producto(models.Model):
-    nombre = models.CharField(max_length=50)
-    descripcion = models.CharField(max_length=120)
+    nombre = models.CharField(max_length=80)
+    descripcion = models.TextField()
     precio = models.IntegerField()
     stock = models.IntegerField()
     foto = models.ImageField(upload_to='producto/%Y/%m/%d/', blank=True)
