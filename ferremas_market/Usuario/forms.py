@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Administrador, Vendedor
+from .models import Administrador, Vendedor, Cliente
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 
@@ -47,6 +47,33 @@ class VendedorCreacionForm(UserCreationForm):
 
     class Meta:
         model = Vendedor
+        fields = ('primer_nombre', 'primer_apellido', 'numero_telefonico', 'correo', 'run', 'dv_run', 'username', 'password1', 'password2')
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.primer_nombre = self.cleaned_data["primer_nombre"]
+        user.primer_apellido = self.cleaned_data["primer_apellido"]
+        user.numero_telefonico = self.cleaned_data["numero_telefonico"]
+        user.correo = self.cleaned_data["correo"]
+        user.run = self.cleaned_data["run"]
+        user.dv_run = self.cleaned_data["dv_run"]
+        user.username = self.cleaned_data["username"]
+        user.password = self.cleaned_data["password1"]
+        if commit:
+            user.save()
+        return user
+
+class ClienteCreacionForm(UserCreationForm):
+    primer_nombre = forms.CharField(max_length=30, label='Primer Nombre')
+    primer_apellido = forms.CharField(max_length=45, label='Primer Apellido')
+    numero_telefonico = forms.CharField(max_length=12, required=False, label='Número Telefónico')
+    correo = forms.EmailField(max_length=70, label='Correo')
+    run = forms.IntegerField(label='Run')
+    dv_run = forms.CharField(max_length=1, label='DV-Run')
+    username = forms.CharField(max_length=20)
+
+    class Meta:
+        model = Cliente
         fields = ('primer_nombre', 'primer_apellido', 'numero_telefonico', 'correo', 'run', 'dv_run', 'username', 'password1', 'password2')
 
     def save(self, commit=True):

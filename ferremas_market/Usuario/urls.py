@@ -13,6 +13,8 @@ urlpatterns = [
     path('administrador/vendedor/listar_vendedores/', views.listar_vendedores, name='listar_vendedores'),
     # CLIENTE
     path('', views.index_cliente, name='index_cliente'),
+    path('cliente/logueo_cliente/', views.logueo_cliente, name='logueo_cliente'),
+    path('cliente/register_cliente/', views.register_cliente, name='register_cliente'),
     # VENDEDOR
     path('vendedor/logueo_vendedor/', views.logueo_vendedor, name='logueo_vendedor'),
     path('vendedor/index_vendedor/', views.index_vendedor, name='index_vendedor'),

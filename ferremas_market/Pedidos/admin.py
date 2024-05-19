@@ -10,6 +10,11 @@ class ProductoAdmin(admin.ModelAdmin):
     list_filter = ('precio', 'stock')
     fields = ('nombre', 'precio', 'stock', 'foto')
 
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'descripcion', 'activo')
+    search_fields = ('nombre', 'activo')
+
+admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(ProductoCarrito)
 admin.site.register(Carrito)

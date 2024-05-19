@@ -5,10 +5,11 @@ from django.contrib.auth import login
 from django.contrib import messages
 from .models import Administrador, Vendedor, Cliente, Bodeguero, Contador
 from django.shortcuts import render, get_object_or_404
-from .forms import CambiarContrasenaAdministrador, VendedorCreacionForm
+from .forms import CambiarContrasenaAdministrador, VendedorCreacionForm, ClienteCreacionForm
 from Pedidos.models import Producto
 from functools import wraps
 from django.core.paginator import Paginator
+from .forms import CambiarContrasenaAdministrador
 
 # Create your views here.
 
@@ -34,6 +35,8 @@ def cerrar_sesion(tipo_usuario):
         session_key = f'is_{tipo_usuario}_logged_in'
         request.session.pop(session_key, None)
         request.session.flush()
+        if tipo_usuario == 'cliente':
+            return redirect('index_cliente')
         return redirect(f'logueo_{tipo_usuario}')
     return view
 
@@ -187,6 +190,40 @@ def index_cliente(request):
         'productos': productos,
     }
     return render(request, 'cliente/index_cliente.html', context)
+
+def logueo_cliente(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        if username and password:
+            try:
+                user = Cliente.objects.get(username=username, password=password)
+                if user.is_active == True:
+                    request.session['is_cliente_logged_in'] = True
+                    login(request, user)
+                    return redirect('index_cliente')
+                else:
+                    messages.error(request, 'Usuario no válido, intentelo nuevamente.')
+            except Vendedor.DoesNotExist:
+                messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
+        else:
+            messages.error(request, 'Debes ingresar tanto el nombre de usuario como la contraseña.')
+        return render(request, 'cliente/logueo_cliente.html', {'form': None})
+    else:
+        return render(request, 'cliente/logueo_cliente.html', {'form': None})
+
+def register_cliente(request):
+    if request.method == 'POST':
+        form = ClienteCreacionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True})
+        else:
+            form.full_clean()
+            return JsonResponse({'success': False, 'error': dict(form.errors)})
+    else:
+        form = ClienteCreacionForm()
+    return render(request, 'cliente/register_cliente.html', {'form': form})
 
 
 ##################################
