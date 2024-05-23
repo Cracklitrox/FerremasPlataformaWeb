@@ -1,0 +1,63 @@
+{% extends 'base_usuario.html' %}
+
+{% load static %}
+{% block css %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        background: #e4e4e4;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+Vendedor/Encargado
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+    <nav>
+        <div class="nav-right">
+            {% if request.session.is_bodeguero_logged_in %}
+            <form action="{% url 'cerrar_sesion_bodeguero' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning" onclick="return confirm('¿Estás seguro que deseas cerrar sesión?');">Cerrar Sesión</button>
+            </form>
+            {% endif %}
+        </div>
+    </nav>
+    <h1>Vendedor/Encargado</h1>
+    <p>El Vendedor/Encargado se encarga de las siguientes tareas:</p>
+    <ul>
+        <li><strong>Asesorar a los clientes en la selección de productos:</strong> Brindar recomendaciones y guiar a los clientes en la elección de los productos que mejor se adapten a sus necesidades.</li>
+        <li><strong>Recibir y procesar pedidos:</strong> Gestionar la recepción de pedidos, asegurarse de que los detalles sean correctos y procesar las órdenes de manera eficiente.</li>
+        <li><strong>Gestionar los pagos y facturación:</strong> Manejar los pagos de los clientes y asegurarse de que las facturas se generen y entreguen correctamente.</li>
+    </ul>
+</div>
+{% endblock %}
+{% block js %}
+{% endblock %}

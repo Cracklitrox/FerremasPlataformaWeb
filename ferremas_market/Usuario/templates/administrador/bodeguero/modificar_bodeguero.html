@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block title %}
-Modificar Vendedor
+Modificar Bodeguero
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@ Modificar Vendedor
     <div class="col-12 col-md-6 offset-md-3">
         <div class="card">
             <div class="card-body">
-                <h2 style="text-align: center;">Editar Vendedor</h2>
+                <h2 style="text-align: center;">Editar Bodeguero</h2>
                 <hr>
                 <form action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -23,7 +23,7 @@ Modificar Vendedor
                     <div class="row">
                         <div class="col-6">
                             <div class="d-flex justify-content-start">
-                                <a href="{% url 'listar_vendedores' %}" class="btn btn-info">Volver</a>
+                                <a href="{% url 'listar_bodegueros' %}" class="btn btn-info">Volver</a>
                             </div>
                         </div>
                         <div class="col-6">

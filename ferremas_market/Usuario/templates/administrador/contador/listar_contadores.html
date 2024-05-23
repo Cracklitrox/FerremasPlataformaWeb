@@ -1,0 +1,57 @@
+{% extends 'base_administrador.html' %}
+
+{% load static %}
+{% block css %}
+{% endblock %}
+
+{% block title %}
+Lista de Contadores Registrados
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<br><br>
+<div class="card">
+    <div class="card-body">
+        <h2 style="text-align: center;">Listado de Contadores</h2>
+        <hr>
+        <table class="table table-striped table-hover table-responsive-sm">
+            <tr class="table-active">
+                <th scope="col">#</th>
+                <th>Nombre</th>
+                <th>Rut</th>
+                <th>Correo Electronico</th>
+                <th>Numero Telefonico</th>
+                <th>Nombre de Usuario</th>
+                <th>Fecha de Creación</th>
+                <th>¿Usuario Activo?</th>
+                <th></th>
+            </tr>
+            {% for c in entity %}
+            <tr class="table-default">
+                <th scope="row">{{ c.id }}</th>
+                <td>{{ c.primer_nombre | title }} {{ c.primer_apellido | title }}</td>
+                <td>{{ c.run }}-{{ c.dv_run }}</td>
+                <td>{{ c.correo }}</td>
+                <td>{{ c.numero_telefonico }}</td>
+                <td>{{ c.username }}</td>
+                <td>{{ c.fecha_creacion }}</td>
+                <td>
+                    {% if c.is_active %}
+                    <i class="bi bi-check2-square" style="color: rgb(31, 208, 0);"></i>
+                    {% else %}
+                    <i class="bi bi-dash-circle" style="color: rgb(208, 0, 0);"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'modificar_contador' c.id %}" class="btn btn-info btn-sm">Modificar</a>
+                    <a href="#" onclick="eliminar_contador({{ c.id }})" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+{% endblock %}

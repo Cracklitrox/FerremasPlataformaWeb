@@ -1,0 +1,147 @@
+{% extends 'base_usuario.html' %}
+
+{% load static %}
+{% block css %}
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #007bff;
+        color: #fff;
+        text-align: center;
+        padding: 1.5rem 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 2rem;
+    }
+
+    main {
+        padding: 2rem;
+        max-width: 900px;
+        margin: 2rem auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #333;
+        margin-top: 0;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 0.5rem;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input, textarea, button {
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    button:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+    }
+
+    .form-section {
+        margin-bottom: 2rem;
+    }
+
+    .form-section:last-of-type {
+        margin-bottom: 0;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+Contador FERREMAS
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<header>
+    <h1>Contador FERREMAS</h1>
+</header>
+<nav>
+    <div class="nav-right">
+        {% if request.session.is_contador_logged_in %}
+        <form action="{% url 'cerrar_sesion_contador' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning" onclick="return confirm('¿Estás seguro que deseas cerrar sesión?');">Cerrar Sesión</button>
+        </form>
+        {% endif %}
+    </div>
+</nav>
+<main>
+    <section class="form-section">
+        <h2>Confirmar Pagos por Transferencia</h2>
+        <form id="confirmar-pagos-form">
+            <label for="numero-transaccion">Número de Transacción:</label>
+            <input type="text" id="numero-transaccion" name="numero-transaccion" required>
+            
+            <label for="monto">Monto:</label>
+            <input type="number" id="monto" name="monto" required>
+            
+            <label for="fecha-pago">Fecha de Pago:</label>
+            <input type="date" id="fecha-pago" name="fecha-pago" required>
+            
+            <button type="submit">Confirmar Pago</button>
+        </form>
+    </section>
+
+    <section class="form-section">
+        <h2>Registrar Entrega de Productos</h2>
+        <form id="registrar-entrega-form">
+            <label for="numero-orden">Número de Orden:</label>
+            <input type="text" id="numero-orden" name="numero-orden" required>
+            
+            <label for="cliente">Cliente:</label>
+            <input type="text" id="cliente" name="cliente" required>
+            
+            <label for="productos">Productos Entregados:</label>
+            <textarea id="productos" name="productos" rows="4" required></textarea>
+            
+            <label for="fecha-entrega">Fecha de Entrega:</label>
+            <input type="date" id="fecha-entrega" name="fecha-entrega" required>
+            
+            <button type="submit">Registrar Entrega</button>
+        </form>
+    </section>
+</main>
+{% endblock %}
+{% block js %}
+{% endblock %}

@@ -3,9 +3,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib import messages
+from django.urls import reverse
 from .models import Administrador, Vendedor, Cliente, Bodeguero, Contador
 from django.shortcuts import render, get_object_or_404
-from .forms import CambiarContrasenaAdministrador, VendedorCreacionForm, ClienteCreacionForm
+from .forms import *
 from Pedidos.models import Producto
 from functools import wraps
 from django.core.paginator import Paginator
@@ -86,7 +87,7 @@ def activar_cuenta(request, id):
             administrador.password = password1
             administrador.contrasena_cambiada = True
             administrador.save()
-            return redirect('dashboard_administrador')
+            return redirect(reverse('dashboard_administrador', kwargs={'id': administrador.id}))
     else:
         form = CambiarContrasenaAdministrador()
     return render(request, 'administrador/activar_cuenta.html', {'form': form})
@@ -102,6 +103,7 @@ def dashboard_administrador(request, id):
 
 # Creacion Usuarios
 
+# Creacion de Vendedor
 @mantener_sesion('administrador')
 def crear_vendedor(request):
     administrador_id = request.session.get('administrador_id')
@@ -176,6 +178,160 @@ def eliminar_vendedor(request, id):
     vendedor = get_object_or_404(Vendedor, id=id)
     vendedor.delete()
     return redirect('listar_vendedores')
+
+# Creacion de Bodeguero
+@mantener_sesion('administrador')
+def crear_bodeguero(request):
+    administrador_id = request.session.get('administrador_id')
+    try:
+        administrador = Administrador.objects.get(id=administrador_id)
+    except ObjectDoesNotExist:
+        return redirect('logueo_administrador')
+    if request.method == 'POST':
+        form = BodegueroCreacionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True})
+        else:
+            form.full_clean()
+            return JsonResponse({'success': False, 'error': dict(form.errors)})
+    else:
+        form = BodegueroCreacionForm()
+    return render(request, 'administrador/bodeguero/crear_bodeguero.html', {'form': form, 'administrador': administrador})
+
+@mantener_sesion('administrador')
+def listar_bodegueros(request):
+    administrador_id = request.session.get('administrador_id')
+    try:
+        administrador = Administrador.objects.get(id=administrador_id)
+    except ObjectDoesNotExist:
+        return redirect('logueo_administrador')
+    bodeguero = Bodeguero.objects.all()
+    page = request.GET.get('page', 1)
+    try:
+        paginator = Paginator(bodeguero, 5)
+        bodeguero = paginator.page(page)
+    except:
+        raise Http404
+    context = {
+        'entity': bodeguero,
+        'paginator': paginator,
+        'administrador': administrador
+    }
+    return render(request, 'administrador/bodeguero/listar_bodegueros.html', context)
+
+@mantener_sesion('administrador')
+def modificar_bodeguero(request, id):
+    administrador_id = request.session.get('administrador_id')
+    try:
+        administrador = Administrador.objects.get(id=administrador_id)
+    except ObjectDoesNotExist:
+        return redirect('logueo_administrador')
+    bodeguero = get_object_or_404(Bodeguero, id=id)
+    if request.method == 'POST':
+        form = BodegueroCreacionForm(request.POST, instance=bodeguero)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Usuario bodeguero modificado correctamente.')
+            return redirect('listar_bodegueros')
+        else:
+            messages.error(request, "No se ha podido modificar el usuario bodeguero.")
+    else:
+        form = BodegueroCreacionForm(instance=bodeguero)
+    context = {
+        'form': form,
+        'administrador': administrador
+    }
+    return render(request, 'administrador/bodeguero/modificar_bodeguero.html', context)
+
+@mantener_sesion('administrador')
+def eliminar_bodeguero(request, id):
+    administrador_id = request.session.get('administrador_id')
+    try:
+        administrador = Administrador.objects.get(id=administrador_id)
+    except ObjectDoesNotExist:
+        return redirect('logueo_administrador')
+    bodeguero = get_object_or_404(Bodeguero, id=id)
+    bodeguero.delete()
+    return redirect('listar_bodegueros')
+
+# Creacion de Contador
+
+@mantener_sesion('administrador')
+def crear_contador(request):
+    administrador_id = request.session.get('administrador_id')
+    try:
+        administrador = Administrador.objects.get(id=administrador_id)
+    except ObjectDoesNotExist:
+        return redirect('logueo_administrador')
+    if request.method == 'POST':
+        form = ContadorCreacionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True})
+        else:
+            form.full_clean()
+            return JsonResponse({'success': False, 'error': dict(form.errors)})
+    else:
+        form = ContadorCreacionForm()
+    return render(request, 'administrador/contador/crear_contador.html', {'form': form, 'administrador': administrador})
+
+@mantener_sesion('administrador')
+def listar_contadores(request):
+    administrador_id = request.session.get('administrador_id')
+    try:
+        administrador = Administrador.objects.get(id=administrador_id)
+    except ObjectDoesNotExist:
+        return redirect('logueo_administrador')
+    contador = Contador.objects.all()
+    page = request.GET.get('page', 1)
+    try:
+        paginator = Paginator(contador, 5)
+        contador = paginator.page(page)
+    except:
+        raise Http404
+    context = {
+        'entity': contador,
+        'paginator': paginator,
+        'administrador': administrador
+    }
+    return render(request, 'administrador/contador/listar_contadores.html', context)
+
+@mantener_sesion('administrador')
+def modificar_contador(request, id):
+    administrador_id = request.session.get('administrador_id')
+    try:
+        administrador = Administrador.objects.get(id=administrador_id)
+    except ObjectDoesNotExist:
+        return redirect('logueo_administrador')
+    contador = get_object_or_404(Contador, id=id)
+    if request.method == 'POST':
+        form = ContadorCreacionForm(request.POST, instance=contador)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Usuario contador modificado correctamente.')
+            return redirect('listar_contadores')
+        else:
+            messages.error(request, "No se ha podido modificar el usuario contador.")
+    else:
+        form = ContadorCreacionForm(instance=contador)
+    context = {
+        'form': form,
+        'administrador': administrador
+    }
+    return render(request, 'administrador/contador/modificar_contador.html', context)
+
+@mantener_sesion('administrador')
+def eliminar_contador(request, id):
+    administrador_id = request.session.get('administrador_id')
+    try:
+        administrador = Administrador.objects.get(id=administrador_id)
+    except ObjectDoesNotExist:
+        return redirect('logueo_administrador')
+    contador = get_object_or_404(Contador, id=id)
+    contador.delete()
+    return redirect('listar_contadores')
+
 
 
 ##################################
@@ -254,3 +410,63 @@ def logueo_vendedor(request):
 @mantener_sesion('vendedor')
 def index_vendedor(request):
     return render(request, 'vendedor/index_vendedor.html')
+
+
+##################################
+##           Bodeguero          ##
+##################################
+
+def logueo_bodeguero(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        if username and password:
+            try:
+                user = Bodeguero.objects.get(username=username, password=password)
+                if user.is_active == True:
+                    request.session['is_bodeguero_logged_in'] = True
+                    login(request, user)
+                    return redirect('index_bodeguero')
+                else:
+                    messages.error(request, 'Usuario no válido, comuniquese con el administrador.')
+            except Bodeguero.DoesNotExist:
+                messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
+        else:
+            messages.error(request, 'Debes ingresar tanto el nombre de usuario como la contraseña.')
+        return render(request, 'bodeguero/logueo_bodeguero.html', {'form': None})
+    else:
+        return render(request, 'bodeguero/logueo_bodeguero.html', {'form': None})
+
+@mantener_sesion('bodeguero')
+def index_bodeguero(request):
+    return render(request, 'bodeguero/index_bodeguero.html')
+
+
+##################################
+##           Contador           ##
+##################################
+
+def logueo_contador(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        if username and password:
+            try:
+                user = Contador.objects.get(username=username, password=password)
+                if user.is_active == True:
+                    request.session['is_contador_logged_in'] = True
+                    login(request, user)
+                    return redirect('index_contador')
+                else:
+                    messages.error(request, 'Usuario no válido, comuniquese con el administrador.')
+            except Contador.DoesNotExist:
+                messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
+        else:
+            messages.error(request, 'Debes ingresar tanto el nombre de usuario como la contraseña.')
+        return render(request, 'contador/logueo_contador.html', {'form': None})
+    else:
+        return render(request, 'contador/logueo_contador.html', {'form': None})
+
+@mantener_sesion('contador')
+def index_contador(request):
+    return render(request, 'contador/index_contador.html')

@@ -13,6 +13,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+                <!-- Vendedor -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarVendedor" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Vendedores
@@ -20,6 +21,26 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarVendedor">
                         <li><a class="dropdown-item" href="{% url 'listar_vendedores' %}">Mostrar Vendedores</a></li>
                         <li><a class="dropdown-item" href="{% url 'crear_vendedor' %}">Agregar Vendedor</a></li>
+                    </ul>
+                </li>
+                <!-- Bodeguero -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarBodeguero" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Bodegueros
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarBodeguero">
+                        <li><a class="dropdown-item" href="{% url 'listar_bodegueros' %}">Mostrar Bodegueros</a></li>
+                        <li><a class="dropdown-item" href="{% url 'crear_bodeguero' %}">Agregar Bodeguero</a></li>
+                    </ul>
+                </li>
+                <!-- Contador -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarContador" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Contadores
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarContador">
+                        <li><a class="dropdown-item" href="{% url 'listar_contadores' %}">Mostrar Contadores</a></li>
+                        <li><a class="dropdown-item" href="{% url 'crear_contador' %}">Agregar Contador</a></li>
                     </ul>
                 </li>
                 <li>
