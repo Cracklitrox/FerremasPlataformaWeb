@@ -11,6 +11,10 @@ Inicio
 
 {% block content %}
 {% load crispy_forms_tags %}
+    <!-- Id Usuario -->
+    {% if cliente_id %}
+    <input type="hidden" id="user-id" value="{{ cliente_id }}">
+    {% endif %}
     <!--NavBar-->
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container">
@@ -63,9 +67,9 @@ Inicio
                             <i class="fa-solid fa-magnifying-glass nav-icon"></i>
                         </a>
                         {% if request.session.is_cliente_logged_in %}
-                        <form action="{% url 'cerrar_sesion_cliente' %}" method="post">
+                        <form id="logout-form" action="{% url 'cerrar_sesion_cliente' %}" method="post">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-warning" onclick="return confirm('¿Estás seguro que deseas cerrar sesión?');">Cerrar Sesión</button>
+                            <button type="submit" class="btn btn-warning" id="logout-button" onclick="return confirm('¿Estás seguro que deseas cerrar sesión?');">Cerrar Sesión</button>
                         </form>
                         {% else %}
                         <a href="{% url 'logueo_cliente' %}" class="text-decoration-none text-dark">
@@ -89,12 +93,16 @@ Inicio
         </ul>
         <div id="empty-message" class="empty-message">Aún no hay productos agregados.</div>
         <div class="sidebar-footer">
-            <button id="close-btn">Cerrar</button>
-            <button id="clear-cart-btn" style="display: none;">Eliminar todos los productos</button>
-            <button id="buy-btn">Comprar</button>
+            <!-- Mostrar el monto total acumulado -->
+            <div id="total-amount" class="total-amount">Total: 0</div>
+            <div class="button-container d-flex justify-content-between">
+                <button id="close-btn" class="btn btn-secondary">Cerrar</button>
+                <button id="clear-cart-btn" class="btn btn-danger" style="display: none;">Eliminar todos los productos</button>
+                <button id="buy-btn" class="btn btn-success">Comprar</button>
+            </div>
         </div>
     </div>
-
+    
     <!--Banner-->
 
     <div class="banner">
@@ -147,14 +155,17 @@ Inicio
                     <div class="col-md-6 col-lg-4 col-xl-3 p-2 feat">
                         <div class="collection-img position-relative">
                             <img src="{{ p.foto.url }}" class="w-100" style="height: 200px;">
-                            <span class="position-absolute bg-primary text-white d-flex align-items-center justify-content-center">Oferta</span>
                         </div>
                         <div class="text-center">
                             <p class="text-capitalize my-1">{{ p.nombre }}</p>
                             <span class="fw-bold">{{ p.precio|formateo_precio }}</span>
                             <div>Stock: {{ p.stock }}</div>
-                            <button class="btn btn-success add-to-cart" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Agregar al carrito</button>
-                            <button class="btn btn-primary buy-now" data-id="{{ p.id }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Comprar</button>
+                            {% if p.activo %}
+                            <button class="btn btn-success add-to-cart" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Agregar al carrito</button>
+                            <button class="btn btn-primary buy-now" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Comprar</button>
+                            {% else %}
+                            <button class="btn btn-secondary" disabled>Sin stock</button>
+                            {% endif %}
                         </div>
                     </div>
                     {% endfor %}
@@ -172,206 +183,16 @@ Inicio
     </footer>
 {% endblock %}
 {% block js %}
-<script src="{% static 'js/cliente/index_cliente.js' %}"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', function() {
-            const isLoggedIn = this.getAttribute('data-logged-in') === 'True';
-            if (!isLoggedIn) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Inicie sesión',
-                    text: 'Por favor, inicie sesión para agregar productos al carrito.',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-                return;
-            }
-            const productId = this.getAttribute('data-id');
-            const productName = this.getAttribute('data-name');
-            const productImage = this.getAttribute('data-image');
-            const productStock = parseInt(this.getAttribute('data-stock'));
-            addToCart(productId, productName, productImage, productStock);
-        });
-    });
-
-    document.querySelectorAll('.buy-now').forEach(button => {
-        button.addEventListener('click', function() {
-            const isLoggedIn = this.getAttribute('data-logged-in') === 'True';
-            if (!isLoggedIn) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Inicie sesión',
-                    text: 'Por favor, inicie sesión para comprar.',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-                return;
-            }
-            const productId = this.getAttribute('data-id');
-            // Aquí puedes manejar la lógica para la compra inmediata
-            // console.log("Comprar ahora: " + productId);
-        });
-    });
-
-    document.getElementById('clear-cart-btn').addEventListener('click', function() {
-        clearCart();
-    });
-
-    function addToCart(productId, productName, productImage, productStock) {
-        const productIndex = cart.findIndex(item => item.id === productId);
-        if (productIndex > -1) {
-            if (cart[productIndex].quantity < cart[productIndex].stock) {
-                cart[productIndex].quantity += 1;
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Stock limitado',
-                    text: 'No puedes agregar más de este producto',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-                return;
-            }
-        } else {
-            cart.push({ id: productId, name: productName, image: productImage, quantity: 1, stock: productStock });
-        }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        Swal.fire({
-            icon: 'success',
-            title: 'Producto agregado',
-            text: `${productName} ha sido agregado al carrito`,
-            timer: 1500,
-            showConfirmButton: false
-        });
-        updateCartUI();
-    }
-
-    function updateCartUI() {
-        const cartItemsContainer = document.getElementById('cart-items');
-        const emptyMessage = document.getElementById('empty-message');
-        const clearCartBtn = document.getElementById('clear-cart-btn');
-
-        cartItemsContainer.innerHTML = '';
-        cart.forEach(item => {
-            const productElement = document.createElement('li');
-            productElement.classList.add('cart-item');
-            productElement.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                <span class="cart-item-name">${item.name}</span>
-                <span class="cart-item-quantity">
-                    <button class="decrease-quantity" data-id="${item.id}">-</button>
-                    <span>${item.quantity}</span>
-                    <button class="increase-quantity" data-id="${item.id}">+</button>
-                </span>
-                <button class="remove-item" data-id="${item.id}"><i class="fa fa-trash"></i></button>
-            `;
-            cartItemsContainer.appendChild(productElement);
-        });
-
-        if (cart.length === 0) {
-            emptyMessage.style.display = 'block';
-            clearCartBtn.style.display = 'none';
-        } else {
-            emptyMessage.style.display = 'none';
-            clearCartBtn.style.display = 'block';
-        }
-
-        document.querySelectorAll('.decrease-quantity').forEach(button => {
-            button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-id');
-                decreaseQuantity(productId);
-            });
-        });
-
-        document.querySelectorAll('.increase-quantity').forEach(button => {
-            button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-id');
-                increaseQuantity(productId);
-            });
-        });
-
-        document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-id');
-                removeFromCart(productId);
-            });
-        });
-    }
-
-    function decreaseQuantity(productId) {
-        const productIndex = cart.findIndex(item => item.id === productId);
-        if (productIndex > -1) {
-            if (cart[productIndex].quantity > 1) {
-                cart[productIndex].quantity -= 1;
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Cantidad mínima',
-                    text: 'No puedes tener menos de un producto en el carrito',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-                return;
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartUI();
-        }
-    }
-
-    function increaseQuantity(productId) {
-        const productIndex = cart.findIndex(item => item.id === productId);
-        if (productIndex > -1) {
-            if (cart[productIndex].quantity < cart[productIndex].stock) {
-                cart[productIndex].quantity += 1;
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Stock limitado',
-                    text: 'No puedes agregar más de este producto',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-                return;
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartUI();
-        }
-    }
-
-    function removeFromCart(productId) {
-        const productIndex = cart.findIndex(item => item.id === productId);
-        if (productIndex > -1) {
-            cart.splice(productIndex, 1);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            Swal.fire({
-                icon: 'success',
-                title: 'Producto eliminado',
-                text: 'El producto ha sido eliminado del carrito',
-                timer: 1500,
-                showConfirmButton: false
-            });
-            updateCartUI();
-        }
-    }
-
-    function clearCart() {
+    // Limpiar el carrito
+    function limpiarCarrito() {
+        localStorage.removeItem('cart');
         cart.length = 0;
-        localStorage.setItem('cart', JSON.stringify(cart));
-        Swal.fire({
-            icon: 'success',
-            title: 'Carrito vaciado',
-            text: 'Todos los productos han sido eliminados del carrito',
-            timer: 1500,
-            showConfirmButton: false
-        });
         updateCartUI();
     }
-
-    updateCartUI();
-});
+    document.getElementById('logout-form').addEventListener('submit', function(event) {
+        limpiarCarrito();
+    });
 </script>
+<script src="{% static 'js/cliente/index_cliente.js' %}"></script>
 {% endblock %}

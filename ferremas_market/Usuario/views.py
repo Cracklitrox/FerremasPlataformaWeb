@@ -341,11 +341,16 @@ def eliminar_contador(request, id):
 # Crear funcion de register y logueo
 
 def index_cliente(request):
+    cliente_id = request.session.get('cliente_id')
+    
     productos = Producto.objects.all()
     context = {
         'productos': productos,
+        'cliente_id': cliente_id,
     }
     return render(request, 'cliente/index_cliente.html', context)
+
+
 
 def logueo_cliente(request):
     if request.method == 'POST':
@@ -354,13 +359,14 @@ def logueo_cliente(request):
         if username and password:
             try:
                 user = Cliente.objects.get(username=username, password=password)
-                if user.is_active == True:
+                if user.is_active:
                     request.session['is_cliente_logged_in'] = True
+                    request.session['cliente_id'] = user.id
                     login(request, user)
                     return redirect('index_cliente')
                 else:
                     messages.error(request, 'Usuario no válido, intentelo nuevamente.')
-            except Vendedor.DoesNotExist:
+            except Cliente.DoesNotExist:
                 messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
         else:
             messages.error(request, 'Debes ingresar tanto el nombre de usuario como la contraseña.')

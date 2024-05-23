@@ -1,49 +1,56 @@
-import datetime
-from functools import wraps
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
-from .models import *
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .models import Producto, Compra, DetalleCompra
+from Usuario.models import Cliente
 
-# Create your views here.
+@csrf_exempt
+def actualizar_stock(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            usuario_id = data.get('usuario_id')
+            print(f"Usuario ID recibido: {usuario_id}")
+            if not usuario_id:
+                return JsonResponse({'success': False, 'error': 'Usuario no especificado'}, status=400)
+            
+            try:
+                cliente = Cliente.objects.get(id=usuario_id)
+                print(f"Cliente encontrado: {cliente}")
+            except Cliente.DoesNotExist:
+                return JsonResponse({'success': False, 'error': 'Cliente no encontrado'}, status=404)
+            
+            compra = Compra.objects.create(usuario=cliente, total=0)
+            total_compra = 0
 
-##################################
-##            Carrito           ##
-##################################
+            for item in data.get('items', []):
+                try:
+                    producto = Producto.objects.get(id=item['id'])
+                    print(f"Producto encontrado: {producto}")
+                except Producto.DoesNotExist:
+                    return JsonResponse({'success': False, 'error': f'Producto con id {item["id"]} no encontrado'}, status=404)
 
-def agregar_al_carrito(request):
-    if not request.session.get('is_cliente_logged_in'):
-        return JsonResponse({'error': 'Debes iniciar sesión para agregar productos al carrito.'}, status=403)
-
-    producto_id = request.POST.get('producto_id')
-    producto = get_object_or_404(Producto, id=producto_id)
-
-    usuario = request.user
-    cliente = get_object_or_404(Cliente, usuario_ptr_id=usuario.id)
-
-    carrito, creado = Carrito.objects.get_or_create(run=cliente, activo=True)
-
-    producto_carrito, creado = ProductoCarrito.objects.get_or_create(carrito=carrito, producto=producto)
-    if not creado:
-        if producto_carrito.cantidad < producto.stock:
-            producto_carrito.cantidad += 1
-        else:
-            return JsonResponse({'error': 'No puedes agregar más de este producto, stock limitado.'}, status=400)
-    producto_carrito.save()
-
-    carrito.hora_actualizado = timezone.now()
-    carrito.save()
-
-    return JsonResponse({'mensaje': 'Producto agregado al carrito.'}, status=200)
-
-def vaciar_carrito(request):
-    if not request.session.get('is_cliente_logged_in'):
-        return JsonResponse({'error': 'Debes iniciar sesión para vaciar el carrito.'}, status=403)
-
-    usuario = request.user
-    cliente = get_object_or_404(Cliente, usuario_ptr_id=usuario.id)
-    carrito = get_object_or_404(Carrito, run=cliente, activo=True)
-
-    carrito.activo = False
-    carrito.save()
-
-    return JsonResponse({'mensaje': 'Carrito vaciado.'}, status=200)
+                if producto.stock >= item['quantity']:
+                    producto.stock -= item['quantity']
+                    producto.save()
+                    
+                    precio_total_item = producto.precio * item['quantity']
+                    total_compra += precio_total_item
+                    
+                    DetalleCompra.objects.create(
+                        compra=compra,
+                        producto=producto,
+                        cantidad=item['quantity'],
+                        precio=producto.precio
+                    )
+                else:
+                    return JsonResponse({'success': False, 'error': f'Stock insuficiente para {producto.nombre}'}, status=400)
+            
+            compra.total = total_compra
+            compra.save()
+            print(f"Compra guardada: {compra}")
+            return JsonResponse({'success': True})
+        except Exception as e:
+            print(f"Error inesperado: {str(e)}")
+            return JsonResponse({'success': False, 'error': f'Error inesperado: {str(e)}'}, status=500)
+    return JsonResponse({'success': False, 'error': 'Método no permitido'}, status=405)
