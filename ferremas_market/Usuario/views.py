@@ -7,7 +7,7 @@ from django.urls import reverse
 from .models import Administrador, Vendedor, Cliente, Bodeguero, Contador
 from django.shortcuts import render, get_object_or_404
 from .forms import *
-from Pedidos.models import Producto
+from Pedidos.models import Categoria, Compra, Pedido, Producto
 from functools import wraps
 from django.core.paginator import Paginator
 from .forms import CambiarContrasenaAdministrador
@@ -350,7 +350,17 @@ def index_cliente(request):
     }
     return render(request, 'cliente/index_cliente.html', context)
 
+def producto_individual(request, id):
+    cliente_id = request.session.get('cliente_id')
 
+    producto = get_object_or_404(Producto, id=id)
+    productos = Producto.objects.exclude(id=id)
+    context = {
+        'producto': producto,
+        'productos': productos,
+        'cliente_id': cliente_id,
+    }
+    return render(request, 'cliente/producto_individual.html', context)
 
 def logueo_cliente(request):
     if request.method == 'POST':
@@ -431,6 +441,7 @@ def logueo_bodeguero(request):
                 user = Bodeguero.objects.get(username=username, password=password)
                 if user.is_active == True:
                     request.session['is_bodeguero_logged_in'] = True
+                    request.session['bodeguero_id'] = user.id
                     login(request, user)
                     return redirect('index_bodeguero')
                 else:
@@ -445,7 +456,80 @@ def logueo_bodeguero(request):
 
 @mantener_sesion('bodeguero')
 def index_bodeguero(request):
-    return render(request, 'bodeguero/index_bodeguero.html')
+    bodeguero_id = request.session.get('bodeguero_id')
+    categorias = Categoria.objects.all()
+
+    categoria_id = request.GET.get('categoria')
+    producto_id = request.GET.get('producto')
+    productos = Producto.objects.filter(categoria_id=categoria_id) if categoria_id else Producto.objects.all()
+    producto_seleccionado = Producto.objects.get(id=producto_id) if producto_id else None
+
+    if request.method == "POST":
+        pedido_id = request.POST.get('pedido_id')
+        action = request.POST.get('action')
+
+        if pedido_id and action:
+            pedido = get_object_or_404(Pedido, id=pedido_id)
+            if action == 'confirmar' and pedido.estado == 1:
+                pedido.estado = 2
+                pedido.save()
+                messages.success(request, 'Preparando pedido')
+                print("Pedido confirmado:", pedido)
+            elif action == 'entregar' and pedido.estado == 2:
+                pedido.estado = 3
+                pedido.save()
+                print("Pedido entregado:", pedido)
+
+    pedidos = Pedido.objects.all()
+    print("Pedidos obtenidos:", pedidos)
+
+    context = {
+        'categorias': categorias,
+        'productos': productos,
+        'bodeguero_id': bodeguero_id,
+        'categoria_seleccionada': int(categoria_id) if categoria_id else None,
+        'producto_seleccionado': producto_seleccionado,
+        'pedidos': pedidos,
+    }
+    return render(request, 'bodeguero/index_bodeguero.html', context)
+
+@mantener_sesion('bodeguero')
+def actualizar_stock(request, producto_id):
+    producto = Producto.objects.get(id=producto_id)
+    accion = request.POST.get('accion')
+
+    if accion == 'incrementar':
+        producto.stock += 1
+    elif accion == 'disminuir' and producto.stock > 0:
+        producto.stock -= 1
+
+    producto.save()
+    return redirect('index_bodeguero')
+
+def listar_pedidos(request):
+    pedidos = Pedido.objects.all()
+    print("Pedidos obtenidos:", pedidos)
+    return render(request, 'pedidos/listar_pedidos.html', {'pedidos': pedidos})
+
+def confirmar_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+    print("Pedido a confirmar:", pedido)
+    if pedido.estado == 1:
+        pedido.estado = 2
+        pedido.save()
+        messages.success(request, 'Preparando pedido')
+        print("Pedido confirmado:", pedido)
+    return redirect('listar_pedidos')
+
+def entregar_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+    print("Pedido a entregar:", pedido)
+    if pedido.estado == 2:
+        pedido.estado = 3
+        pedido.save()
+        print("Pedido entregado:", pedido)
+    return redirect('listar_pedidos')
+
 
 
 ##################################
@@ -475,4 +559,21 @@ def logueo_contador(request):
 
 @mantener_sesion('contador')
 def index_contador(request):
+    compras = Compra.objects.all()
+    return render(request, 'contador/index_contador.html', {'compras': compras})
+
+def confirmar_pago(request, compra_id):
+    compra = get_object_or_404(Compra, id=compra_id)
+    return redirect('index_contador')
+
+def rechazar_pago(request, compra_id):
+    compra = get_object_or_404(Compra, id=compra_id)
+    return redirect('index_contador')
+
+def registrar_entrega(request):
+    if request.method == 'POST':
+        numero_orden = request.POST.get('numero-orden')
+        cliente = request.POST.get('cliente')
+        fecha_entrega = request.POST.get('fecha-entrega')
+        return redirect('index_contador')
     return render(request, 'contador/index_contador.html')

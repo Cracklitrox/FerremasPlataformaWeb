@@ -1,63 +1,175 @@
-{% extends 'base_usuario.html' %}
+{% extends 'base_bodeguero.html' %}
 
 {% load static %}
 {% block css %}
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-    }
-    .container {
-        max-width: 800px;
-        margin: 50px auto;
-        background: white;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-        text-align: center;
-        color: #333;
-    }
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-    li {
-        background: #e4e4e4;
-        margin: 10px 0;
-        padding: 10px;
-        border-radius: 5px;
-    }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+    header { background: #005792; color: #ffffff; padding: 10px 20px; text-align: center; }
+    section { margin: 20px; padding: 15px; background: white; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+    .button { padding: 8px 16px; background: #0084ff; color: white; text-decoration: none; border: none; border-radius: 5px; cursor: pointer; }
+    select, input[type="text"], input[type="number"] { width: 100%; padding: 8px; margin-top: 5px; }
 </style>
 {% endblock %}
 
 {% block title %}
-Vendedor/Encargado
+Ferretería FERREMAS - Panel de Bodeguero
 {% endblock %}
 
 {% block content %}
 {% load crispy_forms_tags %}
-<div class="container">
-    <nav>
-        <div class="nav-right">
-            {% if request.session.is_bodeguero_logged_in %}
-            <form action="{% url 'cerrar_sesion_bodeguero' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-warning" onclick="return confirm('¿Estás seguro que deseas cerrar sesión?');">Cerrar Sesión</button>
-            </form>
+<section id="inventory">
+    <h2>Inventario</h2>
+    <form method="GET" action="{% url 'index_bodeguero' %}">
+        <label for="categoria">Filtrar por categoría:</label>
+        <select name="categoria" id="categoria" onchange="this.form.submit()">
+            <option value="">Todas las categorías</option>
+            {% for categoria in categorias %}
+                <option value="{{ categoria.id }}" {% if categoria.id == categoria_seleccionada %}selected{% endif %}>
+                    {{ categoria.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    {% if categoria_seleccionada %}
+    <form method="GET" action="{% url 'index_bodeguero' %}">
+        <input type="hidden" name="categoria" value="{{ categoria_seleccionada }}">
+        <label for="producto">Seleccionar producto:</label>
+        <select name="producto" id="producto" onchange="this.form.submit()">
+            <option value="">Seleccione un producto</option>
+            {% for producto in productos %}
+                <option value="{{ producto.id }}" {% if producto.id == producto_seleccionado.id %}selected{% endif %}>
+                    {{ producto.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+    {% endif %}
+
+    {% if producto_seleccionado %}
+        <h2>Detalles del Producto</h2>
+        <div>
+            <h3>{{ producto_seleccionado.nombre }}</h3>
+            <p>Stock: {{ producto_seleccionado.stock }}</p>
+            {% if producto_seleccionado.foto %}
+                <img src="{{ producto_seleccionado.foto.url }}" alt="{{ producto_seleccionado.nombre }}" style="width: 100px;">
             {% endif %}
         </div>
-    </nav>
-    <h1>Vendedor/Encargado</h1>
-    <p>El Vendedor/Encargado se encarga de las siguientes tareas:</p>
-    <ul>
-        <li><strong>Asesorar a los clientes en la selección de productos:</strong> Brindar recomendaciones y guiar a los clientes en la elección de los productos que mejor se adapten a sus necesidades.</li>
-        <li><strong>Recibir y procesar pedidos:</strong> Gestionar la recepción de pedidos, asegurarse de que los detalles sean correctos y procesar las órdenes de manera eficiente.</li>
-        <li><strong>Gestionar los pagos y facturación:</strong> Manejar los pagos de los clientes y asegurarse de que las facturas se generen y entreguen correctamente.</li>
-    </ul>
-</div>
+
+        <form method="POST" action="{% url 'actualizar_stock' producto_seleccionado.id %}">
+            {% csrf_token %}
+            <button type="submit" name="accion" value="incrementar">Incrementar stock</button>
+            <button type="submit" name="accion" value="disminuir">Disminuir stock</button>
+        </form>
+    {% endif %}
+
+    <h1>Lista de Pedidos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos %}
+                <tr>
+                    <td>{{ pedido.id }}</td>
+                    <td>{{ pedido.run }}</td>  <!-- Asegúrate de que 'run' es un campo relacionado que puede ser renderizado directamente -->
+                    <td>{{ pedido.get_estado_display }}</td>  <!-- Mostrar el estado legible -->
+                    <td>
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <input type="hidden" name="pedido_id" value="{{ pedido.id }}">
+                            {% if pedido.estado == 1 %}
+                                <button type="submit" name="action" value="confirmar">Confirmar</button>
+                            {% elif pedido.estado == 2 %}
+                                <button type="submit" name="action" value="entregar">Entregar al Vendedor</button>
+                            {% else %}
+                                No hay acciones disponibles
+                            {% endif %}
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+<!--
+<section id="deliveries">
+    <h2>Entregas</h2>
+    <label for="deliveryClerk">Bodeguero Responsable:</label>
+    <input type="text" id="deliveryClerk" placeholder="Nombre del Bodeguero">
+    <form onsubmit="return prepareDelivery()">
+        <label for="product">Producto:</label>
+        <input type="text" id="product" name="product" required>
+        <label for="quantity">Cantidad:</label>
+        <input type="number" id="quantity" name="quantity" required>
+        <button type="submit" class="button">Preparar Entrega</button>
+    </form>
+</section>
+<section id="storage">
+    <h2>Almacenamiento</h2>
+    <p id="deliveryLog">Registros de entrega:</p>
+</section>
+-->
 {% endblock %}
 {% block js %}
+<!--
+<script>
+    function updateInventory(button) {
+        var clerk = document.getElementById('inventoryClerk').value;
+        var row = button.parentNode.parentNode;
+        var material = row.cells[0].innerText;
+        var quantity = row.cells[1].innerText;
+        alert('Inventario actualizado para ' + material + ' a ' + quantity + ' unidades por ' + clerk + '.');
+    }
+
+    function prepareDelivery() {
+        var clerk = document.getElementById('deliveryClerk').value;
+        var product = document.getElementById('product').value;
+        var quantity = document.getElementById('quantity').value;
+        var log = document.getElementById('deliveryLog');
+        log.innerHTML += '<p>Entrega preparada: ' + product + ' - Cantidad: ' + quantity + ' por ' + clerk + '.</p>';
+        return false; // Para evitar la recarga de la página
+    }
+
+    function loadProducts() {
+        var categoryId = document.getElementById('categorySelect').value;
+        var productTable = document.getElementById('productTable');
+        
+        if (categoryId) {
+            fetch(`/api/productos_por_categoria/${categoryId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    var rows = '';
+                    data.forEach(product => {
+                        rows += `
+                            <tr>
+                                <td>${product.nombre}</td>
+                                <td contenteditable="true">${product.stock}</td>
+                                <td><button class="button" onclick="updateInventory(this)">Actualizar</button></td>
+                            </tr>
+                        `;
+                    });
+                    productTable.innerHTML = `
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Actualizar</th>
+                        </tr>
+                    ` + rows;
+                    productTable.style.display = 'table';
+                })
+                .catch(error => console.error('Error al cargar los productos:', error));
+        } else {
+            productTable.style.display = 'none';
+        }
+    }
+</script>
+-->
 {% endblock %}

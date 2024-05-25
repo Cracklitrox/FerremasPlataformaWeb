@@ -1,0 +1,107 @@
+{% extends 'base_cliente.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/cliente/style_index_cliente.css' %}">
+<link rel="stylesheet" href="{% static 'css/cliente/style_producto_individual.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block title %}
+Producto
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+{% load moneda_filtro %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 product-image">
+            <img src="{{ producto.foto.url }}" alt="{{ producto.nombre }}">
+        </div>
+        <div class="col-md-6 product-details">
+            <h2>{{ producto.nombre }}</h2>
+            <p><strong>Precio:</strong> {{ producto.precio|formateo_precio }}</p>
+            <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+            <p><strong>Stock:</strong> {{ producto.stock }}</p>
+            {% if producto.activo %}
+            <button class="btn btn-success add-to-cart" data-id="{{ producto.id }}" data-name="{{ producto.nombre }}" data-image="{{ producto.foto.url }}" data-stock="{{ producto.stock }}" data-price="{{ producto.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Agregar al carrito</button>
+            <button class="btn btn-primary buy-now" data-id="{{ producto.id }}" data-name="{{ producto.nombre }}" data-image="{{ producto.foto.url }}" data-stock="{{ producto.stock }}" data-price="{{ producto.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Comprar</button>
+            {% else %}
+            <button class="btn btn-secondary" disabled>Sin stock</button>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="related-products">
+        <h3>Otros productos</h3>
+        <div class="carousel-wrapper">
+            <div class="carousel-controls">
+                <button id="prev"><i class="fas fa-chevron-left"></i></button>
+            </div>
+            <div id="product-carousel" class="product-group">
+                {% for p in productos %}
+                <div class="product">
+                    <a href="{% url 'producto_individual' p.id %}">
+                        <img src="{{ p.foto.url }}" alt="{{ p.nombre }}">
+                        <p>{{ p.nombre }}</p>
+                    </a>
+                    <span class="fw-bold">{{ p.precio|formateo_precio }}</span>
+                    <div>Stock: {{ p.stock }}</div>
+                    {% if p.activo %}
+                    <button class="btn btn-success add-to-cart" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Agregar al carrito</button>
+                    <button class="btn btn-primary buy-now" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Comprar</button>
+                    {% else %}
+                    <button class="btn btn-secondary" disabled>Sin stock</button>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="carousel-controls">
+                <button id="next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        const carousel = document.getElementById('product-carousel');
+
+        const scrollToEnd = (direction) => {
+            const scrollAmount = direction === 'next' ? carousel.clientWidth : -carousel.clientWidth;
+            const scrollStart = carousel.scrollLeft;
+            carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+
+            setTimeout(() => {
+                if (carousel.scrollLeft === scrollStart) {
+                    carousel.scrollTo({ left: direction === 'next' ? 0 : carousel.scrollWidth, behavior: 'smooth' });
+                }
+            }, 500);
+        };
+
+        prevButton.addEventListener('click', function() {
+            scrollToEnd('prev');
+        });
+
+        nextButton.addEventListener('click', function() {
+            scrollToEnd('next');
+        });
+    });
+</script>
+<script>
+    // Limpiar el carrito
+    function limpiarCarrito() {
+        localStorage.removeItem('cart');
+        cart.length = 0;
+        updateCartUI();
+    }
+    document.getElementById('logout-form').addEventListener('submit', function(event) {
+        limpiarCarrito();
+    });
+</script>
+<script src="{% static 'js/cliente/index_cliente.js' %}"></script>
+{% endblock %}

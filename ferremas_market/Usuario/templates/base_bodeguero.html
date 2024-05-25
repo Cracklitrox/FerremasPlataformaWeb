@@ -1,0 +1,42 @@
+{% extends 'base_usuario.html' %}
+
+{% block bodeguero %}
+<!-- Id Bodeguero -->
+{% if bodeguero_id %}
+<input type="hidden" id="user-id" value="{{ bodeguero_id }}">
+{% endif %}
+<!--NavBar-->
+<header>
+    <h1>Ferretería FERREMAS</h1>
+</header>
+<nav class="navbar navbar-expand-lg bg-dark">
+    <div class="container">
+        <div class="w-100 d-flex justify-content-between">
+            <div>
+                <i class="fa-solid fa-envelope text-light contact-info"></i>
+                    <a href="" class="navbar-sm-brand text-light text-decoration-none contact-info">Ferremas@company.com</a>
+                <i class="fa-solid fa-phone contact-info text-light"></i>
+                    <a href="" class="navbar-sm-brand text-white text-decoration-none contact-info">+(56)98765435</a>
+            </div>
+            <div>
+                <a href="" class="text-white">
+                    <i class="fa-brands fa-facebook me-2"></i></a>
+                <a href="" class="text-white">
+                    <i class="fa-brands fa-instagram me-2"></i></a>
+                <a href="" class="text-white">
+                    <i class="fa-brands fa-linkedin me-2"></i></a>
+                <a href="" class="text-white">
+                    <i class="fa-brands fa-twitter me-2"></i></a>
+            </div>
+            <div class="nav-right">
+                {% if request.session.is_bodeguero_logged_in %}
+                <form action="{% url 'cerrar_sesion_bodeguero' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-warning" onclick="return confirm('¿Estás seguro que deseas cerrar sesión?');">Cerrar Sesión</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+{% endblock %}

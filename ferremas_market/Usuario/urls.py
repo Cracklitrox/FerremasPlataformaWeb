@@ -27,6 +27,7 @@ urlpatterns = [
     # Usuarios
     # CLIENTE
     path('', views.index_cliente, name='index_cliente'),
+    path('cliente/producto_individual/<int:id>/', views.producto_individual, name='producto_individual'),
     path('cliente/logueo_cliente/', views.logueo_cliente, name='logueo_cliente'),
     path('cliente/register_cliente/', views.register_cliente, name='register_cliente'),
     # VENDEDOR
@@ -35,9 +36,16 @@ urlpatterns = [
     # BODEGUERO
     path('bodeguero/logueo_bodeguero/', views.logueo_bodeguero, name='logueo_bodeguero'),
     path('bodeguero/index_bodeguero/', views.index_bodeguero, name='index_bodeguero'),
+    path('bodeguero/actualizar_stock/<int:producto_id>/', views.actualizar_stock, name='actualizar_stock'),
+    path('pedidos/', views.listar_pedidos, name='listar_pedidos'),
+    path('pedidos/confirmar/<int:pedido_id>/', views.confirmar_pedido, name='confirmar_pedido'),
+    path('pedidos/entregar/<int:pedido_id>/', views.entregar_pedido, name='entregar_pedido'),
     # CONTADOR
     path('contador/logueo_contador/', views.logueo_contador, name='logueo_contador'),
     path('contador/index_contador/', views.index_contador, name='index_contador'),
+    path('confirmar_pago/<int:compra_id>/', views.confirmar_pago, name='confirmar_pago'),
+    path('rechazar_pago/<int:compra_id>/', views.rechazar_pago, name='rechazar_pago'),
+    path('registrar_entrega/', views.registrar_entrega, name='registrar_entrega'),
     # Rutas de cierre de sesión
     path('administrador/logout/', views.cerrar_sesion_administrador, name='cerrar_sesion_administrador'),
     path('vendedor/logout/', views.cerrar_sesion_vendedor, name='cerrar_sesion_vendedor'),

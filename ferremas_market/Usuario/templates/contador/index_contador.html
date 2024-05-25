@@ -39,37 +39,56 @@
         padding-bottom: 0.5rem;
     }
 
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1.5rem;
     }
 
-    label {
-        font-weight: bold;
-    }
-
-    input, textarea, button {
-        padding: 0.75rem;
+    th, td {
         border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 1rem;
+        padding: 0.75rem;
+        text-align: left;
     }
 
-    textarea {
-        resize: vertical;
-    }
-
-    button {
+    th {
         background-color: #007bff;
         color: #fff;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 1rem;
+    }
+
+    .action-buttons button {
+        flex: 1;
+        margin: 0 0.5rem;
+        padding: 0.75rem;
+        font-size: 1rem;
         border: none;
+        border-radius: 4px;
         cursor: pointer;
         transition: background-color 0.3s ease;
     }
 
-    button:hover {
-        background-color: #0056b3;
+    .action-buttons .confirm {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .action-buttons .confirm:hover {
+        background-color: #218838;
+    }
+
+    .action-buttons .reject {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .action-buttons .reject:hover {
+        background-color: #c82333;
     }
 
     button:focus {
@@ -84,6 +103,60 @@
     .form-section:last-of-type {
         margin-bottom: 0;
     }
+
+    .details-row {
+        display: none;
+    }
+
+    .details-row td {
+        border-top: none;
+        padding: 0;
+    }
+
+    .details-row .details-content {
+        padding: 0.75rem;
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        border-top: none;
+    }
+
+    /* CSS específico para el formulario de registrar entrega de productos */
+    #registrar-entrega-form {
+        background-color: #f8f9fa;
+        padding: 1.5rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+
+    #registrar-entrega-form label {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    #registrar-entrega-form input {
+        width: calc(100% - 1.5rem);
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+
+    #registrar-entrega-form button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #registrar-entrega-form button:hover {
+        background-color: #0056b3;
+    }
+
+    #registrar-entrega-form button:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+    }
 </style>
 {% endblock %}
 
@@ -92,7 +165,6 @@ Contador FERREMAS
 {% endblock %}
 
 {% block content %}
-{% load crispy_forms_tags %}
 <header>
     <h1>Contador FERREMAS</h1>
 </header>
@@ -109,32 +181,43 @@ Contador FERREMAS
 <main>
     <section class="form-section">
         <h2>Confirmar Pagos por Transferencia</h2>
-        <form id="confirmar-pagos-form">
-            <label for="numero-transaccion">Número de Transacción:</label>
-            <input type="text" id="numero-transaccion" name="numero-transaccion" required>
-            
-            <label for="monto">Monto:</label>
-            <input type="number" id="monto" name="monto" required>
-            
-            <label for="fecha-pago">Fecha de Pago:</label>
-            <input type="date" id="fecha-pago" name="fecha-pago" required>
-            
-            <button type="submit">Confirmar Pago</button>
-        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Monto</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="transferencias-tbody">
+                {% for compra in compras %}
+                <tr id="compra-{{ compra.id }}">
+                    <td>{{ compra.id }}</td>
+                    <td>{{ compra.usuario.username }}</td>
+                    <td>${{ compra.total }}</td>
+                    <td>{{ compra.fecha_compra }}</td>
+                    <td>
+                        <button class="confirm" onclick="ocultarFila({{ compra.id }}); alert('Compra aprobada')">Confirmar</button>
+                        <button class="reject" onclick="ocultarFila({{ compra.id }}); alert('Compra rechazada')">Rechazar</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </section>
 
     <section class="form-section">
         <h2>Registrar Entrega de Productos</h2>
-        <form id="registrar-entrega-form">
+        <form id="registrar-entrega-form" action="{% url 'registrar_entrega' %}" method="post">
+            {% csrf_token %}
             <label for="numero-orden">Número de Orden:</label>
             <input type="text" id="numero-orden" name="numero-orden" required>
             
             <label for="cliente">Cliente:</label>
             <input type="text" id="cliente" name="cliente" required>
-            
-            <label for="productos">Productos Entregados:</label>
-            <textarea id="productos" name="productos" rows="4" required></textarea>
-            
+
             <label for="fecha-entrega">Fecha de Entrega:</label>
             <input type="date" id="fecha-entrega" name="fecha-entrega" required>
             
@@ -143,5 +226,11 @@ Contador FERREMAS
     </section>
 </main>
 {% endblock %}
+
 {% block js %}
+<script>
+    function ocultarFila(id) {
+        document.getElementById('compra-' + id).style.display = 'none';
+    }
+</script>
 {% endblock %}

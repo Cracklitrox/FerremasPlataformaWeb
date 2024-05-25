@@ -1,8 +1,8 @@
-{% extends 'base_usuario.html' %}
+{% extends 'base_cliente.html' %}
 
 {% load static %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/cliente/index_cliente.css' %}">
+<link rel="stylesheet" href="{% static 'css/cliente/style_index_cliente.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -11,100 +11,7 @@ Inicio
 
 {% block content %}
 {% load crispy_forms_tags %}
-    <!-- Id Usuario -->
-    {% if cliente_id %}
-    <input type="hidden" id="user-id" value="{{ cliente_id }}">
-    {% endif %}
-    <!--NavBar-->
-    <nav class="navbar navbar-expand-lg bg-dark">
-        <div class="container">
-            <div class="w-100 d-flex justify-content-between">
-                <div>
-                    <i class="fa-solid fa-envelope text-light contact-info"></i>
-                        <a href="" class="navbar-sm-brand text-light text-decoration-none contact-info">Ferremas@company.com</a>
-                    <i class="fa-solid fa-phone contact-info text-light"></i>
-                        <a href="" class="navbar-sm-brand text-white text-decoration-none contact-info">+(56)98765435</a>
-                </div>
-                <div>
-                    <a href="" class="text-white">
-                        <i class="fa-brands fa-facebook me-2"></i></a>
-                    <a href="" class="text-white">
-                        <i class="fa-brands fa-instagram me-2"></i></a>
-                    <a href="" class="text-white">
-                        <i class="fa-brands fa-linkedin me-2"></i></a>
-                    <a href="" class="text-white">
-                        <i class="fa-brands fa-twitter me-2"></i></a>
-                </div>
-            </div>
-        </div>
-    </nav>
-    
-    <!-- ---main-nav --- -->
-
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container d-flex justify-content-between">
-            <div>
-                <h1 class="text-success">Ferremas</h1>
-            </div>
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" ria-current="page" href="#">Inicio</a>
-                        </li>
-                        <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" href="#">Productos</a>
-                        </li>
-                        <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" href="#">Tiendas</a>
-                        </li>
-                        <li class="nav-item nav-items">
-                            <a class="nav-link nav-links" href="#">Contacto</a>
-                        </li>
-                    </ul>
-                    <div class="position-relative d-flex align-items-center">
-                        <a href="" class="text-decoration-none text-dark">
-                            <i class="fa-solid fa-magnifying-glass nav-icon"></i>
-                        </a>
-                        {% if request.session.is_cliente_logged_in %}
-                        <form id="logout-form" action="{% url 'cerrar_sesion_cliente' %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-warning" id="logout-button" onclick="return confirm('¿Estás seguro que deseas cerrar sesión?');">Cerrar Sesión</button>
-                        </form>
-                        {% else %}
-                        <a href="{% url 'logueo_cliente' %}" class="text-decoration-none text-dark">
-                            <i class="fa-solid fa-sign-in nav-icon"></i>
-                        </a>
-                        <a href="{% url 'register_cliente' %}" class="text-decoration-none text-dark">
-                            <i class="fa-solid fa-user nav-icon"></i>
-                        </a>
-                        {% endif %}
-                        <button id="cart-icon" class="text-decoration-none text-dark">
-                            🛒
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <div id="sidebar" class="sidebar">
-        <ul id="cart-items">
-            <!-- Aquí van los items del carrito -->
-        </ul>
-        <div id="empty-message" class="empty-message">Aún no hay productos agregados.</div>
-        <div class="sidebar-footer">
-            <!-- Mostrar el monto total acumulado -->
-            <div id="total-amount" class="total-amount">Total: 0</div>
-            <div class="button-container d-flex justify-content-between">
-                <button id="close-btn" class="btn btn-secondary">Cerrar</button>
-                <button id="clear-cart-btn" class="btn btn-danger" style="display: none;">Eliminar todos los productos</button>
-                <button id="buy-btn" class="btn btn-success">Comprar</button>
-            </div>
-        </div>
-    </div>
-    
     <!--Banner-->
-
     <div class="banner">
         <div class="container">
             <div class="slider-container has-scrollbar">
@@ -161,6 +68,7 @@ Inicio
                             <span class="fw-bold">{{ p.precio|formateo_precio }}</span>
                             <div>Stock: {{ p.stock }}</div>
                             {% if p.activo %}
+                            <a href="{% url 'producto_individual' p.id %}" class="btn btn-info">Ver más</a>
                             <button class="btn btn-success add-to-cart" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Agregar al carrito</button>
                             <button class="btn btn-primary buy-now" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Comprar</button>
                             {% else %}
@@ -169,7 +77,7 @@ Inicio
                         </div>
                     </div>
                     {% endfor %}
-                </div>                
+                </div>
             </div>
         </div>
     </section>
