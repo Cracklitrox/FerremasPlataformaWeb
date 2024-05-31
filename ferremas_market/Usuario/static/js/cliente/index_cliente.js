@@ -344,4 +344,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function closeSidebar() {
         document.getElementById("sidebar").style.width = "0";
     }
+
+    window.addEventListener('click', function(event) {
+        const sidebar = document.getElementById('sidebar');
+        if (event.target !== sidebar && !sidebar.contains(event.target) && event.target !== document.getElementById('cart-icon')) {
+            closeSidebar();
+        }
+    });
 });

@@ -11,7 +11,7 @@ class Categoria(models.Model):
         return self.nombre
 
 class Producto(models.Model):
-    nombre = models.CharField(max_length=80)
+    nombre = models.TextField()
     descripcion = models.TextField()
     precio = models.IntegerField()
     stock = models.IntegerField()

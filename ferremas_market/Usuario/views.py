@@ -7,7 +7,8 @@ from django.urls import reverse
 from .models import Administrador, Vendedor, Cliente, Bodeguero, Contador
 from django.shortcuts import render, get_object_or_404
 from .forms import *
-from Pedidos.models import Categoria, Compra, Pedido, Producto
+from django.db.models import Sum, Min, Max
+from Pedidos.models import Categoria, Compra, DetalleCompra, Pedido, Producto
 from functools import wraps
 from django.core.paginator import Paginator
 from .forms import CambiarContrasenaAdministrador
@@ -344,8 +345,11 @@ def index_cliente(request):
     cliente_id = request.session.get('cliente_id')
     
     productos = Producto.objects.all()
+    paginator = Paginator(productos, 16)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'productos': productos,
+        'page_obj': page_obj,
         'cliente_id': cliente_id,
     }
     return render(request, 'cliente/index_cliente.html', context)
@@ -361,6 +365,28 @@ def producto_individual(request, id):
         'cliente_id': cliente_id,
     }
     return render(request, 'cliente/producto_individual.html', context)
+
+def carrito(request):
+    cliente_id = request.session.get('cliente_id')
+
+    print("Contenido del carrito en la sesión:", cliente_id)
+
+    carrito = request.session.get('cart', [])
+
+    print("Contenido del carrito en la sesión:", carrito)
+
+    if carrito:
+        productos_ids = [item['id'] for item in carrito]
+        productos_carrito = Producto.objects.filter(id__in=productos_ids)
+    else:
+        productos_carrito = []
+
+    context = {
+        'productos_carrito': productos_carrito,
+        'cliente_id': cliente_id,
+    }
+
+    return render(request, 'cliente/carrito.html', context)
 
 def logueo_cliente(request):
     if request.method == 'POST':
@@ -577,3 +603,80 @@ def registrar_entrega(request):
         fecha_entrega = request.POST.get('fecha-entrega')
         return redirect('index_contador')
     return render(request, 'contador/index_contador.html')
+
+
+
+
+
+#############################################################
+##            Filtros Pagina Cliente (Productos)           ##
+#############################################################
+
+def productos_todos(request):
+    productos = Producto.objects.filter(activo=True)
+    paginator = Paginator(productos, 16)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'page_obj': page_obj}
+    return render(request, 'cliente/index_cliente.html', context)
+
+def productos_mas_vendidos(request):
+    detalles = DetalleCompra.objects.values('producto').annotate(total_vendido=Sum('cantidad')).order_by('-total_vendido')[:16]
+    productos_ids = [detalle['producto'] for detalle in detalles]
+    productos = Producto.objects.filter(id__in=productos_ids, activo=True)
+    paginator = Paginator(productos, 16)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'page_obj': page_obj}
+    return render(request, 'cliente/index_cliente.html', context)
+
+def productos_nuevos(request):
+    productos = Producto.objects.filter(activo=True).order_by('-id')[:16]
+    paginator = Paginator(productos, 16)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'page_obj': page_obj}
+    return render(request, 'cliente/index_cliente.html', context)
+
+def catalogo_productos(request):
+    cliente_id = request.session.get('cliente_id')
+    productos = Producto.objects.all()
+
+    # Filtros
+    categoria_id = request.GET.get('categoria')
+    precio_min = request.GET.get('precio_min')
+    precio_max = request.GET.get('precio_max')
+    activo = request.GET.get('activo')
+
+    if categoria_id and categoria_id != "":
+        productos = productos.filter(categoria_id=categoria_id)
+
+    if precio_min and precio_max:
+        productos = productos.filter(precio__gte=precio_min, precio__lte=precio_max)
+
+    if activo:
+        productos = productos.filter(activo=True)
+
+    # Obtener precio mínimo y máximo de los productos
+    precios = productos.aggregate(Min('precio'), Max('precio'))
+    precio_min_valor = precios['precio__min'] if precios['precio__min'] is not None else 0
+    precio_max_valor = precios['precio__max'] if precios['precio__max'] is not None else 0
+
+    paginator = Paginator(productos, 16)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    categorias = Categoria.objects.filter(activo=True)
+
+    context = {
+        'page_obj': page_obj,
+        'categorias': categorias,
+        'cliente_id': cliente_id,
+        'precio_min_valor': precio_min_valor,
+        'precio_max_valor': precio_max_valor,
+        'categoria_id': categoria_id,
+        'precio_min': precio_min,
+        'precio_max': precio_max,
+        'activo': activo,
+    }
+    return render(request, 'cliente/catalogo_productos.html', context)

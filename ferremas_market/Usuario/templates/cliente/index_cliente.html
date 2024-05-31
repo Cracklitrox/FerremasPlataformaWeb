@@ -2,7 +2,55 @@
 
 {% load static %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/cliente/style_index_cliente.css' %}">
+<style>
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .pagination .page-item .page-link {
+        color: #007bff; /* Cambia esto al color que prefieras */
+    }
+    
+    .pagination .page-item.active .page-link {
+        background-color: #007bff; /* Cambia esto al color que prefieras */
+        border-color: #007bff; /* Cambia esto al color que prefieras */
+    }
+    
+    .btn-info {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+    
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+    
+    .btn {
+        margin-bottom: 10px;
+    }
+
+    .filter-button-group .btn {
+        cursor: pointer;
+    }
+
+    .filter-button-group .btn.active {
+        background-color: #007bff;
+        color: white;
+    }
+</style>
 {% endblock %}
 
 {% block title %}
@@ -52,14 +100,14 @@ Inicio
             </div>
             <div class="row g-0">
                 <div class="d-flex flex-wrap justify-content-center mt-5 filter-button-group">
-                    <button type="button" class="btn m-2 text-dark" data-filter="*">Todos</button>
-                    <button type="button" class="btn m-2 text-dark" data-filter=".best">Más vendidos</button>
-                    <button type="button" class="btn m-2 text-dark" data-filter=".new">Nuevos</button>
+                    <button type="button" class="btn m-2 text-dark" onclick="window.location.href='{% url 'productos_todos' %}'">Todos</button>
+                    <button type="button" class="btn m-2 text-dark" onclick="window.location.href='{% url 'productos_mas_vendidos' %}'">Más vendidos</button>
+                    <button type="button" class="btn m-2 text-dark" onclick="window.location.href='{% url 'productos_nuevos' %}'">Nuevos</button>
                 </div>
                 <div class="collection-list mt-4 row gx-0 gy-3">
                     {% load moneda_filtro %}
-                    {% for p in productos %}
-                    <div class="col-md-6 col-lg-4 col-xl-3 p-2 feat">
+                    {% for p in page_obj %}
+                    <div class="col-md-6 col-lg-4 col-xl-3 p-2 feat {{ p.categoria }}">
                         <div class="collection-img position-relative">
                             <img src="{{ p.foto.url }}" class="w-100" style="height: 200px;">
                         </div>
@@ -68,39 +116,78 @@ Inicio
                             <span class="fw-bold">{{ p.precio|formateo_precio }}</span>
                             <div>Stock: {{ p.stock }}</div>
                             {% if p.activo %}
-                            <a href="{% url 'producto_individual' p.id %}" class="btn btn-info">Ver más</a>
-                            <button class="btn btn-success add-to-cart" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Agregar al carrito</button>
-                            <button class="btn btn-primary buy-now" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Comprar</button>
+                            <a href="{% url 'producto_individual' p.id %}" class="btn btn-info mb-2">Ver más</a>
+                            <button class="btn btn-success mb-2 add-to-cart" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Agregar al carrito</button>
+                            <button class="btn btn-primary mb-2 buy-now" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Comprar</button>
                             {% else %}
-                            <button class="btn btn-secondary" disabled>Sin stock</button>
+                            <button class="btn btn-secondary mb-2" disabled>Sin stock</button>
                             {% endif %}
                         </div>
                     </div>
                     {% endfor %}
                 </div>
+            
+                <div class="pagination-container mt-4">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Anterior">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo;</span>
+                            </li>
+                            {% endif %}
+                            
+                            {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                            {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Siguiente">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">&raquo;</span>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-light py-4">
-        <div class="container text-center">
-            <p>&copy; 2024 Ferremas. Todos los derechos reservados.</p>
-            <!-- Agrega aquí otros elementos del footer, como enlaces a redes sociales o información de contacto -->
-        </div>
-    </footer>
 {% endblock %}
 {% block js %}
 <script>
-    // Limpiar el carrito
-    function limpiarCarrito() {
-        localStorage.removeItem('cart');
-        cart.length = 0;
-        updateCartUI();
-    }
-    document.getElementById('logout-form').addEventListener('submit', function(event) {
-        limpiarCarrito();
+    $(document).ready(function() {
+        var $grid = $('.collection-list').isotope({
+            itemSelector: '.feat',
+            layoutMode: 'fitRows'
+        });
+
+        $('.filter-button-group').on('click', 'button', function() {
+            var filterValue = $(this).attr('data-filter');
+            $grid.isotope({ filter: filterValue });
+        });
+
+        $('.filter-button-group').each(function(i, buttonGroup) {
+            var $buttonGroup = $(buttonGroup);
+            $buttonGroup.on('click', 'button', function() {
+                $buttonGroup.find('.active').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
     });
 </script>
-<script src="{% static 'js/cliente/index_cliente.js' %}"></script>
 {% endblock %}

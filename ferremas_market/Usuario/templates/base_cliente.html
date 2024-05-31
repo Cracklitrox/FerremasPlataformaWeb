@@ -1,4 +1,8 @@
 {% extends 'base_usuario.html' %}
+{% load static %}
+{% block css_cliente %}
+<link rel="stylesheet" href="{% static 'css/cliente/style_index_cliente.css' %}">
+{% endblock %}
 
 {% block cliente %}
 <!-- Id Usuario -->
@@ -29,7 +33,7 @@
     </div>
 </nav>
 
-<!-- ---main-nav --- -->
+<!-- -main-nav - -->
 
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container d-flex justify-content-between">
@@ -43,7 +47,7 @@
                         <a class="nav-link nav-links" ria-current="page" href="{% url 'index_cliente' %}">Inicio</a>
                     </li>
                     <li class="nav-item nav-items">
-                        <a class="nav-link nav-links" href="#">Productos</a>
+                        <a class="nav-link nav-links" href="{% url 'catalogo_productos' %}">Productos</a>
                     </li>
                     <li class="nav-item nav-items">
                         <a class="nav-link nav-links" href="#">Tiendas</a>
@@ -92,4 +96,27 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block cliente_footer %}
+<!-- Footer -->
+<footer class="bg-dark text-light py-4">
+    <div class="container text-center">
+        <p>&copy; 2024 Ferremas. Todos los derechos reservados.</p>
+        <!-- Agrega aquí otros elementos del footer, como enlaces a redes sociales o información de contacto -->
+    </div>
+</footer>
+{% endblock %}
+{% block js_cliente %}
+<script>
+    // Limpiar el carrito
+    function limpiarCarrito() {
+        localStorage.removeItem('cart');
+        cart.length = 0;
+        updateCartUI();
+    }
+    document.getElementById('logout-form').addEventListener('submit', function(event) {
+        limpiarCarrito();
+    });
+</script>
+<script src="{% static 'js/cliente/index_cliente.js' %}"></script>
 {% endblock %}

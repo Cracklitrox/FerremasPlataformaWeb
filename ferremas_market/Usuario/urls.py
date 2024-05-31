@@ -28,8 +28,14 @@ urlpatterns = [
     # CLIENTE
     path('', views.index_cliente, name='index_cliente'),
     path('cliente/producto_individual/<int:id>/', views.producto_individual, name='producto_individual'),
+    path('cliente/carrito/', views.carrito, name='carrito'),
     path('cliente/logueo_cliente/', views.logueo_cliente, name='logueo_cliente'),
     path('cliente/register_cliente/', views.register_cliente, name='register_cliente'),
+    path('cliente/catalogo_productos/', views.catalogo_productos, name='catalogo_productos'),
+    # Filtros pagina Cliente de los Productos INDEX
+    path('todos/', views.productos_todos, name='productos_todos'),
+    path('mas-vendidos/', views.productos_mas_vendidos, name='productos_mas_vendidos'),
+    path('nuevos/', views.productos_nuevos, name='productos_nuevos'),
     # VENDEDOR
     path('vendedor/logueo_vendedor/', views.logueo_vendedor, name='logueo_vendedor'),
     path('vendedor/index_vendedor/', views.index_vendedor, name='index_vendedor'),

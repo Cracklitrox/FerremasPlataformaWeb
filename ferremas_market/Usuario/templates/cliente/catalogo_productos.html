@@ -1,0 +1,327 @@
+{% extends 'base_cliente.html' %}
+
+{% load static %}
+{% block css %}
+<style>
+    body {
+        background-color: white;
+        font-family: Arial, sans-serif;
+    }
+    .contenedor {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .filtros {
+        width: 25%;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-right: 1px solid #ddd;
+    }
+    .productos {
+        width: 75%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px;
+    }
+    .producto {
+        border: 1px solid #ccc;
+        padding: 15px;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        flex: 1 1 calc(25% - 40px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        max-width: calc(25% - 40px);
+        height: auto;
+    }
+    .producto h3 {
+        margin-bottom: 10px;
+        height: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .producto img {
+        max-height: 150px;
+        width: 100%;
+        object-fit: contain;
+        margin-bottom: 10px;
+    }
+    .producto .descripcion {
+        flex-grow: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+    .producto .detalles {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+    .producto .precio-stock {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 15px;
+        margin-top: 10px;
+    }
+    .producto .botones {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .rango-precio {
+        margin-bottom: 20px;
+    }
+    .filtro {
+        margin-bottom: 20px;
+    }
+    .filtro label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+    .filtro select, .filtro input[type="number"], .filtro input[type="checkbox"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,.12), inset 0 1px 2px rgba(0,0,0,.24);
+    }
+    .filtro input[type="range"] {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .filtro input[type="checkbox"] {
+        width: auto;
+        margin-left: 0;
+    }
+    .filtro button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: background-color 0.3s ease;
+    }
+    .filtro button:hover {
+        background-color: #0056b3;
+    }
+    .filtro .btn-limpiar {
+        background-color: #6c757d;
+        color: white;
+    }
+    .filtro .btn-limpiar:hover {
+        background-color: #5a6268;
+    }
+    .filtro select {
+        background-color: #fff;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        padding-right: 30px;
+        background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%23000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6"></path></svg>');
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+    }
+    .custom-range {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 10px;
+        background: #ddd;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+    .custom-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #007bff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    .custom-range::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: #007bff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    .checkbox-custom {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    @media (max-width: 1200px) {
+        .producto {
+            flex: 1 1 calc(33.33% - 40px);
+            max-width: calc(33.33% - 40px);
+        }
+        .filtros {
+            width: 100%;
+            border-right: none;
+        }
+        .productos {
+            width: 100%;
+        }
+    }
+    @media (max-width: 768px) {
+        .producto {
+            flex: 1 1 calc(50% - 40px);
+            max-width: calc(50% - 40px);
+        }
+    }
+    @media (max-width: 480px) {
+        .producto {
+            flex: 1 1 100%;
+            max-width: 100%;
+        }
+        .filtros {
+            width: 100%;
+            border-right: none;
+        }
+        .productos {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+Productos
+{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="contenedor">
+    <div class="filtros">
+        <h2>Filtros</h2>
+        <form method="GET">
+            <div class="filtro">
+                <label for="categoria">Categoría</label>
+                <select name="categoria" id="categoria">
+                    <option value="">Todas</option>
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria.id }}" {% if categoria.id|stringformat:"s" == categoria_id %}selected{% endif %}>{{ categoria.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtro rango-precio">
+                <label for="precio_min">Rango de precios</label>
+                <input type="range" min="{{ precio_min_valor }}" max="{{ precio_max_valor }}" value="{{ precio_max|default_if_none:precio_max_valor }}" id="precio_rango" class="custom-range">
+                <div>
+                    <span>Precio: $<span id="precio_min_display">{{ precio_min_valor }}</span> — $<span id="precio_max_display">{{ precio_max|default_if_none:precio_max_valor }}</span></span>
+                </div>
+                <input type="hidden" name="precio_min" id="precio_min" value="{{ precio_min|default_if_none:precio_min_valor }}">
+                <input type="hidden" name="precio_max" id="precio_max" value="{{ precio_max|default_if_none:precio_max_valor }}">
+            </div>
+            <div class="filtro checkbox-custom">
+                <input type="checkbox" name="activo" id="activo" value="true" {% if activo %}checked{% endif %}>
+                <label for="activo">Solo Activos</label>
+            </div>
+            <button type="submit">Filtrar</button>
+        </form>
+        <form method="GET">
+            <button type="submit" class="btn btn-secondary mt-2 btn-limpiar">Limpiar Filtros</button>
+        </form>
+    </div>
+    <div class="productos">
+        {% for producto in page_obj %}
+            <div class="producto">
+                <div class="detalles">
+                    <h3>{{ producto.nombre|truncatechars:60 }}</h3>
+                    <img src="{{ producto.foto.url }}" alt="{{ producto.nombre }}">
+                    <p class="descripcion">{{ producto.descripcion|truncatechars:150 }}</p>
+                    <div class="precio-stock">
+                        <p>${{ producto.precio }}</p>
+                        <p>Stock: {{ producto.stock }}</p>
+                    </div>
+                </div>
+                <div class="botones">
+                    {% if producto.activo %}
+                        <a href="{% url 'producto_individual' producto.id %}" class="btn btn-info mb-2">Ver más</a>
+                        <button class="btn btn-success mb-2 add-to-cart" data-id="{{ producto.id }}" data-name="{{ producto.nombre }}" data-image="{{ producto.foto.url }}" data-stock="{{ producto.stock }}" data-price="{{ producto.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Agregar al carrito</button>
+                        <button class="btn btn-primary mb-2 buy-now" data-id="{{ producto.id }}" data-name="{{ producto.nombre }}" data-image="{{ producto.foto.url }}" data-stock="{{ producto.stock }}" data-price="{{ producto.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Comprar</button>
+                    {% else %}
+                        <button class="btn btn-secondary mb-2" disabled>Sin stock</button>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="pagination-container mt-4">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}&categoria={{ categoria_id }}&precio_min={{ precio_min }}&precio_max={{ precio_max }}&activo={{ activo }}" aria-label="Anterior">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo;</span>
+                </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}&categoria={{ categoria_id }}&precio_min={{ precio_min }}&precio_max={{ precio_max }}&activo={{ activo }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}&categoria={{ categoria_id }}&precio_min={{ precio_min }}&precio_max={{ precio_max }}&activo={{ activo }}" aria-label="Siguiente">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&raquo;</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var precioRango = document.getElementById('precio_rango');
+        var precioMinDisplay = document.getElementById('precio_min_display');
+        var precioMaxDisplay = document.getElementById('precio_max_display');
+        var precioMinInput = document.getElementById('precio_min');
+        var precioMaxInput = document.getElementById('precio_max');
+    
+        precioRango.addEventListener('input', function() {
+            var value = parseInt(precioRango.value);
+            precioMaxDisplay.textContent = value;
+            precioMaxInput.value = value;
+        });
+    
+        // Inicializa los valores al cargar la página
+        precioMinDisplay.textContent = precioRango.min;
+        precioMaxDisplay.textContent = precioRango.value;
+    });
+</script>
+{% endblock %}

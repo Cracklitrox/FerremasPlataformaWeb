@@ -13,7 +13,6 @@ def actualizar_stock(request):
             print(f"Usuario ID recibido: {usuario_id}")
             if not usuario_id:
                 return JsonResponse({'success': False, 'error': 'Usuario no especificado'}, status=400)
-            
             try:
                 cliente = Cliente.objects.get(id=usuario_id)
                 print(f"Cliente encontrado: {cliente}")

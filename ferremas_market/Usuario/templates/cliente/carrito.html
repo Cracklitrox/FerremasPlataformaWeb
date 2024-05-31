@@ -1,0 +1,67 @@
+{% extends 'base_cliente.html' %}
+{% load static %}
+{% block css %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
+    
+    nav, footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 1em;
+    }
+    
+    main {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .message-container {
+        text-align: center;
+    }
+    
+    .btn-green {
+        background-color: green;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    
+    .btn-green:hover {
+        background-color: darkgreen;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+Carrito Vacío
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<main id="main-content">
+    {% if productos_carrito %}
+        <ul>
+            {% for producto in productos_carrito %}
+                <li>{{ producto.nombre }} - {{ producto.precio }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div id="empty-message" class="message-container">
+            <p>Tu pedido está vacío</p>
+            <button id="return-button" class="btn-green" onclick="window.location.href='{% url 'index_cliente' %}'">Volver a la tienda</button>
+        </div>
+    {% endif %}
+</main>
+{% endblock %}
