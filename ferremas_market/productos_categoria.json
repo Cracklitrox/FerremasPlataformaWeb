@@ -1,0 +1,1432 @@
+[
+{
+  "model": "Pedidos.categoria",
+  "pk": 1,
+  "fields": {
+    "nombre": "Herramientas y Equipos de Trabajo",
+    "descripcion": "Incluye herramientas y kits esenciales para reparación, mantenimiento y construcción. Diseñados para aligerar el trabajo",
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.categoria",
+  "pk": 2,
+  "fields": {
+    "nombre": "Herramientas Eléctricas",
+    "descripcion": "Herramientas de alto rendimiento para perforación y corte, ideales para trabajos que requieren potencia y precisión.",
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.categoria",
+  "pk": 3,
+  "fields": {
+    "nombre": "Pinturas y Accesorios",
+    "descripcion": "Productos para proyectos de pintura, desde renovaciones del hogar hasta arte decorativo. Incluye pinturas de colores",
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.categoria",
+  "pk": 4,
+  "fields": {
+    "nombre": "Candado",
+    "descripcion": "Dispositivo de seguridad para bloquear y proteger.",
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.categoria",
+  "pk": 5,
+  "fields": {
+    "nombre": "Cadenas",
+    "descripcion": "Eslabones metálicos conectados para seguridad y tracción.",
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.categoria",
+  "pk": 6,
+  "fields": {
+    "nombre": "Alicates y caimanes",
+    "descripcion": "Herramientas esenciales para sujeción y corte, incluyendo alicates de diversos tipos y caimanes de alta resistencia.",
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.categoria",
+  "pk": 7,
+  "fields": {
+    "nombre": "Destornilladores",
+    "descripcion": "Herramientas indispensables para ajustar y aflojar tornillos, disponibles en varios tipos como plano y estrelllla",
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.categoria",
+  "pk": 8,
+  "fields": {
+    "nombre": "Dados y llaves",
+    "descripcion": "Herramientas versátiles para apretar y aflojar tuercas y pernos, incluyendo juegos de dados y llaves en diversos tamaños",
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.categoria",
+  "pk": 9,
+  "fields": {
+    "nombre": "Martillos y mazos",
+    "descripcion": "Herramientas esenciales para clavar, ajustar y demoler, los martillos y mazos ofrecen durabilidad y comodidad.",
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.categoria",
+  "pk": 10,
+  "fields": {
+    "nombre": "Prensas",
+    "descripcion": "Las prensas son herramientas esenciales para sujetar y estabilizar materiales durante trabajos de carpintería.",
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.categoria",
+  "pk": 11,
+  "fields": {
+    "nombre": "Serrucho y sierras",
+    "descripcion": "Herramientas clave para cortes precisos en diversos materiales, asegurando durabilidad y eficiencia en carpintería.",
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.categoria",
+  "pk": 12,
+  "fields": {
+    "nombre": "Sets y Cajas de Herramientas",
+    "descripcion": "Mantén tus herramientas organizadas y accesibles con estos sets y cajas, ideales para bricolaje y uso profesional.",
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.categoria",
+  "pk": 13,
+  "fields": {
+    "nombre": "Lijas y otros",
+    "descripcion": "Lijas y abrasivos para acabados suaves en madera, metal y más. Variedad de granos para todo tipo de trabajo.",
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 1,
+  "fields": {
+    "nombre": "Caja de Herramientas Stanley",
+    "descripcion": "Robusta y durable, esta caja de herramientas Stanley es perfecta para organizar y proteger tus herramientas esenciales. Su diseño compacto y resistente te asegura una solución de almacenamiento eficiente y segura.",
+    "precio": 59990,
+    "stock": 0,
+    "foto": "producto/2024/05/11/caja_de_herramientas_STANLEY.jfif",
+    "categoria": 1,
+    "activo": false
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 2,
+  "fields": {
+    "nombre": "Conjunto de Llaves y Herramientas",
+    "descripcion": "Este conjunto completo incluye llaves de vaso, destornilladores y una amplia gama de herramientas de alta calidad. Guardado en una caja azul f├ícil de transportar, es ideal para profesionales y aficionados al bricolaje.",
+    "precio": 39990,
+    "stock": 4,
+    "foto": "producto/2024/05/11/conjunto_de_llavez_y_herramientas.jpg",
+    "categoria": 1,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 3,
+  "fields": {
+    "nombre": "Set de Herramientas de Mano",
+    "descripcion": "Completa tu taller con este set de herramientas de mano que incluye desde taladros hasta sierras. Todo lo necesario para tus proyectos de reparaci├│n y mantenimiento en casa o en el trabajo.",
+    "precio": 39990,
+    "stock": 0,
+    "foto": "producto/2024/05/11/herramientas.jpg",
+    "categoria": 1,
+    "activo": false
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 4,
+  "fields": {
+    "nombre": "Pinturas y Brochas",
+    "descripcion": "Explora tu creatividad con este conjunto de pinturas de colores vivos y brochas de varios tama├▒os. Perfecto para todo tipo de proyectos de pintura, desde arte decorativo hasta renovaciones del hogar.",
+    "precio": 11990,
+    "stock": 0,
+    "foto": "producto/2024/05/11/pintura.jpg",
+    "categoria": 3,
+    "activo": false
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 5,
+  "fields": {
+    "nombre": "Taladro Electrico",
+    "descripcion": "Este taladro eléctrico DeWalt de alto rendimiento es una herramienta indispensable para cualquier trabajo de perforación. Duradero y potente, está diseñado para ofrecer resultados profesionales en una variedad de superficies.",
+    "precio": 49990,
+    "stock": 5,
+    "foto": "producto/2024/05/11/taladro.jpg",
+    "categoria": 2,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 6,
+  "fields": {
+    "nombre": "Rodillo para Pintura",
+    "descripcion": "Perfecto para trabajos de pintura en interiores y exteriores, este rodillo ofrece una aplicaci├│n suave y uniforme. El mango ergon├│mico y la absorci├│n eficiente de pintura garantizan un acabado profesional.",
+    "precio": 4990,
+    "stock": 5,
+    "foto": "producto/2024/05/11/rodillo.jpg",
+    "categoria": 3,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 7,
+  "fields": {
+    "nombre": "Set de Constructor",
+    "descripcion": "Ideal para el profesional en movimiento, este set incluye un taladro inal├ímbrico y un surtido de herramientas manuales en un malet├¡n port├ítil. Es esencial para cualquier tipo de instalaci├│n o reparaci├│n.",
+    "precio": 74990,
+    "stock": 3,
+    "foto": "producto/2024/05/11/set_de_herramientas.jpg",
+    "categoria": 1,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 8,
+  "fields": {
+    "nombre": "Caja de herramientas Rimax",
+    "descripcion": "La Caja de Herramientas Rimax de 20 pulgadas es el compa├▒ero perfecto para cualquier manitas. Dise├▒ada con compartimientos superiores transparentes para una f├ícil visualizaci├│n y acceso a peque├▒os accesorios y fijaciones, esta caja ofrece una soluci├│n robusta y vers├ítil para mantener todas tus herramientas organizadas. Su resistente construcci├│n en pl├ístico garantiza durabilidad y un manejo seguro, mientras que el mango ergon├│mico permite un transporte c├│modo.",
+    "precio": 13990,
+    "stock": 4,
+    "foto": "producto/2024/05/11/Caja_de_herramientas_20_Rimax.jpg",
+    "categoria": 1,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 9,
+  "fields": {
+    "nombre": "Candado Serie 100 – 40mm Poli",
+    "descripcion": "Candado de bronce macizo 40mm\r\nGancho de acero endurecido\r\nSistema de combinación de 4 pines de bronce\r\nProtección Anticorrosión en gancho\r\nIncluye 3 llaves niqueladas\r\nTerminación: Bronce Satín",
+    "precio": 3650,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Candado_Serie_100__40mm_Poli.jpg",
+    "categoria": 4,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 10,
+  "fields": {
+    "nombre": "Candado 120 20mm Odis",
+    "descripcion": "Cuerpo liso de bronce sólido\r\nGancho de acero endurecido\r\nSistema de cierre con traba de doble eslabón\r\nSistema de combinación con 4,5 y 6 pines\r\nIncluye 3 llaves estándar",
+    "precio": 4250,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Candado_120_20mm_Odis.jpeg",
+    "categoria": 4,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 11,
+  "fields": {
+    "nombre": "Candado 560 60mm Odis",
+    "descripcion": "Cuerpo de bronce forjado con hombros\r\nGancho de acero al manganeso\r\nSistema de cierre con doble bola de acero inoxidable\r\nIncluye 5 llaves de punto",
+    "precio": 41720,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Candado_560_60mm_Odis.jpg",
+    "categoria": 4,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 12,
+  "fields": {
+    "nombre": "Candado 550 50mm Odis",
+    "descripcion": "Cuerpo de bronce forjado con hombros\r\nGancho de acero al manganeso\r\nSistema de cierre con doble bola de acero inoxidable\r\nIncluye: 5 llaves multipunto",
+    "precio": 32550,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Candado_550_50mm_Odis.jpg",
+    "categoria": 4,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 13,
+  "fields": {
+    "nombre": "Candado 950 50mm Inox Odis",
+    "descripcion": "Cuerpo de acero inoxidable con hombros\r\nGancho de acero inoxidable. Resistente a la corrosión\r\nSistema de cierre mediante traba de doble bola de acero inoxidable\r\nIncluye: 5 llaves de punto",
+    "precio": 39370,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Candado_950_50mm_Inox_Odis.jpeg",
+    "categoria": 4,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 14,
+  "fields": {
+    "nombre": "Candado 125 25mm Odis",
+    "descripcion": "Cuerpo liso de bronce sólido\r\nGancho de acero endurecido\r\nSistema de cierre con traba de doble eslabón\r\nSistema de combinación con 4,5 y 6 pines\r\nIncluye 3 llaves estándar",
+    "precio": 5140,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Candado_125_25mm_Odis.jpeg",
+    "categoria": 4,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 15,
+  "fields": {
+    "nombre": "Cadena Eslabon Corto Galvanizada 4mm x 30 Metros Generica",
+    "descripcion": "Cadena de eslabón corto galvanizada de alta resistencia, con un grosor de 4mm y una longitud de 30 metros. Ideal para diversas aplicaciones en construcción, seguridad y uso general. Su recubrimiento galvanizado proporciona una excelente protección contra la corrosión y el desgaste, asegurando durabilidad y rendimiento a largo plazo. Este producto genérico es adecuado para asegurar cargas, remolques, cercas y otras aplicaciones que requieran una cadena confiable y resistente.",
+    "precio": 51000,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Cadena_Eslabon_Corto_Galvanizada_4mm_x_30_Metros_Generica.jpg",
+    "categoria": 5,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 16,
+  "fields": {
+    "nombre": "Cadena Eslabon Corto Pulida 6mm x 30 Metros Generica",
+    "descripcion": "Cadena de eslabón corto pulida, con un grosor de 6mm y una longitud de 30 metros. Diseñada para ofrecer una alta resistencia y versatilidad en diversas aplicaciones, desde construcción hasta seguridad. La cadena pulida presenta una superficie suave que minimiza el desgaste y el daño a los objetos con los que entra en contacto. Ideal para asegurar cargas, remolques y cercas, este producto genérico es confiable y duradero, adecuado para cualquier necesidad que requiera una cadena fuerte y de calidad.",
+    "precio": 78000,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Cadena_Eslabon_Corto_Pulida_6mm_x_30_Metros_Generica.jpg",
+    "categoria": 5,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 17,
+  "fields": {
+    "nombre": "Cadena Eslabon Corto Galvanizada 3mm x 30 Metros Generica",
+    "descripcion": "Cadena de eslabón corto galvanizada de alta resistencia, con un grosor de 3mm y una longitud de 30 metros. Perfecta para diversas aplicaciones en construcción, seguridad y uso general. Su recubrimiento galvanizado proporciona una excelente protección contra la corrosión y el desgaste, garantizando una durabilidad y rendimiento superior. Este producto genérico es ideal para asegurar cargas, remolques, cercas y otras aplicaciones que requieren una cadena confiable y resistente.",
+    "precio": 36000,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Cadena_Eslabon_Corto_Galvanizada_3mm_x_30_Metros_Generica.jpg",
+    "categoria": 5,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 18,
+  "fields": {
+    "nombre": "Candado Profesional Y124 Cortina – 60mm Yale",
+    "descripcion": "Candado de bronce macizo de 60mm en terminación cromado\r\nSistema de enganche de doble traba\r\nCombinación de 5 pines de bronce\r\nGancho de Acero al Boro\r\nGancho protegido anti corte\r\nGrado de alta seguridad\r\nMáxima Resistencia a cortes\r\nMáxima resistencia a impactos\r\nPara uso interior y exterior\r\nIncluye 3 llaves\r\nBronce en terminación cromado\r\nPara Puertas de Cortina",
+    "precio": 15330,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Candado_Profesional_Y124_Cortina__60mm_Yale.jpg",
+    "categoria": 5,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 19,
+  "fields": {
+    "nombre": "Alicate Punta Aislado 6 Pulgadas 612V-160-1 Bahco",
+    "descripcion": "Alicate Punta Aislado 6 Pulgadas 612V-160-1 Bahco",
+    "precio": 10700,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Alicate_Punta_Aislado_6_Pulgadas_612V-160-1_Bahco.jpg",
+    "categoria": 6,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 20,
+  "fields": {
+    "nombre": "FHDCP207 Alicate Corte 7″ Mango Rojo/Amarillo Fixtec",
+    "descripcion": "Alicate Corte 7'' Mango Rojo/Amarillo Fixtec",
+    "precio": 9100,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHDCP207_Alicate_Corte_7_Mango_Rojo-Amarillo_Fixtec.jpg",
+    "categoria": 6,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 21,
+  "fields": {
+    "nombre": "FHLNP206 Alicate 6″ Mango Rojo/Amarillo Fixtec",
+    "descripcion": "Alicate 6'' Mango Rojo/Amarillo Fixtec",
+    "precio": 7800,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHLNP206_Alicate_6_Mango_Rojo-Amarillo_Fixtec.jpg",
+    "categoria": 6,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 22,
+  "fields": {
+    "nombre": "FHCP207 Alicate 7″ Mango Rojo/Amarillo Fixtec",
+    "descripcion": "Alicate 7'' Mango Rojo/Amarillo Fixtec",
+    "precio": 9300,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHCP207_Alicate_7_Mango_Rojo-Amarillo_Fixtec.jpg",
+    "categoria": 6,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 23,
+  "fields": {
+    "nombre": "FHFN1006 Alicate Punta Plana 6″ Fixtec",
+    "descripcion": "Alicate Punta Plana 6'' Fixtec",
+    "precio": 3600,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHFN1006_Alicate_Punta_Plana_6_Fixtec.jpg",
+    "categoria": 6,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 24,
+  "fields": {
+    "nombre": "FHCJT4010 Caiman 10″ Fixtec",
+    "descripcion": "Caiman 10'' Fixtec",
+    "precio": 10700,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHCJT4010_Caiman_10_Fixtec.jpg",
+    "categoria": 6,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 25,
+  "fields": {
+    "nombre": "FHCPP3008 Alicate Carpintero 8″ Fixtec",
+    "descripcion": "Alicate Carpintero 8'' Fixtec",
+    "precio": 4800,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHCPP3008_Alicate_Carpintero_8_Fixtec.jpg",
+    "categoria": 6,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 26,
+  "fields": {
+    "nombre": "FHCJT5010 Caiman 10″ Fixtec",
+    "descripcion": "Caiman Fixtec",
+    "precio": 3680,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHCJT5010_Caiman_10_Fixtec.jpg",
+    "categoria": 6,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 27,
+  "fields": {
+    "nombre": "FHLN1006 Alicate Punta 6″ Fixtec",
+    "descripcion": "Alicate Punta 6'' Fixtec",
+    "precio": 3360,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHLN1006_Alicate_Punta_6_Fixtec.jpg",
+    "categoria": 6,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 28,
+  "fields": {
+    "nombre": "Alicate / Pinza Universal 200 mm Irimo",
+    "descripcion": "Alicate / Pinza Universal 200 mm Irimo",
+    "precio": 7300,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Alicate_-_Pinza_Universal_200_mm_Irimo.jpg",
+    "categoria": 6,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 29,
+  "fields": {
+    "nombre": "Destornillador Paleta 6 x 125 mm Fixtec",
+    "descripcion": "Destornillador Paleta 6 x 125 mm Fixtec",
+    "precio": 1140,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Destornillador_Paleta_6_x_125_mm_Fixtec.jpg",
+    "categoria": 7,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 30,
+  "fields": {
+    "nombre": "Destornillador Paleta Mango Rojo/Amarillo FHISS4100 Fixtec",
+    "descripcion": "Destornillador de paleta Fixtec modelo FHISS4100, con un diseño ergonómico y mango bicolor en rojo y amarillo para un agarre cómodo y seguro. Este destornillador es ideal para una variedad de tareas de ensamblaje, reparación y mantenimiento. Su hoja de acero de alta calidad proporciona durabilidad y resistencia, mientras que la punta plana está diseñada para encajar perfectamente en tornillos de cabeza ranurada, garantizando un ajuste preciso y una transferencia óptima de fuerza. Perfecto tanto para uso profesional como doméstico, el destornillador Fixtec FHISS4100 es una herramienta fiable y eficiente en cualquier caja de herramientas.",
+    "precio": 1500,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Destornillador_Paleta_Mango_Rojo-Amarillo_FHISS4100_Fixtec.jpg",
+    "categoria": 7,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 31,
+  "fields": {
+    "nombre": "FHSDT190 Destornillador Probador Fixtec",
+    "descripcion": "Destornillador Probador Fixtec",
+    "precio": 500,
+    "stock": 60,
+    "foto": "producto/2024/05/30/FHSDT190_Destornillador_Probador_Fixtec.jpg",
+    "categoria": 7,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 32,
+  "fields": {
+    "nombre": "FHIBSS08 Set 8 Destornilladores Fixtec",
+    "descripcion": "Set 8 Destornilladores Fixtec:\r\n\r\nPaleta 3x65mm\r\nPaleta 5x65mm\r\nPaleta 6x65mm\r\nPH0x65mm\r\nPH1x65mm\r\nPH2x65mm\r\nTirador de tachuelas\r\nPunzón",
+    "precio": 6100,
+    "stock": 15,
+    "foto": "producto/2024/05/30/FHIBSS08_Set_8_Destornilladores_Fixtec.jpg",
+    "categoria": 7,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 33,
+  "fields": {
+    "nombre": "FHPSB006 Set Destornilladores de Precisión 6 piezas Fixtec",
+    "descripcion": "Set Destornilladores de Precisión 6 piezas Fixtec:\r\n\r\nPaleta 1.0mm\r\nPaleta 1.4mm\r\nPaleta 1.8mm\r\nPaleta 2.0mm\r\nPH0\r\nPH1",
+    "precio": 2300,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHPSB006_Set_Destornilladores_de_Precisión_6_piezas_Fixtec.jpg",
+    "categoria": 7,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 34,
+  "fields": {
+    "nombre": "Set 7 Destornilladores Aislados Bahco",
+    "descripcion": "El juego incluye 7 destornilladores VDE aislados para tornillos de cabeza plana y Phillips (incluye un comprobador de tensión de 150 V a 250 V)\r\nIncluye B196 0,5 x 3 x 100 mm, 0,8 x 4 x 100 mm, 1 x 5,5 x 125 mm planos, 806-1-1 0,6 x 3 x 65 mm (comprobador de tensión de 150 V a 250 V)\r\nTornillos de cabeza Phillips B197 PH0 x 75 mm, PH1 x 80 mm, PH2 x 100 mm\r\nPunta fosfatada para mayor precisión; proporciona un ajuste preciso y sin descamación\r\nMango bi-componente con ranuras verticales antideslizantes y una gran área de agarre suave para mayor comodidad y alta transferencia de par\r\nPunta de símbolo indeleble, fácil de elegir la punta correcta\r\nAgujero colgante integrado\r\nHoja fabricada en acero de aleación de alto rendimiento para mayor resistencia y fiabilidad, aislamiento moldeado directamente sobre la hoja\r\nPara trabajar en equipos de baja tensión, hasta 1000 V\r\nInspeccionado individualmente y fabricado según IEC 60900, probado en un baño de agua a 10000 V\r\nEn la caja de cartón",
+    "precio": 24650,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Set_7_Destornilladores_Aislados_Bahco.jpg",
+    "categoria": 7,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 35,
+  "fields": {
+    "nombre": "Set de Destornilladores Fixtec",
+    "descripcion": "Set de Destornilladores Fixtec:\r\nPaleta 3x75mm\r\nPaleta 5x100mm\r\nPaleta 6x150mm\r\nPH0x75mm\r\nPH1x100mm\r\nPH2x150mm",
+    "precio": 3850,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Set_de_Destornilladores_Fixtec.jpg",
+    "categoria": 7,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 36,
+  "fields": {
+    "nombre": "Set de Destornilladores Imantados Fixtec",
+    "descripcion": "Set de Destornilladores Imantados Fixtec\r\nPaleta 6x38mm\r\nPaleta 5x75mm\r\nPaleta 6x100mm\r\nPH1x75mm\r\nPH2x38mm\r\nPH2x100mm",
+    "precio": 6120,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Set_de_Destornilladores_Imantados_Fixtec.jpg",
+    "categoria": 7,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 37,
+  "fields": {
+    "nombre": "Set 9 Piezas Llave Allen Bola Hexagonal 1.5-10mm Corta FHHK1019 Fixtec",
+    "descripcion": "Set de 9 piezas de llaves Allen de bola hexagonal Fixtec modelo FHHK1019, con medidas que van desde 1.5mm hasta 10mm. Estas llaves Allen, también conocidas como llaves hexagonales, son esenciales para ajustar y aflojar tornillos con cabezas hexagonales internas. El diseño de bola en el extremo permite un uso en ángulo, facilitando el acceso a espacios reducidos y difíciles de alcanzar. Fabricadas con acero de alta calidad, estas llaves ofrecen durabilidad y resistencia a la deformación. El set incluye una práctica funda para mantener las llaves organizadas y fácilmente accesibles, convirtiéndolo en una herramienta indispensable para cualquier tarea de ensamblaje, reparación y mantenimiento, tanto en el hogar como en el entorno profesional.",
+    "precio": 3600,
+    "stock": 10,
+    "foto": "producto/2024/05/30/Set_9_Piezas_Llave_Allen_Bola_Hexagonal_1.5-10mm_Corta_FHHK1019_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 38,
+  "fields": {
+    "nombre": "FHPW1010 Llave Inglesa 10″ Fixtec",
+    "descripcion": "Llave inglesa de 10 pulgadas modelo FHPW1010 de la marca Fixtec, diseñada para ofrecer versatilidad y precisión en trabajos de ajuste y reparación. Esta herramienta cuenta con una mandíbula ajustable que permite adaptarse a diferentes tamaños de tuercas y pernos, proporcionando un agarre seguro y firme. Fabricada con acero al cromo-vanadio, la llave inglesa garantiza durabilidad y resistencia a la corrosión, asegurando un rendimiento fiable a lo largo del tiempo. Su mango ergonómico recubierto ofrece comodidad y reduce la fatiga durante su uso prolongado. Ideal para tareas tanto en el hogar como en entornos profesionales, esta llave inglesa es una adición esencial a cualquier caja de herramientas.",
+    "precio": 5200,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHPW1010_Llave_Inglesa_10_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 39,
+  "fields": {
+    "nombre": "FHCPCRV06 Llave Punta Corona 6 Fixtec",
+    "descripcion": "Llave Punta Corona 6 Fixtec",
+    "precio": 1200,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHCPCRV06_Llave_Punta_Corona_6_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 40,
+  "fields": {
+    "nombre": "FHCPCRV11 Llave Punta Corona 11 Fixtec",
+    "descripcion": "Llave Punta Corona 11 Fixtec",
+    "precio": 1500,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHCPCRV11_Llave_Punta_Corona_11_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 41,
+  "fields": {
+    "nombre": "FHCPCRV19 Llave Punta Corona 19 Fixtec",
+    "descripcion": "Llave Punta Corona 19 Fixtec",
+    "precio": 2900,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHCPCRV19_Llave_Punta_Corona_19_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 42,
+  "fields": {
+    "nombre": "FHCPCRV25 Llave Punta Corona 25 Fixtec",
+    "descripcion": "Llave Punta Corona 25 Fixtec",
+    "precio": 5100,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHCPCRV25_Llave_Punta_Corona_25_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 43,
+  "fields": {
+    "nombre": "FHCRW1350 Llave Cruz 17x19x21x23 Fixtec",
+    "descripcion": "Llave Cruz 17x19x21x23 Fixtec",
+    "precio": 6200,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHCRW1350_Llave_Cruz_17x19x21x23_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 44,
+  "fields": {
+    "nombre": "FHRW1012 Llave Chicharra 1/2″ Fixtec",
+    "descripcion": "Llave Chicharra 1/2'' Fixtec",
+    "precio": 8700,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHRW1012_Llave_Chicharra_1-2_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 45,
+  "fields": {
+    "nombre": "Set 9 Piezas Llave Allen Hexagonal 1.5-10mm Larga FHHK0009 Fixtec",
+    "descripcion": "Set de 9 piezas de llaves Allen hexagonales largas Fixtec modelo FHHK0009, con tamaños que varían desde 1.5mm hasta 10mm. Estas llaves Allen, también conocidas como llaves hexagonales, son ideales para ajustar y aflojar tornillos con cabezas hexagonales internas. El diseño largo de las llaves permite un mayor alcance y facilita el acceso a áreas difíciles de alcanzar, ofreciendo una mayor palanca y torque. Fabricadas con acero de alta calidad, estas llaves proporcionan durabilidad y resistencia, asegurando un uso prolongado sin deformaciones. El set incluye una funda práctica para mantener las llaves organizadas y fácilmente accesibles, lo que lo convierte en una herramienta esencial para cualquier tarea de ensamblaje, reparación y mantenimiento tanto en el hogar como en el entorno profesional.",
+    "precio": 4000,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Set_9_Piezas_Llave_Allen_Hexagonal_1.5-10mm_Larga_FHHK0009_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 46,
+  "fields": {
+    "nombre": "FHPW1008 Llave Inglesa 8″ Fixtec",
+    "descripcion": "Llave inglesa de 8 pulgadas modelo FHPW1008 de la marca Fixtec, diseñada para ofrecer precisión y versatilidad en una variedad de tareas de ajuste y reparación. Esta herramienta cuenta con una mandíbula ajustable que permite adaptarse a diferentes tamaños de tuercas y pernos, proporcionando un agarre seguro y firme. Fabricada con acero de alta calidad y tratada térmicamente, la llave inglesa garantiza durabilidad y resistencia a la corrosión, asegurando un rendimiento fiable a lo largo del tiempo. Su diseño compacto y su mango ergonómico recubierto ofrecen comodidad y control, reduciendo la fatiga durante el uso prolongado. Ideal para tareas tanto en el hogar como en entornos profesionales, esta llave inglesa es una adición esencial a cualquier caja de herramientas, ofreciendo eficiencia y precisión en cada uso.",
+    "precio": 3700,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHPW1008_Llave_Inglesa_8_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 47,
+  "fields": {
+    "nombre": "Set 9 Piezas Llave Torx T10-T50 Corta FHHK2019 Fixtec",
+    "descripcion": "Este set de llaves Torx de Fixtec incluye 9 piezas, desde T10 hasta T50, hechas de acero al cromo-vanadio para máxima durabilidad. Diseñadas para ser cortas y compactas, son ideales para espacios reducidos. Con mangos ergonómicos, ofrecen un agarre cómodo y seguro, perfectas tanto para aficionados como para profesionales.",
+    "precio": 3600,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Set_9_Piezas_Llave_Torx_T10-T50_Corta_FHHK2019_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 48,
+  "fields": {
+    "nombre": "Set Llaves Doble Corona Chicharra S4RM/3T Bahco",
+    "descripcion": "Giro más rápido del fijador mediante la acción de trinquete\r\n4 tamaños por llave: 1 sola llave sirve para 4 tamaños de tornillo diferentes\r\nFácil de usar en espacios reducidos con un ángulo de funcionamiento de 5°\r\nInversión sencilla de la dirección con un conmutador\r\nReducción del desgaste del fijador con el perfil Dynamic Profile(TM) de 12 puntos\r\nPalanca de cambio rápido de sentido (izquierda/derecha)\r\nDisponible en un práctico estuche para llevarlo en el cinturón\r\nMayor vida útil de tuercas y tornillos con el perfil Dynamic Profile(TM) de 12 puntos\r\nAcabado mate cromado para una protección antioxidante de gran calidad\r\nAcero aleado de alto rendimiento",
+    "precio": 42800,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Set_Llaves_Doble_Corona_Chicharra_S4RM-3T_Bahco.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 49,
+  "fields": {
+    "nombre": "Set 94 Piezas Dados y Puntas 1/2″ y 1/4″ FHST2094 Fixtec",
+    "descripcion": "Dados 1/4″: 4,4.5,5,5.5,6,7,8,9,10,11,12,13,14MM\r\nDados Largos 1/4″: 6,7,8,9,10,11,12,13MM\r\nExtensiones 1/4″: 2″& 4″\r\nCardán 1/4″\r\nChicharrá 1/4″\r\nMango Giratorio 1/4″: 6″\r\nPuntas 1/4″: SL4,5.5,7 PH1,2 PZ1,2 HEX3,4,5,6 T8,10,15,20,25,30\r\nExtensión Flexible 1/4″: 6″\r\nBarra 1/4″\r\nDados 1/2″: 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,27,30,32MM\r\nDados Largos 1/2″: 14,15,17,19MM\r\nExtensiones 1/2″: 5″& 10″\r\nCardán 1/2″\r\nChicharrá 1/2″\r\nPuntas: SL8,10,12 T40,45,50,55 PH3,4 PZ3,4 HEX 8,10,12,14\r\nAdaptador Puntas 1/4″\r\nY más accesorios",
+    "precio": 57700,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Set_94_Piezas_Dados_y_Puntas_1-2_y_1-4_FHST2094_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 50,
+  "fields": {
+    "nombre": "Set Dados 1/4 Pulgadas – 3/4 Pulgadas 33 piezas S330 Bahco",
+    "descripcion": "Los fijadores sufren menos desgaste y daños gracias a los vasos con perfil Dynamic-Drive(TM).\r\nBotón de liberación rápida de los vasos de la carraca.\r\n12 vasos hexagonales de 3/8″: 10, 11,12, 13, 14,15, 16, 17, 18, 19, 20 y 22 mm.\r\n1 carraca de 3/8″: liberación rápida, 60 dientes y ángulo de acción de 6°.\r\n2 alargaderas de 3/8″: 75 mm/3″ y 150 mm/6″.\r\n1 articulación universal de 3/8″.\r\n1 portapuntas de 3/8″ x 1/4″.\r\n2 vasos para bujías hexagonales de 3/8″: 16 mm (5/8″) y 21 mm (13/16″).\r\n1 mango giratorio bi-componente de 1/4″.\r\n1 portapuntas de 1/4″ x 1/4″.\r\n3 puntas ranuradas de 1/4″: 4, 5,5 y 7 mm.\r\n4 puntas Phillips de 1/4″: PH1, PH2, PH3 y PH4.\r\n6 puntas hexagonales de 1/4″: 3, 4, 5, 6, 7 y 8 mm.\r\nAcabado mate.\r\nAleación de acero de alto rendimiento",
+    "precio": 65000,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Set_Dados_1-4_Pulgadas__3-4_Pulgadas_33_piezas_S330_Bahco.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 51,
+  "fields": {
+    "nombre": "Set 32 Piezas Dados 1/2″ FHST1332 Fixtec",
+    "descripcion": "Dados 1/2″:8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,24,27,30,32MM\r\nExtensiones:5″&10″\r\nChicharra de 1/2″\r\nY más accesorios",
+    "precio": 38400,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Set_32_Piezas_Dados_1-2_FHST1332_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 52,
+  "fields": {
+    "nombre": "Set 5 Llaves Punta y Corona con Chicharra FHCGS005 Fixtec",
+    "descripcion": "Este set de llaves Fixtec incluye 5 piezas con punta y corona, y función de chicharra, proporcionando versatilidad y eficiencia en tus proyectos. Fabricadas en acero al cromo-vanadio para durabilidad, son ideales para un uso intensivo. Las llaves están diseñadas ergonómicamente para un agarre cómodo, facilitando el trabajo tanto a aficionados como a profesionales.",
+    "precio": 21800,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Set_5_Llaves_Punta_y_Corona_con_Chicharra_FHCGS005_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 53,
+  "fields": {
+    "nombre": "Llave Ajustable 6 Pulgadas Fixtec",
+    "descripcion": "Esta llave ajustable de 6 pulgadas de Fixtec es una herramienta versátil y duradera, fabricada en acero de alta calidad. Ideal para ajustar y aflojar tuercas y tornillos de diferentes tamaños, su diseño ergonómico proporciona un agarre cómodo y seguro, haciendo que sea perfecta tanto para uso doméstico como profesional.",
+    "precio": 2380,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Llave_Ajustable_6_Pulgadas_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 54,
+  "fields": {
+    "nombre": "Llave Ajustable 8 Pulgadas Fixtec",
+    "descripcion": "Esta llave ajustable de 8 pulgadas de Fixtec está fabricada en acero de alta calidad, ofreciendo durabilidad y resistencia. Su diseño ergonómico permite un ajuste fácil y un agarre cómodo, ideal para trabajar con una variedad de tuercas y tornillos. Es perfecta tanto para aficionados al bricolaje como para profesionales en el campo.",
+    "precio": 3480,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Llave_Ajustable_8_Pulgadas_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 55,
+  "fields": {
+    "nombre": "Llave Punta Corona 29 FHCPCRV29 Fixtec",
+    "descripcion": "La llave punta corona 29 FHCPCRV29 de Fixtec está fabricada en acero al cromo-vanadio para mayor durabilidad y resistencia. Su diseño combina una llave de punta y una de corona, ofreciendo versatilidad para diversas aplicaciones. Es ideal para trabajos tanto en el hogar como profesionales, proporcionando un agarre cómodo y seguro gracias a su diseño ergonómico.",
+    "precio": 6300,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Llave_Punta_Corona_29_FHCPCRV29_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 56,
+  "fields": {
+    "nombre": "Juegos de Dados 3/8 Pulgadas 18 Piezas Irimo",
+    "descripcion": "13 dados 3/8″ hexagonales 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 19, 21, 22 mm.\r\nCarraca 3/8″ reversible tipo pera.\r\nAlargadera 3/8″, 75 mm.\r\nArticulación universal 3/8″.\r\nCabeza mango corredizo 3/8″.\r\nAlargadera 3/8″, 150 mm.\r\nJuego dados 18 piezas\r\nDados Hex mm.\r\nAcabado cromo plateado brillante.\r\nCaja fabricada en polietileno de alta densidad y resistencia.\r\nPeso: 3.250g",
+    "precio": 22900,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Juegos_de_Dados_3-8_Pulgadas_18_Piezas_Irimo.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 57,
+  "fields": {
+    "nombre": "Llave para Tubos Universal 28 centímetros 141T Bahco",
+    "descripcion": "La llave para tubos universal de 28 centímetros modelo 141T de Bahco está diseñada para ofrecer una sujeción firme y ajustable en tubos de diversos tamaños. Fabricada con materiales de alta calidad, garantiza durabilidad y resistencia. Su diseño ergonómico proporciona un agarre cómodo y seguro, haciéndola ideal tanto para trabajos de fontanería domésticos como profesionales.",
+    "precio": 37200,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Llave_para_Tubos_Universal_28_centímetros_141T_Bahco.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 58,
+  "fields": {
+    "nombre": "FHPW1012 Llave Inglesa 12″ Fixtec",
+    "descripcion": "La llave inglesa FHPW1012 de 12 pulgadas de Fixtec es una herramienta robusta y versátil, fabricada en acero de alta calidad para garantizar durabilidad. Su diseño ajustable permite trabajar con diferentes tamaños de tuercas y pernos, ofreciendo un agarre cómodo y seguro gracias a su mango ergonómico. Ideal tanto para aficionados como para profesionales.",
+    "precio": 6100,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHPW1012_Llave_Inglesa_12_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 59,
+  "fields": {
+    "nombre": "FHPW1018 Llave Inglesa 18″ Fixtec",
+    "descripcion": "La llave inglesa FHPW1018 de 18 pulgadas de Fixtec es una herramienta potente y versátil, fabricada en acero de alta calidad para garantizar una larga durabilidad. Su diseño ajustable permite trabajar con una amplia gama de tamaños de tuercas y pernos. El mango ergonómico proporciona un agarre cómodo y seguro, haciéndola ideal tanto para aficionados como para profesionales.",
+    "precio": 10200,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHPW1018_Llave_Inglesa_18_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 60,
+  "fields": {
+    "nombre": "FHAW7008 Llave Ajustable 8″ Fixtec",
+    "descripcion": "La llave ajustable FHAW7008 de 8 pulgadas de Fixtec es una herramienta versátil y duradera, fabricada en acero de alta calidad. Su diseño ajustable permite adaptarse a una variedad de tamaños de tuercas y pernos. Con un mango ergonómico para un agarre cómodo y seguro, es perfecta tanto para uso doméstico como profesional.",
+    "precio": 5300,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHAW7008_Llave_Ajustable_8_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 61,
+  "fields": {
+    "nombre": "FHAW7012 Llave Ajustable 12″ Fixtec",
+    "descripcion": "La llave ajustable FHAW7012 de 12 pulgadas de Fixtec está fabricada en acero de alta calidad, ofreciendo una gran durabilidad y resistencia. Su diseño ajustable permite trabajar con una amplia variedad de tamaños de tuercas y pernos. Con un mango ergonómico para un agarre cómodo y seguro, es ideal tanto para uso doméstico como profesional.",
+    "precio": 9300,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHAW7012_Llave_Ajustable_12_Fixtec.jpg",
+    "categoria": 8,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 62,
+  "fields": {
+    "nombre": "Martillo de Bola 16 Oz Fixtec",
+    "descripcion": "El martillo de bola de 16 oz Fixtec es perfecto para trabajos de metalurgia y conformado de metales. Fabricado en acero de alta calidad, ofrece durabilidad y resistencia. Su mango ergonómico garantiza un agarre cómodo y seguro, ideal para profesionales y aficionados.",
+    "precio": 5520,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Martillo_de_Bola_16_Oz_Fixtec.jpg",
+    "categoria": 9,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 63,
+  "fields": {
+    "nombre": "Combo 10 Libras FHSH74510 Fixtec",
+    "descripcion": "El combo de 10 libras FHSH74510 de Fixtec es una herramienta robusta, ideal para trabajos de demolición y construcción. Fabricado en acero de alta calidad, garantiza durabilidad y resistencia. Su mango ergonómico proporciona un agarre cómodo y seguro, haciéndolo perfecto para tareas intensivas tanto para aficionados como para profesionales.",
+    "precio": 22400,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Combo_10_Libras_FHSH74510_Fixtec.jpg",
+    "categoria": 9,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 64,
+  "fields": {
+    "nombre": "Combo 6 Libras FHSH72706 Fixtec",
+    "descripcion": "El combo de 6 libras FHSH72706 de Fixtec es una herramienta resistente, ideal para trabajos de demolición y construcción. Fabricado en acero de alta calidad, asegura durabilidad y rendimiento. Su mango ergonómico ofrece un agarre cómodo y seguro, perfecto tanto para aficionados como para profesionales en tareas exigentes.",
+    "precio": 15900,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Combo_6_Libras_FHSH72706_Fixtec.jpg",
+    "categoria": 9,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 65,
+  "fields": {
+    "nombre": "FHSH62000 Combo 2kg Fixtec",
+    "descripcion": "El combo de 2 kg FHSH62000 de Fixtec es una herramienta robusta y versátil, ideal para trabajos de demolición y construcción. Fabricado en acero de alta calidad, garantiza durabilidad y resistencia. Su mango ergonómico proporciona un agarre cómodo y seguro, haciéndolo perfecto tanto para aficionados como para profesionales.",
+    "precio": 8700,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHSH62000_Combo_2kg_Fixtec.jpg",
+    "categoria": 9,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 66,
+  "fields": {
+    "nombre": "FHMH61000 Martillo Mecánico 1000g Fixtec",
+    "descripcion": "El martillo mecánico de 1000g FHMH61000 de Fixtec es ideal para trabajos de mecánica y reparación. Fabricado en acero de alta calidad, ofrece durabilidad y precisión. Su mango ergonómico asegura un agarre cómodo y seguro, perfecto tanto para profesionales como para aficionados al bricolaje.",
+    "precio": 5900,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHMH61000_Martillo_Mecánico_1000g_Fixtec.jpg",
+    "categoria": 9,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 67,
+  "fields": {
+    "nombre": "FHCH20016 Martillo 16 oz Fixtec",
+    "descripcion": "El martillo de 16 oz FHCH20016 de Fixtec es una herramienta esencial para trabajos de carpintería y bricolaje. Fabricado en acero de alta calidad, garantiza durabilidad y resistencia. Su mango ergonómico proporciona un agarre cómodo y seguro, haciéndolo ideal tanto para profesionales como para aficionados.",
+    "precio": 3990,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHCH20016_Martillo_16_oz_Fixtec.jpg",
+    "categoria": 9,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 68,
+  "fields": {
+    "nombre": "Martillo Carpintero ERGO 450 Gr 529-16-L Bahco",
+    "descripcion": "Martillos fabricados acorde a los procesos científicos ERGO(TM)\r\nMartillo forjado de una pieza para trabajos muy exigentes\r\nAmplia apertura en la cabeza del martillo que permite mayor sujeción del clavo\r\nEl agarre del mango bi-componente inyectado directamente sobre el martillo forjado aumenta la seguridad en el trabajo\r\nEl mango de goma largo y curvo ofrece varias posiciones de agarre\r\nMayor curvatura en cabeza para mejorar la extracción de clavos\r\nLa forma curvada forjada se ajusta al clavo del cuerpo\r\nUña más gruesa para mayor durabilidad\r\nMáximo confort con el mínimo esfuerzo gracias a un diseño ergonómico\r\nMejor rendimiento de golpeo de la construcción de equilibrio óptimo\r\nAgarre cómodo, con 2 tamaños de mango disponibles\r\nEquilibrio optimizado para mayor efectividad y menor esfuerzo muscular\r\nVibración mínima gracias a la varilla especialmente diseñada\r\nPosiciones de agarre variables/a dos manos desde el agarre de goma largo",
+    "precio": 23250,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Martillo_Carpintero_ERGO_450_Gr_529-16-L_Bahco.jpg",
+    "categoria": 9,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 69,
+  "fields": {
+    "nombre": "Martillo de Goma 16 Oz Fixtec",
+    "descripcion": "El martillo de goma de 16 oz Fixtec es perfecto para trabajos que requieren un golpe suave sin dañar las superficies. Su cabeza de goma de alta calidad y mango ergonómico ofrecen durabilidad y un agarre cómodo y seguro, ideal tanto para profesionales como para aficionados al bricolaje.",
+    "precio": 2760,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Martillo_de_Goma_16_Oz_Fixtec.jpg",
+    "categoria": 9,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 70,
+  "fields": {
+    "nombre": "Martillo de Bola 24 Oz Fixtec",
+    "descripcion": "El martillo de bola de 24 oz Fixtec es ideal para trabajos de metalurgia y conformado de metales. Fabricado en acero de alta calidad, ofrece durabilidad y resistencia. Su mango ergonómico asegura un agarre cómodo y seguro, perfecto tanto para profesionales como para aficionados.",
+    "precio": 4940,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Martillo_de_Bola_24_Oz_Fixtec.jpg",
+    "categoria": 9,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 71,
+  "fields": {
+    "nombre": "Prensa Carpintero 120x300mm FHC43001 Fixtec",
+    "descripcion": "La prensa de carpintero FHC43001 de Fixtec, con una capacidad de 120x300mm, es una herramienta esencial para cualquier taller de carpintería. Fabricada en materiales de alta calidad, garantiza durabilidad y resistencia. Su diseño ergonómico y mecanismo de sujeción robusto permiten sujetar piezas de manera firme y segura, facilitando trabajos precisos y eficientes. Ideal para tanto profesionales como aficionados al bricolaje, esta prensa asegura estabilidad en todas tus tareas de carpintería.",
+    "precio": 8300,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Prensa_Carpintero_120x300mm_FHC43001_Fixtec.jpg",
+    "categoria": 10,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 72,
+  "fields": {
+    "nombre": "Set 4 Pinzas 6″ FHC2006-4 Fixtec",
+    "descripcion": "El set de 4 pinzas de 6 pulgadas FHC2006-4 de Fixtec es una colección versátil y esencial para cualquier caja de herramientas. Incluye pinzas de diferentes tipos, ideales para sujetar, doblar y cortar diversos materiales. Fabricadas en acero de alta calidad, ofrecen durabilidad y resistencia. Los mangos ergonómicos aseguran un agarre cómodo y seguro, haciéndolas perfectas tanto para aficionados como para profesionales.",
+    "precio": 2800,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Set_4_Pinzas_6_FHC2006-4_Fixtec.jpg",
+    "categoria": 10,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 73,
+  "fields": {
+    "nombre": "Prensa Angular 75mm/3″ FHC3003 Fixtec",
+    "descripcion": "La prensa angular FHC3003 de Fixtec, con una capacidad de 75mm/3″, es ideal para sujetar piezas en ángulo recto durante trabajos de ensamblaje y soldadura. Fabricada en materiales de alta calidad, garantiza durabilidad y precisión. Su diseño ergonómico y mecanismo robusto aseguran una sujeción firme y segura, facilitando trabajos eficientes tanto para profesionales como para aficionados.",
+    "precio": 2000,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Prensa_Angular_75mm-3_FHC3003_Fixtec.jpg",
+    "categoria": 10,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 74,
+  "fields": {
+    "nombre": "Prensa Rapida 300mm/12″ FHC1012 Fixtec",
+    "descripcion": "La prensa rápida FHC1012 de Fixtec, con una capacidad de 300mm/12″, es una herramienta ideal para sujetar materiales de forma rápida y segura. Fabricada en acero de alta calidad, ofrece durabilidad y resistencia. Su diseño ergonómico y mecanismo de ajuste rápido permiten un uso eficiente, perfecto tanto para profesionales como para aficionados al bricolaje.",
+    "precio": 3500,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Prensa_Rapida_300mm-12_FHC1012_Fixtec.jpg",
+    "categoria": 10,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 75,
+  "fields": {
+    "nombre": "Prensa Carpintero 120x1000mm FHC410001 Fixtec",
+    "descripcion": "La prensa de carpintero FHC410001 de Fixtec, con una capacidad de 120x1000mm, es perfecta para sujetar grandes piezas de madera durante trabajos de carpintería. Fabricada en materiales de alta calidad, garantiza durabilidad y firmeza. Su diseño ergonómico y mecanismo robusto aseguran una sujeción estable y segura, facilitando un trabajo preciso y eficiente tanto para profesionales como para aficionados al bricolaje.",
+    "precio": 12900,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Prensa_Carpintero_120x1000mm_FHC410001_Fixtec.jpg",
+    "categoria": 10,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 76,
+  "fields": {
+    "nombre": "FHGC0006 Prensa C 6″ Fixtec",
+    "descripcion": "La prensa en C FHGC0006 de 6″ de Fixtec es ideal para sujetar materiales durante trabajos de carpintería y metalurgia. Fabricada en acero de alta calidad, ofrece durabilidad y resistencia. Su diseño ergonómico asegura un agarre firme y seguro, facilitando un trabajo preciso y eficiente tanto para profesionales como para aficionados.",
+    "precio": 7600,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHGC0006_Prensa_C_6_Fixtec.jpg",
+    "categoria": 10,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 77,
+  "fields": {
+    "nombre": "FHBV0008 Tornillo Mecánico 8″ Fixtec",
+    "descripcion": "El tornillo mecánico de 8″ FHBV0008 de Fixtec es una herramienta esencial para sujetar y fijar piezas de manera segura durante trabajos de mecánica y bricolaje. Fabricado en acero de alta calidad, garantiza durabilidad y resistencia. Su diseño ergonómico proporciona un agarre cómodo y un ajuste preciso, ideal tanto para profesionales como para aficionados.",
+    "precio": 77500,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHBV0008_Tornillo_Mecánico_8_Fixtec.jpg",
+    "categoria": 10,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 78,
+  "fields": {
+    "nombre": "FHBV0006 Tornillo Mecánico 6″ Fixtec",
+    "descripcion": "El tornillo mecánico de 6″ FHBV0006 de Fixtec es una herramienta indispensable para sujetar y fijar piezas durante trabajos de mecánica y bricolaje. Fabricado en acero de alta calidad, ofrece durabilidad y resistencia. Su diseño ergonómico asegura un agarre cómodo y un ajuste preciso, ideal tanto para profesionales como para aficionados.",
+    "precio": 50500,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHBV0006_Tornillo_Mecánico_6_Fixtec.jpg",
+    "categoria": 10,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 79,
+  "fields": {
+    "nombre": "Marco Sierra 12″ Fixtec",
+    "descripcion": "El marco de sierra de 12″ Fixtec es ideal para cortes precisos en metal y madera. Fabricado en materiales de alta calidad, ofrece durabilidad y resistencia. Su estructura robusta asegura una hoja firme y minimiza las vibraciones. El diseño ergonómico del mango proporciona un agarre cómodo y seguro, permitiendo un control total durante el corte. Perfecto tanto para profesionales como para aficionados al bricolaje, este marco de sierra garantiza un rendimiento confiable en diversos trabajos.",
+    "precio": 2160,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Marco_Sierra_12_Fixtec.jpg",
+    "categoria": 11,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 80,
+  "fields": {
+    "nombre": "FHHS0450 Serrucho 18″ Fixtec",
+    "descripcion": "El serrucho de 18″ FHHS0450 de Fixtec es una herramienta esencial para cortes precisos en madera. Fabricado con una hoja de acero de alta calidad, ofrece durabilidad y un corte eficiente. Su diseño ergonómico del mango proporciona un agarre cómodo y seguro, permitiendo un control total y reduciendo la fatiga durante el uso. Ideal tanto para profesionales como para aficionados al bricolaje, este serrucho garantiza un rendimiento confiable en todos tus proyectos de carpintería.",
+    "precio": 3700,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHHS0450_Serrucho_18_Fixtec.jpg",
+    "categoria": 11,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 81,
+  "fields": {
+    "nombre": "FHHF0300 Arco de Sierra 12″ Fixtec",
+    "descripcion": "El arco de sierra de 12″ FHHF0300 de Fixtec es una herramienta versátil y duradera, ideal para cortes precisos en metal y madera. Fabricado en materiales de alta calidad, garantiza resistencia y longevidad. Su diseño ergonómico proporciona un agarre cómodo y seguro, permitiendo un control óptimo durante el corte. Perfecto tanto para profesionales como para aficionados al bricolaje, este arco de sierra es una adición esencial a cualquier caja de herramientas.",
+    "precio": 5000,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHHF0300_Arco_de_Sierra_12_Fixtec.jpg",
+    "categoria": 11,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 82,
+  "fields": {
+    "nombre": "Hoja de sierra de mano bi-metal Sandflex® 12×24 Bahco",
+    "descripcion": "Hoja bi-metal con dientes de precisión para todo tipo de corte de metal\r\nLa hoja Sandflex® combina un rendimiento de corte extremo y resistencia al desgaste\r\nAlto grado de flexibilidad y es muy superior a las hojas de alta velocidad totalmente duras o las hojas convencionales y flexibles\r\n-100: 10 paquetes de 10 hojas en caja de plástico negra con cubierta transparente\r\n-10P: 10 hojas en un embalaje especial con asa para colgar\r\n-5P: 5 hojas en un embalaje especial con asa para colgar\r\n-3P: 3 hojas, 1 cada una de 18, 24 y 32 TPI, en bolsa de plástico, caja de 10 paquetes\r\n-2P: 2 hojas en cartón, caja de 10 paquetes\r\nCon una parte posterior de la hoja de acero elástico fuerte y flexible y una línea de dientes en súper HSS de alta aleación\r\nPrácticamente irrompible e inastillable\r\nExcelentes propiedades antidesgaste de la tira de dientes de acero súper rápido en un respaldo flexible\r\nEsta hoja está garantizada para mantener su afilado durante mucho tiempo\r\nMayor comodidad y corte más fácil\r\nExcelente rendimiento, corte rápido y mayor longevidad",
+    "precio": 780,
+    "stock": 60,
+    "foto": "producto/2024/05/30/Hoja_de_sierra_de_mano_bi-metal_Sandflex_1224_Bahco.jpg",
+    "categoria": 11,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 83,
+  "fields": {
+    "nombre": "Mango BHS para Diestros Bahco",
+    "descripcion": "Mango del serrucho diseñado según los procesos científicos ERGO(TM)\r\nMango asimétrico en diferentes tamaños para usuarios diestros y zurdos\r\nLa forma asimétrica y el ala de apoyo extendida distribuyen la presión sobre la mano a toda la palma.\r\nLos mangos convencionales tienden a concentrar la presión en una línea en el centro de la mano\r\nPara diestros, hay disponibles tamaños grandes y medianos y para zurdos, está disponible el tamaño grande\r\nLos mangos se pueden utilizar con todas las hojas de sierra EX\r\nMáximo confort con el mínimo esfuerzo gracias a un diseño ergonómico\r\nGran comodidad gracias al diseño asimétrico que elimina los puntos de presión\r\nCambio rápido y fácil de la hoja de sierra mediante el sistema patentado Click\r\nDisponible en tamaño medio y grande para mano derecha, medio para mano izquierda",
+    "precio": 37750,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Mango_BHS_para_Diestros_Bahco.jpg",
+    "categoria": 11,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 84,
+  "fields": {
+    "nombre": "Serrucho 22 Pulgadas Barracuda 244 P-22-U7-HP Bahco",
+    "descripcion": "El mango cómodo y atornillado de 2 componentes puede usarse para guía de lima marking 45° y 90°. Rendimiento duradero con puntos endurecidos por inducción de alta frecuencia. Dientes de punto endurecido universales. Mayor estabilidad y precisión gracias a la hoja más gruesa. Para cortar materiales de grosor medio.\r\n\r\nSerrucho para cortar material de espesor medio\r\nDentado universal, con puntas templadas para un afilado duradero\r\nHoja gruesa que aumenta la estabilidad y precisión\r\nMango bi-componente atornillado a la hoja, que puede usarse como aproximación para marcar ángulos de 45° y 90º\r\n7/8 TPI",
+    "precio": 8650,
+    "stock": 30,
+    "foto": "producto/2024/05/30/Serrucho_22_Pulgadas_Barracuda_244_P-22-U7-HP_Bahco.jpg",
+    "categoria": 11,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 85,
+  "fields": {
+    "nombre": "FHFS0180 Sierra de Mano 7″ Fixtec",
+    "descripcion": "La sierra de mano de 7″ FHFS0180 de Fixtec es ideal para cortes precisos en madera y otros materiales. Fabricada con una hoja de acero de alta calidad, garantiza durabilidad y un corte eficiente. Su diseño ergonómico del mango ofrece un agarre cómodo y seguro, proporcionando un control total durante el uso. Perfecta tanto para profesionales como para aficionados al bricolaje, esta sierra de mano asegura un rendimiento confiable en todos tus proyectos.",
+    "precio": 3700,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHFS0180_Sierra_de_Mano_7_Fixtec.jpg",
+    "categoria": 11,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 86,
+  "fields": {
+    "nombre": "FHUC0003 Cuchillo Cartonero Fixtec",
+    "descripcion": "El cuchillo cartonero FHUC0003 de Fixtec es una herramienta esencial para cortes precisos en cartón, papel y otros materiales ligeros. Fabricado con una hoja afilada y retráctil de alta calidad, garantiza durabilidad y seguridad. Su diseño ergonómico proporciona un agarre cómodo y seguro, permitiendo un control óptimo durante el uso. Ideal tanto para profesionales como para aficionados al bricolaje, este cuchillo cartonero es una adición práctica a cualquier caja de herramientas.",
+    "precio": 4000,
+    "stock": 20,
+    "foto": "producto/2024/05/30/FHUC0003_Cuchillo_Cartonero_Fixtec.jpg",
+    "categoria": 11,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 87,
+  "fields": {
+    "nombre": "Hoja de sierra material de espesor fino y medio 11/12 Bahco",
+    "descripcion": "Para materiales de espesor medio y fino\r\nAfilado duradero gracias al dentado único XT, dientes de punta dura\r\nHoja más gruesa para un corte recto, de mayor precisión y excepcional estabilidad y confort\r\nBaja fricción, revestimiento protector de óxido\r\nSe usa junto con los mangos del Sistema Bahco de Serruchos, EX-RL, EX-RM o EX-LL.\r\nFácil y rápida colocación de la hoja en el mango, mediante el sistema patentado Click.",
+    "precio": 14550,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Hoja_de_sierra_material_de_espesor_fino_y_medio_11-12_Bahco.jpg",
+    "categoria": 11,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 88,
+  "fields": {
+    "nombre": "Serrucho de Punta 12 Pulgadas Mango Plastico Hela",
+    "descripcion": "Dientes templados extraduros\r\nProtector de dientes abisagrado reutilizable\r\nMango bicomponente, plástico rígido y goma blanda\r\nUso: Cortes de difícil acceso e interiores.",
+    "precio": 7220,
+    "stock": 30,
+    "foto": "producto/2024/05/30/Serrucho_de_Punta_12_Pulgadas_Mango_Plastico_Hela.jpg",
+    "categoria": 11,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 89,
+  "fields": {
+    "nombre": "Mochila para Herramientas FHTB01 Fixtec",
+    "descripcion": "Esta mochila para herramientas está hecha de material de poliéster 600D de alta calidad, conocido por su durabilidad y resistencia al desgaste. Esto garantiza que la mochila pueda soportar las exigencias del uso intensivo en diversos entornos de trabajo, proporcionando un rendimiento duradero.\r\n\r\nEsta mochila para el lugar de trabajo cuenta con múltiples bolsillos y compartimentos para acomodar una variedad de herramientas y accesorios. La mochila para herramientas está diseñada con bolsillos de diferentes tamaños y configuraciones en el interior y el exterior para acomodar una variedad de herramientas manuales, lo que la hace ideal para electricistas y carpinteros.",
+    "precio": 17200,
+    "stock": 30,
+    "foto": "producto/2024/05/30/Mochila_para_Herramientas_FHTB01_Fixtec.jpg",
+    "categoria": 12,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 90,
+  "fields": {
+    "nombre": "Caja Metalica para Herramientas 21″ FHTB211M Fixtec",
+    "descripcion": "La caja metálica para herramientas de 21″ FHTB211M de Fixtec es duradera y resistente, ideal para almacenar y transportar tus herramientas. Fabricada en acero de alta calidad, cuenta con un diseño espacioso y compartimentos internos para mantener todo organizado. Su asa ergonómica y cierre de seguridad robusto aseguran comodidad y protección en cualquier entorno de trabajo. Perfecta tanto para profesionales como para aficionados al bricolaje.",
+    "precio": 19400,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Caja_Metalica_para_Herramientas_21_FHTB211M_Fixtec.jpg",
+    "categoria": 12,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 91,
+  "fields": {
+    "nombre": "Carro de Herramientas FHTC02 Fixtec",
+    "descripcion": "Construcción de acero resistente\r\n\r\nLos rodamientos se deslizan en todos los cajones para facilitar la apertura\r\n\r\nEl acabado con recubrimiento y los sujetadores tratados resisten la oxidación\r\n\r\nCajones con cerradura con llaves\r\n\r\nDos ruedas giratorias y dos giratorias con bloqueo\r\n\r\n4 cajones",
+    "precio": 213100,
+    "stock": 5,
+    "foto": "producto/2024/05/30/Carro_de_Herramientas_FHTC02_Fixtec.jpg",
+    "categoria": 12,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 92,
+  "fields": {
+    "nombre": "Caja Herramientas 26″ Semi Profi Amarilla Patrol",
+    "descripcion": "La caja de herramientas de 26″ Semi Profi Amarilla de Patrol es ideal para mantener tus herramientas organizadas y fácilmente accesibles. Con un diseño robusto y espacioso, ofrece suficiente capacidad para una amplia variedad de herramientas. Fabricada con materiales de alta calidad, garantiza durabilidad y resistencia. Su color amarillo brillante facilita la identificación, mientras que el asa ergonómica y los cierres seguros proporcionan comodidad y protección durante el transporte. Perfecta tanto para profesionales como para aficionados al bricolaje.",
+    "precio": 37900,
+    "stock": 20,
+    "foto": "producto/2024/05/30/Caja_Herramientas_26_Semi_Profi_Amarilla_Patrol.jpg",
+    "categoria": 12,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 93,
+  "fields": {
+    "nombre": "FHTS026 Caja con 26 Herramientas Fixtec",
+    "descripcion": "Caja con 26 Herramientas Fixtec:\r\n\r\n1 Caja de 17″ (42x22x19.5 cms)\r\n9 Llaves Allen 1.5/2/2.5/3/4/5/6/8/10mm\r\n5 Llaves Punta Corona 8/10/12/14/17mm\r\n3 Destornilladores Paleta 5x100mm; 6x125mm; 6.0x150mm\r\n3 Destornilladores Phillips PH1x100mm; PH2x125mm; PH2x150mm\r\n1 Alicate Universal 7″\r\n1 Martillo 8oz\r\n1 Cartonero 18mm\r\n1 Huincha 5 Metros\r\n1 Par de Guantes 10″",
+    "precio": 41900,
+    "stock": 15,
+    "foto": "producto/2024/05/30/FHTS026_Caja_con_26_Herramientas_Fixtec.jpg",
+    "categoria": 12,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 94,
+  "fields": {
+    "nombre": "Lija al Agua Grano 500",
+    "descripcion": "La lija al agua grano 500 es ideal para trabajos de acabado fino en superficies de metal, madera y plástico. Su grano fino permite un lijado suave y preciso, eliminando imperfecciones y preparando la superficie para el pintado o el pulido. Resistente al agua, es perfecta para lijado en húmedo, reduciendo el polvo y prolongando la vida útil de la lija. Ideal tanto para profesionales como para aficionados al bricolaje que buscan un acabado de alta calidad.",
+    "precio": 430,
+    "stock": 100,
+    "foto": "producto/2024/05/30/Lija_al_Agua_Grano_500.jpg",
+    "categoria": 13,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 95,
+  "fields": {
+    "nombre": "Lija Fierro Grano 180",
+    "descripcion": "La lija para fierro grano 180 es perfecta para trabajos de desbaste y alisado en superficies metálicas. Su grano medio permite eliminar óxido, pintura y otras imperfecciones, dejando la superficie lista para posteriores tratamientos. Fabricada con materiales de alta calidad, ofrece durabilidad y eficiencia. Ideal tanto para profesionales como para aficionados al bricolaje que requieren un rendimiento confiable y resultados de calidad.",
+    "precio": 805,
+    "stock": 100,
+    "foto": "producto/2024/05/30/Lija_Fierro_Grano_180.jpg",
+    "categoria": 13,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 96,
+  "fields": {
+    "nombre": "Lija de Madera Grano 40",
+    "descripcion": "La lija de madera grano 40 es ideal para trabajos de desbaste en superficies de madera. Su grano grueso permite eliminar rápidamente imperfecciones, pintura vieja y nivelar superficies irregulares. Fabricada con materiales duraderos, garantiza eficiencia y larga vida útil. Perfecta tanto para profesionales como para aficionados al bricolaje que buscan un lijado agresivo y efectivo.",
+    "precio": 195,
+    "stock": 100,
+    "foto": "producto/2024/05/30/Lija_de_Madera_Grano_40.jpg",
+    "categoria": 13,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 97,
+  "fields": {
+    "nombre": "Lija Fierro Grano 100",
+    "descripcion": "La lija para fierro grano 100 es ideal para trabajos de desbaste moderado y preparación de superficies metálicas. Su grano medio-fino permite eliminar óxido, pintura y pequeñas imperfecciones, dejando una superficie lista para un acabado más fino. Fabricada con materiales de alta calidad, ofrece durabilidad y un rendimiento eficiente, perfecta tanto para profesionales como para aficionados al bricolaje.",
+    "precio": 810,
+    "stock": 100,
+    "foto": "producto/2024/05/30/Lija_Fierro_Grano_100.jpg",
+    "categoria": 13,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 98,
+  "fields": {
+    "nombre": "Hisopo 1 1/2″ Alambre Acero Ondulado Templado 0.35mm Hela",
+    "descripcion": "Acople hilo universal de 1/2 para extensiones\r\nLargo : 200 mm\r\nUso: Limpieza de chimeneas.",
+    "precio": 12130,
+    "stock": 50,
+    "foto": "producto/2024/05/30/Hisopo_1_1-2_Alambre_Acero_Ondulado_Templado_0.35mm_Hela.jpg",
+    "categoria": 13,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 99,
+  "fields": {
+    "nombre": "Escobilla de Alambres Acero Recto 6×18 Hela",
+    "descripcion": "Alambre de acero templado\r\nMango anatómico de madera fresada, libre de astillas\r\nAnclaje reforzado de los mechones de alambre al cuerpo\r\nUso: Limpieza de superficies metálicas ferrosas.\r\nElimina óxido y pintura.",
+    "precio": 3180,
+    "stock": 60,
+    "foto": "producto/2024/05/30/Escobilla_de_Alambres_Acero_Recto_618_Hela.jpg",
+    "categoria": 13,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 100,
+  "fields": {
+    "nombre": "Escobilla de Alambres Acero Ondulado 6 x 18 Hela",
+    "descripcion": "Alambre de acero templado\r\nMango anatómico de madera fresada, libre de astillas\r\nAnclaje reforzado de los mechones de alambre al cuerpo\r\nUso: Limpieza de superficies metálicas ferrosas.\r\nElimina óxido y pintura.",
+    "precio": 4880,
+    "stock": 50,
+    "foto": "producto/2024/05/30/Escobilla_de_Alambres_Acero_Ondulado_6_x_18_Hela.jpg",
+    "categoria": 13,
+    "activo": true
+  }
+},
+{
+  "model": "Pedidos.producto",
+  "pk": 101,
+  "fields": {
+    "nombre": "Escobilla de Alambres Acero Recto Mango Madera Hela",
+    "descripcion": "Alambre de acero templado\r\nMango anatómico de madera fresada, libre de astillas\r\nAnclaje reforzado de los mechones de alambre al cuerpo\r\nUso: Limpieza de superficies metálicas ferrosas.\r\nElimina óxido y pintura.",
+    "precio": 3050,
+    "stock": 40,
+    "foto": "producto/2024/05/30/Escobilla_de_Alambres_Acero_Recto_Mango_Madera_Hela.jpg",
+    "categoria": 13,
+    "activo": true
+  }
+}
+]
