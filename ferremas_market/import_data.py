@@ -7,4 +7,4 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ferremas_market.settings')
 django.setup()
 
 with open('productos_categoria.json', 'r', encoding='utf-8') as archivo:
-    call_command('loaddata', 'productos.json')
+    call_command('loaddata', 'productos_categoria.json')

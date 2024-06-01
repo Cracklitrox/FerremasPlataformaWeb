@@ -30,7 +30,20 @@
     <!-- Scripts -->
 
     <!-- Block JS -->
-    {% block js%}
-    {% endblock%}
+    {% block js %}
+    <script>
+        // Limpiar el carrito
+        function limpiarCarrito() {
+            localStorage.removeItem('cart');
+            cart.length = 0;
+            updateCartUI();
+        }
+
+        // Llamar a limpiarCarrito si la transacción fue exitosa
+        {% if limpiar_carrito %}
+            limpiarCarrito();
+        {% endif %}
+    </script>
+    {% endblock %}
 </body>
 </html>

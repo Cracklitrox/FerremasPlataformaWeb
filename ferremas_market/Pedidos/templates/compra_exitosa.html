@@ -1,0 +1,18 @@
+{% extends 'base_pedido.html' %}
+{% load static %}
+
+{% block title %}
+Compra Exitosa
+{% endblock %}
+
+{% block content %}
+<h1>¡Transacción Exitosa!</h1>
+<p>Gracias por tu compra. Tu transacción ha sido completada con éxito.</p>
+<p>Detalles de la transacción:</p>
+<ul>
+    <li>ID de Transacción: {{ response.buy_order }}</li>
+    <li>Monto: {{ response.amount }}</li>
+    <li>Fecha: {{ response.transaction_date }}</li>
+</ul>
+<a href="{% url 'index_cliente' %}">Volver a la página principal</a>
+{% endblock %}

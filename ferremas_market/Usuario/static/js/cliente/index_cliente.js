@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const usuarioIdElement = document.getElementById('user-id');
     const usuarioId = usuarioIdElement ? usuarioIdElement.value : null;
+    const cancelButton = document.getElementById('cancel-button');
     console.log("Usuario ID obtenido:", usuarioId);
 
     function getCookie(name) {
@@ -114,6 +115,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function limpiarCarrito() {
+        localStorage.removeItem('cart');
+        cart.length = 0;
+        updateCartUI();
+    }
+
     function formatPrice(price) {
         return price.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
     }
@@ -171,6 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cart.length = 0;
         guardarCarrito();
         updateCartUI();
+        limpiarCarrito();
     }
 
     function actualizarStock(productData = null) {
@@ -184,9 +192,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             return;
         }
-
+    
         let productsToBuy = productData ? [productData] : cart;
-
+    
         if (!productData && productsToBuy.length === 0) {
             Swal.fire({
                 icon: 'error',
@@ -197,16 +205,16 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             return;
         }
-
+    
         console.log("Productos a comprar:", productsToBuy);
-
+    
         const requestData = {
             usuario_id: usuarioId,
             items: productsToBuy
         };
-
+    
         console.log("Enviando datos al servidor:", requestData);
-
+    
         fetch('/Pedidos/api/update-stock/', {
             method: 'POST',
             headers: {
@@ -224,18 +232,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             console.log("Respuesta del servidor:", data);
             if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Compra realizada',
-                    text: 'El stock ha sido actualizado correctamente',
-                    timer: 2000,
-                    showConfirmButton: false
-                }).then(() => {
-                    location.reload();
-                });
-                if (!productData) {
-                    clearCart();
-                }
+                window.location.href = data.redirect_url;
+                limpiarCarrito();
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -255,6 +253,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 showConfirmButton: false
             });
             console.error('Error:', error);
+        });
+    }
+
+    if (cancelButton) {
+        cancelButton.addEventListener('click', function() {
+            const token = new URLSearchParams(window.location.search).get('TBK_TOKEN');
+            if (token) {
+                fetch(`/Pedidos/api/anular-compra/?token_ws=${token}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            window.location.href = '/Usuario/';
+                        } else {
+                            alert('Error al anular la compra: ' + data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                window.location.href = '/Usuario/';
+            }
         });
     }
 

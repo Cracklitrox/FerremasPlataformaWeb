@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from Usuario.models import Cliente
 from django.utils import timezone
@@ -63,6 +64,17 @@ class Compra(models.Model):
     usuario = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='compras')
     fecha_compra = models.DateTimeField(auto_now_add=True)
     total = models.IntegerField()
+    transaction_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    metodo_pago = models.CharField(max_length=50)
+    numero_tarjeta = models.CharField(max_length=20, blank=True, null=True)
+    codigo_autorizacion = models.CharField(max_length=20, blank=True, null=True)
+    codigo_respuesta = models.CharField(max_length=3, blank=True, null=True)
+    estado = models.CharField(max_length=20, default='Pendiente')
+    numero_cuotas = models.IntegerField(null=True, blank=True)
+    monto_cuota = models.FloatField(null=True, blank=True)
+    fecha_autorizacion = models.CharField(max_length=5, blank=True, null=True)
+    fechaHora_autorizacion = models.DateTimeField(null=True, blank=True)
+    saldo_transaccion = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return f'Compra {self.id} - {self.usuario.username} - {self.fecha_compra}'
@@ -75,3 +87,18 @@ class DetalleCompra(models.Model):
 
     def __str__(self):
         return f'{self.producto.nombre} x {self.cantidad}'
+
+class InformacionPago(models.Model):
+    usuario = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='informacion_pago')
+    alias = models.CharField(max_length=50, null=True, blank=True)
+    numero_tarjeta = models.CharField(max_length=20, blank=True, null=True)
+    tipo_tarjeta = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+class TarjetaCredito(InformacionPago):
+    activa = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'Tarjeta {self.tipo_tarjeta} - {self.numero_tarjeta[-4:]}'

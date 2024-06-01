@@ -1,0 +1,17 @@
+{% extends 'base_pedido.html' %}
+{% load static %}
+
+{% block title %}
+Compra Exitosa
+{% endblock %}
+
+{% block content %}
+<h1>Transacción Fallida</h1>
+<p>Lo sentimos, tu transacción no pudo ser completada. Por favor, intenta nuevamente.</p>
+<p>Detalles del error:</p>
+<ul>
+    <li>ID de Transacción: {{ response.buy_order }}</li>
+    <li>Mensaje de Error: {{ response.status }}</li>
+</ul>
+<a href="{% url 'index_cliente' %}">Volver a la página principal</a>
+{% endblock %}
