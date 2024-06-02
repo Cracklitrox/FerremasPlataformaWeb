@@ -1,7 +1,8 @@
 {% extends 'base_usuario.html' %}
 {% load static %}
 {% block css_cliente %}
-<link rel="stylesheet" href="{% static 'css/cliente/style_index_cliente.css' %}">
+<link rel="stylesheet" href="{% static 'css/cliente/pagina_index_cliente.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 {% endblock %}
 
 {% block cliente %}
@@ -73,8 +74,11 @@
                         <i class="fa-solid fa-user nav-icon"></i>
                     </a>
                     {% endif %}
+                    <button id="recibo-icon" class="text-decoration-none text-dark">
+                    🧾
+                    </button>
                     <button id="cart-icon" class="text-decoration-none text-dark">
-                        🛒
+                    🛒
                     </button>
                 </div>
             </div>

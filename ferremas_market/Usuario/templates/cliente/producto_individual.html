@@ -2,9 +2,7 @@
 
 {% load static %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/cliente/style_index_cliente.css' %}">
 <link rel="stylesheet" href="{% static 'css/cliente/style_producto_individual.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 {% endblock %}
 
 {% block title %}
@@ -64,7 +62,7 @@ Producto
     </div>
 </div>
 {% endblock %}
-{% block js_cliente %}
+{% block js %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const prevButton = document.getElementById('prev');
@@ -92,16 +90,4 @@ Producto
         });
     });
 </script>
-<script>
-    // Limpiar el carrito
-    function limpiarCarrito() {
-        localStorage.removeItem('cart');
-        cart.length = 0;
-        updateCartUI();
-    }
-    document.getElementById('logout-form').addEventListener('submit', function(event) {
-        limpiarCarrito();
-    });
-</script>
-<script src="{% static 'js/cliente/index_cliente.js' %}"></script>
 {% endblock %}

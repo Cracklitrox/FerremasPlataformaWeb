@@ -356,6 +356,10 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCartUI();
     });
 
+    document.getElementById("recibo-icon").addEventListener("click", function() {
+        window.location.href = '/Usuario/cliente/historial-compras/';
+    });
+
     document.getElementById("close-btn").addEventListener("click", function() {
         closeSidebar();
     });

@@ -1,4 +1,6 @@
 from django.http import Http404, JsonResponse
+from datetime import datetime
+from babel.dates import format_datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
@@ -422,6 +424,97 @@ def register_cliente(request):
     else:
         form = ClienteCreacionForm()
     return render(request, 'cliente/register_cliente.html', {'form': form})
+
+def formatear_fecha(fecha):
+    return format_datetime(fecha, "d 'de' MMMM y, h:mm a", locale='es')
+
+@mantener_sesion('cliente')
+def historial_compras(request):
+    cliente_id = request.session.get('cliente_id')
+    compras = Compra.objects.filter(usuario=cliente_id).order_by('-fecha_compra')
+
+    estados_traducidos = {
+        'INITIALIZED': 'Iniciado',
+        'AUTHORIZED': 'Autorizado',
+        'REVERSED': 'Revertido',
+        'FAILED': 'Fallido',
+        'NULLIFIED': 'Anulado',
+        'PARTIALLY_NULLIFIED': 'Parcialmente anulado',
+        'CAPTURED': 'Capturado',
+        'Pendiente': 'Pendiente'  # Este ya está en español
+    }
+
+    metodos_pago_traducidos = {
+        'VD': 'Venta Débito',
+        'VN': 'Venta Normal',
+        'VC': 'Venta en cuotas',
+        'SI': '3 cuotas sin interés',
+        'S2': '2 cuotas sin interés',
+        'NC': 'N Cuotas sin interés',
+        'VP': 'Venta Prepago'
+    }
+
+    compras_traducidas = []
+    for compra in compras:
+        compra_traducida = compra
+        compra_traducida.estado_traducido = estados_traducidos.get(compra.estado, compra.estado)
+        compra_traducida.metodo_pago_traducido = metodos_pago_traducidos.get(compra.metodo_pago, compra.metodo_pago)
+        compra_traducida.fecha_compra_formateada = formatear_fecha(compra.fecha_compra)
+        compras_traducidas.append(compra_traducida)
+
+    context = {
+        'compras': compras_traducidas,
+        'cliente_id': cliente_id,
+    }
+    return render(request, 'cliente/historial_compras.html', context)
+
+def detalles_compra(request, compra_id):
+    cliente_id = request.session.get('cliente_id')
+    compra = Compra.objects.get(id=compra_id, usuario=cliente_id)
+    detalles = DetalleCompra.objects.filter(compra=compra)
+
+    estados_traducidos = {
+        'INITIALIZED': 'Iniciado',
+        'AUTHORIZED': 'Autorizado',
+        'REVERSED': 'Revertido',
+        'FAILED': 'Fallido',
+        'NULLIFIED': 'Anulado',
+        'PARTIALLY_NULLIFIED': 'Parcialmente anulado',
+        'CAPTURED': 'Capturado',
+        'Pendiente': 'Pendiente'  # Este ya está en español
+    }
+
+    metodos_pago_traducidos = {
+        'VD': 'Venta Débito',
+        'VN': 'Venta Normal',
+        'VC': 'Venta en cuotas',
+        'SI': '3 cuotas sin interés',
+        'S2': '2 cuotas sin interés',
+        'NC': 'N Cuotas sin interés',
+        'VP': 'Venta Prepago'
+    }
+
+    detalles_data = [
+        {
+            'producto_nombre': detalle.producto.nombre,
+            'imagen': detalle.producto.foto.url,
+            'cantidad': detalle.cantidad,
+            'precio': detalle.precio
+        }
+        for detalle in detalles
+    ]
+
+    compra_data = {
+        'id': compra.id,
+        'fecha_compra': formatear_fecha(compra.fecha_compra),
+        'total': compra.total,
+        'metodo_pago': metodos_pago_traducidos.get(compra.metodo_pago, compra.metodo_pago),
+        'numero_tarjeta': compra.numero_tarjeta,
+        'codigo_autorizacion': compra.codigo_autorizacion,
+        'estado': estados_traducidos.get(compra.estado, compra.estado),
+        'detalles': detalles_data
+    }
+    return JsonResponse(compra_data)
 
 
 ##################################

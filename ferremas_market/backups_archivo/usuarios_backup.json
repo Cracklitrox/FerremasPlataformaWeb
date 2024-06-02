@@ -1,0 +1,662 @@
+[
+{
+  "model": "Usuario.usuario",
+  "pk": 1,
+  "fields": {
+    "password": "JuaLop_17564321",
+    "last_login": null,
+    "run": 17564321,
+    "dv_run": "5",
+    "primer_nombre": "Juan",
+    "primer_apellido": "Lopez",
+    "numero_telefonico": "",
+    "fecha_creacion": "2024-06-02T01:18:33.374Z",
+    "username": "Juan_Lopez",
+    "correo": "ferremasJuanLopez@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 2,
+  "fields": {
+    "password": "GonGal_16987354",
+    "last_login": null,
+    "run": 16987354,
+    "dv_run": "k",
+    "primer_nombre": "Gonzales",
+    "primer_apellido": "Gallardo",
+    "numero_telefonico": "",
+    "fecha_creacion": "2024-06-02T01:19:00.678Z",
+    "username": "Gonzales_Gallardo",
+    "correo": "ferremasGonzalesGallardo@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 3,
+  "fields": {
+    "password": "ferremasAlmonacid123",
+    "last_login": null,
+    "run": 19642957,
+    "dv_run": "9",
+    "primer_nombre": "Arturo",
+    "primer_apellido": "Almonacid",
+    "numero_telefonico": "",
+    "fecha_creacion": "2024-06-02T01:19:46.758Z",
+    "username": "Arturo_Almonacid",
+    "correo": "ferremasArturoAlmonacid@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 4,
+  "fields": {
+    "password": "FraAgu_20658756",
+    "last_login": null,
+    "run": 20658756,
+    "dv_run": "4",
+    "primer_nombre": "Francisca",
+    "primer_apellido": "Aguilar",
+    "numero_telefonico": "",
+    "fecha_creacion": "2024-06-02T01:20:40.148Z",
+    "username": "Francisca_Aguilar",
+    "correo": "ferremasFranciscaAguilar@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 5,
+  "fields": {
+    "password": "MirAlm_21465987",
+    "last_login": null,
+    "run": 21465987,
+    "dv_run": "3",
+    "primer_nombre": "Miranda",
+    "primer_apellido": "Almonacid",
+    "numero_telefonico": "",
+    "fecha_creacion": "2024-06-02T01:21:53.554Z",
+    "username": "Miranda_Almonacid",
+    "correo": "ferremasMirandaAlmonacid@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 6,
+  "fields": {
+    "password": "contra15645324",
+    "last_login": "2024-06-02T01:33:19.135Z",
+    "run": 15645324,
+    "dv_run": "K",
+    "primer_nombre": "Juan",
+    "primer_apellido": "Pérez",
+    "numero_telefonico": "+56912345678",
+    "fecha_creacion": "2024-06-02T01:32:51.282Z",
+    "username": "juanperez",
+    "correo": "juan.perez@example.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 7,
+  "fields": {
+    "password": "contra20654321",
+    "last_login": null,
+    "run": 20654321,
+    "dv_run": "5",
+    "primer_nombre": "María",
+    "primer_apellido": "González",
+    "numero_telefonico": "+56987654321",
+    "fecha_creacion": "2024-06-02T01:34:12.967Z",
+    "username": "mariagonzalez",
+    "correo": "maria.gonzalez@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 8,
+  "fields": {
+    "password": "contra23625894",
+    "last_login": "2024-06-02T01:35:25.581Z",
+    "run": 23625894,
+    "dv_run": "1",
+    "primer_nombre": "Carlos",
+    "primer_apellido": "Soto",
+    "numero_telefonico": "+56923456789",
+    "fecha_creacion": "2024-06-02T01:35:17.266Z",
+    "username": "carlossoto",
+    "correo": "carlos.soto@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 9,
+  "fields": {
+    "password": "contra20567890",
+    "last_login": null,
+    "run": 20567890,
+    "dv_run": "2",
+    "primer_nombre": "Ana",
+    "primer_apellido": "Muñoz",
+    "numero_telefonico": "+56934567890",
+    "fecha_creacion": "2024-06-02T01:36:16.618Z",
+    "username": "anamunoz",
+    "correo": "ana.munoz@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 10,
+  "fields": {
+    "password": "contra17654329",
+    "last_login": "2024-06-02T01:38:12.767Z",
+    "run": 17654329,
+    "dv_run": "6",
+    "primer_nombre": "Fernando",
+    "primer_apellido": "Alonso",
+    "numero_telefonico": "+56931946587",
+    "fecha_creacion": "2024-06-02T01:37:58.597Z",
+    "username": "fernandoalonso",
+    "correo": "fernando.alonso@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 11,
+  "fields": {
+    "password": "contra20789012",
+    "last_login": null,
+    "run": 20789012,
+    "dv_run": "7",
+    "primer_nombre": "Camila",
+    "primer_apellido": "Rojas",
+    "numero_telefonico": "+56956789012",
+    "fecha_creacion": "2024-06-02T01:40:28.570Z",
+    "username": "camilarojas",
+    "correo": "camila.rojas@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 12,
+  "fields": {
+    "password": "contra19890123",
+    "last_login": null,
+    "run": 19890123,
+    "dv_run": "7",
+    "primer_nombre": "Jorge",
+    "primer_apellido": "Pizarro",
+    "numero_telefonico": "+56978901234",
+    "fecha_creacion": "2024-06-02T01:41:35.120Z",
+    "username": "jorgepizarro",
+    "correo": "jorge.pizarro@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 13,
+  "fields": {
+    "password": "contra20901234",
+    "last_login": null,
+    "run": 20901234,
+    "dv_run": "3",
+    "primer_nombre": "Verónica",
+    "primer_apellido": "Salazar",
+    "numero_telefonico": "+56978901234",
+    "fecha_creacion": "2024-06-02T01:42:37.204Z",
+    "username": "veronicasalazar",
+    "correo": "veronica.salazar@example.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 14,
+  "fields": {
+    "password": "contra17321098",
+    "last_login": null,
+    "run": 17321098,
+    "dv_run": "5",
+    "primer_nombre": "Miguel",
+    "primer_apellido": "Hernández",
+    "numero_telefonico": "+56954321098",
+    "fecha_creacion": "2024-06-02T01:43:23.471Z",
+    "username": "miguelhernandez",
+    "correo": "miguel.hernandez@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 15,
+  "fields": {
+    "password": "contra19223344",
+    "last_login": null,
+    "run": 19223344,
+    "dv_run": "8",
+    "primer_nombre": "Francisco",
+    "primer_apellido": "López",
+    "numero_telefonico": "+56911223344",
+    "fecha_creacion": "2024-06-02T01:44:47.026Z",
+    "username": "franciscolopez",
+    "correo": "francisco.lopez@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 16,
+  "fields": {
+    "password": "contra20332211",
+    "last_login": null,
+    "run": 20332211,
+    "dv_run": "K",
+    "primer_nombre": "Claudia",
+    "primer_apellido": "Martínez",
+    "numero_telefonico": "+56944332211",
+    "fecha_creacion": "2024-06-02T01:45:25.173Z",
+    "username": "claudiamartinez",
+    "correo": "claudia.martinez@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 17,
+  "fields": {
+    "password": "contra20667788",
+    "last_login": null,
+    "run": 20667788,
+    "dv_run": "9",
+    "primer_nombre": "Ricardo",
+    "primer_apellido": "Gutiérrez",
+    "numero_telefonico": "+56955667788",
+    "fecha_creacion": "2024-06-02T01:46:06.839Z",
+    "username": "ricardogutierrez",
+    "correo": "ricardo.gutierrez@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 18,
+  "fields": {
+    "password": "contra18776655",
+    "last_login": null,
+    "run": 18776655,
+    "dv_run": "k",
+    "primer_nombre": "Laura",
+    "primer_apellido": "Navarro",
+    "numero_telefonico": "+56988776655",
+    "fecha_creacion": "2024-06-02T01:46:58.182Z",
+    "username": "lauranavarro",
+    "correo": "laura.navarro@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 19,
+  "fields": {
+    "password": "contra20887766",
+    "last_login": null,
+    "run": 20887766,
+    "dv_run": "8",
+    "primer_nombre": "Felipe",
+    "primer_apellido": "Castro",
+    "numero_telefonico": "+56999887766",
+    "fecha_creacion": "2024-06-02T01:47:43.073Z",
+    "username": "felipecastro",
+    "correo": "felipe.castro@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 20,
+  "fields": {
+    "password": "contra19778899",
+    "last_login": null,
+    "run": 19778899,
+    "dv_run": "5",
+    "primer_nombre": "Daniela",
+    "primer_apellido": "Vega",
+    "numero_telefonico": "+56966778899",
+    "fecha_creacion": "2024-06-02T01:48:31.217Z",
+    "username": "danielavega",
+    "correo": "daniela.vega@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 21,
+  "fields": {
+    "password": "contra20889900",
+    "last_login": null,
+    "run": 20889900,
+    "dv_run": "3",
+    "primer_nombre": "Matías",
+    "primer_apellido": "Saavedra",
+    "numero_telefonico": "+56977889900",
+    "fecha_creacion": "2024-06-02T01:49:10.169Z",
+    "username": "matiassaavedra",
+    "correo": "matias.saavedra@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 22,
+  "fields": {
+    "password": "contra20009988",
+    "last_login": null,
+    "run": 20009988,
+    "dv_run": "K",
+    "primer_nombre": "Andrea",
+    "primer_apellido": "Figueroa",
+    "numero_telefonico": "+56911009988",
+    "fecha_creacion": "2024-06-02T01:49:52.766Z",
+    "username": "andreaafigueroa",
+    "correo": "andrea.figueroa@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 23,
+  "fields": {
+    "password": "contra22334455",
+    "last_login": null,
+    "run": 22334455,
+    "dv_run": "9",
+    "primer_nombre": "Tomás",
+    "primer_apellido": "Arias",
+    "numero_telefonico": "+56922334455",
+    "fecha_creacion": "2024-06-02T01:50:27.230Z",
+    "username": "tomasarias",
+    "correo": "tomas.arias@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 24,
+  "fields": {
+    "password": "contra21445566",
+    "last_login": null,
+    "run": 21445566,
+    "dv_run": "4",
+    "primer_nombre": "Martina",
+    "primer_apellido": "Carrasco",
+    "numero_telefonico": "+56933445566",
+    "fecha_creacion": "2024-06-02T01:51:07.813Z",
+    "username": "martinacarrasco",
+    "correo": "martina.carrasco@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.usuario",
+  "pk": 25,
+  "fields": {
+    "password": "contra20445577",
+    "last_login": null,
+    "run": 20445577,
+    "dv_run": "K",
+    "primer_nombre": "Ignacio",
+    "primer_apellido": "Riquelme",
+    "numero_telefonico": "+56933445577",
+    "fecha_creacion": "2024-06-02T01:52:10.558Z",
+    "username": "ignacioriquelme",
+    "correo": "ignacio.riquelme@gmail.com",
+    "is_active": true,
+    "is_superuser": false,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Usuario.administrador",
+  "pk": 1,
+  "fields": {
+    "contrasena_cambiada": false
+  }
+},
+{
+  "model": "Usuario.administrador",
+  "pk": 2,
+  "fields": {
+    "contrasena_cambiada": false
+  }
+},
+{
+  "model": "Usuario.administrador",
+  "pk": 3,
+  "fields": {
+    "contrasena_cambiada": true
+  }
+},
+{
+  "model": "Usuario.administrador",
+  "pk": 4,
+  "fields": {
+    "contrasena_cambiada": false
+  }
+},
+{
+  "model": "Usuario.administrador",
+  "pk": 5,
+  "fields": {
+    "contrasena_cambiada": false
+  }
+},
+{
+  "model": "Usuario.cliente",
+  "pk": 6,
+  "fields": {}
+},
+{
+  "model": "Usuario.cliente",
+  "pk": 7,
+  "fields": {}
+},
+{
+  "model": "Usuario.cliente",
+  "pk": 8,
+  "fields": {}
+},
+{
+  "model": "Usuario.cliente",
+  "pk": 9,
+  "fields": {}
+},
+{
+  "model": "Usuario.cliente",
+  "pk": 10,
+  "fields": {}
+},
+{
+  "model": "Usuario.vendedor",
+  "pk": 11,
+  "fields": {}
+},
+{
+  "model": "Usuario.vendedor",
+  "pk": 12,
+  "fields": {}
+},
+{
+  "model": "Usuario.vendedor",
+  "pk": 13,
+  "fields": {}
+},
+{
+  "model": "Usuario.vendedor",
+  "pk": 14,
+  "fields": {}
+},
+{
+  "model": "Usuario.vendedor",
+  "pk": 25,
+  "fields": {}
+},
+{
+  "model": "Usuario.contador",
+  "pk": 20,
+  "fields": {}
+},
+{
+  "model": "Usuario.contador",
+  "pk": 21,
+  "fields": {}
+},
+{
+  "model": "Usuario.contador",
+  "pk": 22,
+  "fields": {}
+},
+{
+  "model": "Usuario.contador",
+  "pk": 23,
+  "fields": {}
+},
+{
+  "model": "Usuario.contador",
+  "pk": 24,
+  "fields": {}
+},
+{
+  "model": "Usuario.bodeguero",
+  "pk": 15,
+  "fields": {}
+},
+{
+  "model": "Usuario.bodeguero",
+  "pk": 16,
+  "fields": {}
+},
+{
+  "model": "Usuario.bodeguero",
+  "pk": 17,
+  "fields": {}
+},
+{
+  "model": "Usuario.bodeguero",
+  "pk": 18,
+  "fields": {}
+},
+{
+  "model": "Usuario.bodeguero",
+  "pk": 19,
+  "fields": {}
+}
+]

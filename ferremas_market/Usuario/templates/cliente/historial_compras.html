@@ -1,0 +1,101 @@
+{% extends 'base_cliente.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/cliente/historial_compras.css' %}">
+{% endblock %}
+
+{% block title %}
+Historial de Compras
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+{% load moneda_filtro %}
+<h1>Tus Compras</h1>
+<div class="compras-container">
+    <table class="compras-table">
+        <thead>
+            <tr>
+                <th>Fecha de Compra</th>
+                <th>Total</th>
+                <th>Método de Pago</th>
+                <th>Número de Tarjeta</th>
+                <th>Código de Autorización</th>
+                <th>Estado</th>
+                <th>Detalles</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for compra in compras %}
+                <tr>
+                    <td>{{ compra.fecha_compra_formateada }}</td>
+                    <td>{{ compra.total|formateo_precio }}</td>
+                    <td>{{ compra.metodo_pago_traducido }}</td>
+                    <td>{{ compra.numero_tarjeta }}</td>
+                    <td>{{ compra.codigo_autorizacion }}</td>
+                    <td>{{ compra.estado_traducido }}</td>
+                    <td>
+                        <button class="detalles-button" onclick="mostrarDetalles({{ compra.id }})">Ver Detalles</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    function mostrarDetalles(compraId) {
+        fetch(`/Usuario/cliente/detalles-compra/${compraId}/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.error
+                    });
+                    return;
+                }
+                const productosHTML = data.detalles.map(detalle => `
+                    <li style="margin-bottom: 10px;">
+                        ${detalle.imagen ? `<img src="${detalle.imagen}" alt="${detalle.producto_nombre}" style="width: 50px; height: 50px; margin-right: 10px; vertical-align: middle;">` : ''}
+                        ${detalle.producto_nombre} x ${detalle.cantidad} - ${detalle.precio}
+                    </li>`).join('');
+                
+                const detallesHTML = `
+                    <p><strong>ID de Compra:</strong> ${data.id}</p>
+                    <p><strong>Fecha de Compra:</strong> ${data.fecha_compra}</p>
+                    <p><strong>Total:</strong> ${data.total}</p>
+                    <p><strong>Método de Pago:</strong> ${data.metodo_pago}</p>
+                    <p><strong>Número de Tarjeta:</strong> ${data.numero_tarjeta}</p>
+                    <p><strong>Código de Autorización:</strong> ${data.codigo_autorizacion}</p>
+                    <p><strong>Estado:</strong> ${data.estado}</p>
+                    <h3>Productos</h3>
+                    <ul>
+                        ${productosHTML}
+                    </ul>
+                `;
+                
+                Swal.fire({
+                    title: 'Detalles de la Compra',
+                    html: detallesHTML,
+                    width: '600px',
+                    padding: '20px',
+                    background: '#fff',
+                    confirmButtonText: 'Cerrar'
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching detalles:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Hubo un problema al obtener los detalles de la compra. Por favor, intenta de nuevo.'
+                });
+            });
+    }
+</script>
+{% endblock %}

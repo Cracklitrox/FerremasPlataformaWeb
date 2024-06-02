@@ -119,37 +119,32 @@ def actualizar_stock(request):
 def confirmar_transaccion(request):
     token = request.GET.get('token_ws')
     if not token:
-        # Manejo de anulación de la transacción
         tbk_token = request.GET.get('TBK_TOKEN')
         tbk_order = request.GET.get('TBK_ORDEN_COMPRA')
-        tbk_session = request.GET.get('TBK_ID_SESION')
         
         if tbk_token:
-            # Aquí puedes manejar la anulación de la compra
             compra = Compra.objects.get(id=tbk_order)
             if compra.estado != 'Anulada':
-                compra.estado = 'Anulada'
+                compra.estado = 'NULLIFIED'
                 compra.save()
             
             return render(request, 'compra_anulada.html', {'compra': compra})
         
-        # Si no hay TBK_TOKEN, redirige o maneja el error adecuadamente
-        return redirect('/Usuario/')  # O cualquier página de error que desees mostrar
+        return redirect('/Usuario/')
 
     transaction = Transaction().configure_for_testing()
     try:
         response = transaction.commit(token)
     except TransbankError as e:
-        # Si hay un error con Transbank, maneja la anulación de la compra
         tbk_order = request.GET.get('TBK_ORDEN_COMPRA')
         compra = Compra.objects.get(id=tbk_order)
         if compra.estado != 'Anulada':
-            compra.estado = 'Anulada'
+            compra.estado = 'NULLIFIED'
             compra.save()
         
         return render(request, 'compra_anulada.html', {'compra': compra})
 
-    print("Respuesta de Transbank:", response)  # Para depuración
+    print("Respuesta de Transbank:", response)
 
     if response['status'] == 'AUTHORIZED':
         compra_id = int(response['buy_order'])
@@ -157,28 +152,30 @@ def confirmar_transaccion(request):
         compra.total = response['amount']
         compra.metodo_pago = response['payment_type_code']
         
-        # Extraer los detalles de la tarjeta de 'card_detail'
         card_detail = response['card_detail']
         compra.numero_tarjeta = card_detail['card_number'][-4:]
         compra.codigo_autorizacion = response['authorization_code']
         compra.codigo_respuesta = str(response['response_code'])
         compra.estado = response['status']
-        compra.numero_cuotas = response.get('installments_number')
-        compra.monto_cuota = response.get('installments_amount', 0)
+        compra.numero_cuotas = response.get('installments_number', 0)
+        
+        if compra.numero_cuotas > 0:
+            compra.monto_cuota = round(compra.total / compra.numero_cuotas)
+        else:
+            compra.monto_cuota = 0
+        
         compra.fecha_autorizacion = response['accounting_date']
         compra.fechaHora_autorizacion = response['transaction_date']
         compra.saldo_transaccion = response.get('balance', 0)
 
         compra.save()
 
-        # Reducir el stock después de que la transacción sea autorizada
         detalles = DetalleCompra.objects.filter(compra=compra)
         for detalle in detalles:
             producto = detalle.producto
             producto.stock -= detalle.cantidad
             producto.save()
 
-        # Guardar la tarjeta de crédito
         TarjetaCredito.objects.create(
             usuario=compra.usuario,
             numero_tarjeta=compra.numero_tarjeta,
@@ -187,12 +184,11 @@ def confirmar_transaccion(request):
             activa=True
         )
         
-        # Renderizar la página de compra exitosa e incluir la bandera para limpiar el carrito
         return render(request, 'compra_exitosa.html', {'response': response, 'limpiar_carrito': True})
     else:
         compra_id = int(response['buy_order'])
         compra = Compra.objects.get(id=compra_id)
-        compra.estado = 'Fallida'
+        compra.estado = 'FAILED'
         compra.save()
         return render(request, 'compra_fallida.html', {'response': response, 'limpiar_carrito': False})
 
