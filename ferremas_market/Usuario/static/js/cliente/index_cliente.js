@@ -1,10 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
     const usuarioIdElement = document.getElementById('user-id');
     const usuarioId = usuarioIdElement ? usuarioIdElement.value : null;
-    const cancelButton = document.getElementById('cancel-button');
     console.log("Usuario ID obtenido:", usuarioId);
+
+    let cart = [];
 
     function getCookie(name) {
         let cookieValue = null;
@@ -22,8 +21,64 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const csrftoken = getCookie('csrftoken');
+    console.log('CSRF token obtenido:', csrftoken);
+
+    // Función para cargar el carrito desde el servidor
+    function loadCart() {
+        fetch('/Pedidos/api/obtener-carrito/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Carrito cargado desde el servidor:', data.cart);
+            cart = data.cart.map(item => ({
+                id: item.producto_id,
+                name: item.nombre,
+                image: item.imagen,
+                quantity: item.cantidad,
+                price: item.precio,
+                stock: item.stock
+            }));
+            updateCartUI();
+        })
+        .catch(error => {
+            console.error('Error al cargar el carrito:', error);
+        });
+    }
+
+    function saveCart() {
+        fetch('/Pedidos/api/guardar-carrito/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({ items: cart })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Carrito guardado en el servidor:', data);
+        })
+        .catch(error => {
+            console.error('Error al guardar el carrito:', error);
+        });
+    }
+
+    if (usuarioId) {
+        loadCart();
+    }
 
     function addToCart(productId, productName, productImage, productStock, productPrice) {
+        console.log('Añadiendo producto al carrito:', { productId, productName, productImage, productStock, productPrice });
         const productIndex = cart.findIndex(item => item.id === productId);
         if (productIndex > -1) {
             if (cart[productIndex].quantity < cart[productIndex].stock) {
@@ -41,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             cart.push({ id: productId, name: productName, image: productImage, quantity: 1, stock: productStock, price: productPrice });
         }
-        guardarCarrito();
+        saveCart();
         Swal.fire({
             icon: 'success',
             title: 'Producto agregado',
@@ -50,10 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
             showConfirmButton: false
         });
         updateCartUI();
-    }
-
-    function guardarCarrito() {
-        localStorage.setItem('cart', JSON.stringify(cart));
     }
 
     function updateCartUI() {
@@ -84,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         totalAmountContainer.textContent = `Total: ${formatPrice(totalAmount)}`;
+        console.log('Total del carrito actualizado:', totalAmount);
 
         if (cart.length === 0) {
             emptyMessage.style.display = 'block';
@@ -115,12 +167,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function limpiarCarrito() {
-        localStorage.removeItem('cart');
-        cart.length = 0;
-        updateCartUI();
-    }
-
     function formatPrice(price) {
         return price.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
     }
@@ -133,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 cart.splice(productIndex, 1);
             }
-            guardarCarrito();
+            saveCart();
             updateCartUI();
         }
     }
@@ -153,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 return;
             }
-            guardarCarrito();
+            saveCart();
             updateCartUI();
         }
     }
@@ -162,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const productIndex = cart.findIndex(item => item.id === productId);
         if (productIndex > -1) {
             cart.splice(productIndex, 1);
-            guardarCarrito();
+            saveCart();
             Swal.fire({
                 icon: 'success',
                 title: 'Producto eliminado',
@@ -176,9 +222,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function clearCart() {
         cart.length = 0;
-        guardarCarrito();
+        saveCart();
         updateCartUI();
-        limpiarCarrito();
     }
 
     function actualizarStock(productData = null) {
@@ -215,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         console.log("Enviando datos al servidor:", requestData);
     
-        fetch('/Pedidos/api/update-stock/', {
+        fetch('/Pedidos/api/actualizar-stock/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -233,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("Respuesta del servidor:", data);
             if (data.success) {
                 window.location.href = data.redirect_url;
-                limpiarCarrito();
+                clearCart();
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -256,6 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    const cancelButton = document.getElementById('cancel-button');
     if (cancelButton) {
         cancelButton.addEventListener('click', function() {
             const token = new URLSearchParams(window.location.search).get('TBK_TOKEN');
@@ -265,14 +311,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     .then(data => {
                         if (data.success) {
                             alert(data.message);
-                            window.location.href = '/Usuario/';
+                            window.location.href = '/';
                         } else {
                             alert('Error al anular la compra: ' + data.message);
                         }
                     })
                     .catch(error => console.error('Error:', error));
             } else {
-                window.location.href = '/Usuario/';
+                window.location.href = '/';
             }
         });
     }
@@ -357,7 +403,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById("recibo-icon").addEventListener("click", function() {
-        window.location.href = '/Usuario/cliente/historial-compras/';
+        window.location.href = '/cliente/historial-compras/';
     });
 
     document.getElementById("close-btn").addEventListener("click", function() {
@@ -373,5 +419,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.target !== sidebar && !sidebar.contains(event.target) && event.target !== document.getElementById('cart-icon')) {
             closeSidebar();
         }
+    });
+
+    // No limpiar el carrito al cerrar sesión
+    document.getElementById('logout-form').addEventListener('submit', function(event) {
+        console.log('Cerrando sesión.');
     });
 });

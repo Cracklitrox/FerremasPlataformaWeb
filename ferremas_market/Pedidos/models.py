@@ -102,3 +102,12 @@ class TarjetaCredito(InformacionPago):
 
     def __str__(self):
         return f'Tarjeta {self.tipo_tarjeta} - {self.numero_tarjeta[-4:]}'
+
+# Nuevos modelos para el carrito
+class Carrito(models.Model):
+    usuario = models.OneToOneField(Cliente, on_delete=models.CASCADE, related_name='carrito')
+
+class ItemCarrito(models.Model):
+    carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE, related_name='items')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField(default=1)

@@ -8,8 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link rel="stylesheet" href="{% static 'css/.css' %}" /> Cambiar
-    <link rel="icon" href="{% static 'images/.png' %}"> Cambiar
     {% block css%}
     {% endblock%}
     <title>{% block title %}{% endblock %}</title>
@@ -31,19 +29,6 @@
 
     <!-- Block JS -->
     {% block js %}
-    <script>
-        // Limpiar el carrito
-        function limpiarCarrito() {
-            localStorage.removeItem('cart');
-            cart.length = 0;
-            updateCartUI();
-        }
-
-        // Llamar a limpiarCarrito si la transacción fue exitosa
-        {% if limpiar_carrito %}
-            limpiarCarrito();
-        {% endif %}
-    </script>
     {% endblock %}
 </body>
 </html>

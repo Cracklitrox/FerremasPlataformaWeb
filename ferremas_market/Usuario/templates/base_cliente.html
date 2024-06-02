@@ -111,16 +111,5 @@
 </footer>
 {% endblock %}
 {% block js_cliente %}
-<script>
-    // Limpiar el carrito
-    function limpiarCarrito() {
-        localStorage.removeItem('cart');
-        cart.length = 0;
-        updateCartUI();
-    }
-    document.getElementById('logout-form').addEventListener('submit', function(event) {
-        limpiarCarrito();
-    });
-</script>
 <script src="{% static 'js/cliente/index_cliente.js' %}"></script>
 {% endblock %}

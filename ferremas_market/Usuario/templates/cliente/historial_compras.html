@@ -48,7 +48,7 @@ Historial de Compras
 {% block js %}
 <script>
     function mostrarDetalles(compraId) {
-        fetch(`/Usuario/cliente/detalles-compra/${compraId}/`)
+        fetch(`/cliente/detalles-compra/${compraId}/`)
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
