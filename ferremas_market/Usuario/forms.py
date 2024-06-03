@@ -1,3 +1,4 @@
+import bcrypt
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import Administrador, Vendedor, Cliente, Bodeguero, Contador
@@ -14,10 +15,12 @@ class AdministradorCreacionForm(forms.ModelForm):
         administrador.username = f"{self.cleaned_data['primer_nombre']}_{self.cleaned_data['primer_apellido']}"
         # Generar la contraseña
         password = (f"{self.cleaned_data['primer_nombre'][:3]}{self.cleaned_data['primer_apellido'][:3]}_{self.cleaned_data['run']}")
-        administrador.password = password
+        # Encriptar la contraseña usando bcrypt
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        administrador.password = hashed_password.decode('utf-8')
         if commit:
             administrador.save()
-            grupo = Group.objects.get_or_create(name='Administrador')
+            grupo, created = Group.objects.get_or_create(name='Administrador')
             administrador.groups.add(grupo)
             administrador.save()
         return administrador
@@ -35,6 +38,14 @@ class CambiarContrasenaAdministrador(forms.Form):
         if password1 and password2 and password1 != password2:
             raise ValidationError("Las contraseñas no coinciden")
         return cleaned_data
+
+    def save(self, administrador):
+        password1 = self.cleaned_data['password1']
+        # Encriptar la nueva contraseña usando bcrypt
+        hashed_password = bcrypt.hashpw(password1.encode('utf-8'), bcrypt.gensalt())
+        administrador.password = hashed_password.decode('utf-8')
+        administrador.contrasena_cambiada = True
+        administrador.save()
 
 # Formulario creación de Vendedor
 class VendedorCreacionForm(UserCreationForm):
@@ -59,7 +70,9 @@ class VendedorCreacionForm(UserCreationForm):
         user.run = self.cleaned_data["run"]
         user.dv_run = self.cleaned_data["dv_run"]
         user.username = self.cleaned_data["username"]
-        user.password = self.cleaned_data["password1"]
+        # Encriptar la contraseña usando bcrypt
+        hashed_password = bcrypt.hashpw(self.cleaned_data["password1"].encode('utf-8'), bcrypt.gensalt())
+        user.password = hashed_password.decode('utf-8')
         if commit:
             user.save()
         return user
@@ -87,7 +100,9 @@ class ClienteCreacionForm(UserCreationForm):
         user.run = self.cleaned_data["run"]
         user.dv_run = self.cleaned_data["dv_run"]
         user.username = self.cleaned_data["username"]
-        user.password = self.cleaned_data["password1"]
+        # Encriptar la contraseña usando bcrypt
+        hashed_password = bcrypt.hashpw(self.cleaned_data["password1"].encode('utf-8'), bcrypt.gensalt())
+        user.password = hashed_password.decode('utf-8')
         if commit:
             user.save()
         return user
@@ -115,7 +130,9 @@ class BodegueroCreacionForm(UserCreationForm):
         user.run = self.cleaned_data["run"]
         user.dv_run = self.cleaned_data["dv_run"]
         user.username = self.cleaned_data["username"]
-        user.password = self.cleaned_data["password1"]
+        # Encriptar la contraseña usando bcrypt
+        hashed_password = bcrypt.hashpw(self.cleaned_data["password1"].encode('utf-8'), bcrypt.gensalt())
+        user.password = hashed_password.decode('utf-8')
         if commit:
             user.save()
         return user
@@ -143,7 +160,9 @@ class ContadorCreacionForm(UserCreationForm):
         user.run = self.cleaned_data["run"]
         user.dv_run = self.cleaned_data["dv_run"]
         user.username = self.cleaned_data["username"]
-        user.password = self.cleaned_data["password1"]
+        # Encriptar la contraseña usando bcrypt
+        hashed_password = bcrypt.hashpw(self.cleaned_data["password1"].encode('utf-8'), bcrypt.gensalt())
+        user.password = hashed_password.decode('utf-8')
         if commit:
             user.save()
         return user

@@ -3,7 +3,7 @@
   "model": "Usuario.usuario",
   "pk": 1,
   "fields": {
-    "password": "JuaLop_17564321",
+    "password": "$2b$12$vjxnMJSxtHXT/utXUzLF.uPbwUN9vqcLB7DxEFiWxU8iY8y8Sc0w2",
     "last_login": null,
     "run": 17564321,
     "dv_run": "5",
@@ -24,7 +24,7 @@
   "model": "Usuario.usuario",
   "pk": 2,
   "fields": {
-    "password": "GonGal_16987354",
+    "password": "$2b$12$UPzBXgm91fj4SxeFK/5rVemq.YaNsdkx5Y1VPu87sh7Qjpz7sRgii",
     "last_login": null,
     "run": 16987354,
     "dv_run": "k",
@@ -45,7 +45,7 @@
   "model": "Usuario.usuario",
   "pk": 3,
   "fields": {
-    "password": "ferremasAlmonacid123",
+    "password": "$2b$12$0kra7LGfFagAG7xvDSScTe4XrlhOJqacxFdn.xoRenqCNq3Y/qe.C",
     "last_login": null,
     "run": 19642957,
     "dv_run": "9",
@@ -66,7 +66,7 @@
   "model": "Usuario.usuario",
   "pk": 4,
   "fields": {
-    "password": "FraAgu_20658756",
+    "password": "$2b$12$7DJVr8iFb6ahYuzuZ3XxOeCNTQMAmHrTksmWbIfiEzigP/4Z6dtB.",
     "last_login": null,
     "run": 20658756,
     "dv_run": "4",
@@ -87,7 +87,7 @@
   "model": "Usuario.usuario",
   "pk": 5,
   "fields": {
-    "password": "MirAlm_21465987",
+    "password": "$2b$12$xHGm5K/Fwtk7std5qOT9c.YdbDoyWAtsHuDT6Rl5f.k.X88FoVMp2",
     "last_login": null,
     "run": 21465987,
     "dv_run": "3",
@@ -108,7 +108,7 @@
   "model": "Usuario.usuario",
   "pk": 6,
   "fields": {
-    "password": "contra15645324",
+    "password": "$2b$12$yoKIMEEd8VdXML2O0TX4ge2lMq.Jh1r65TfmzErlWZQ0z1cHQynbu",
     "last_login": "2024-06-02T01:33:19.135Z",
     "run": 15645324,
     "dv_run": "K",
@@ -129,7 +129,7 @@
   "model": "Usuario.usuario",
   "pk": 7,
   "fields": {
-    "password": "contra20654321",
+    "password": "$2b$12$A/YIF6WlEd5kv081ThWd8.TrOKgnj9KkAwVeIVmMd3aJyB623nOuq",
     "last_login": null,
     "run": 20654321,
     "dv_run": "5",
@@ -150,7 +150,7 @@
   "model": "Usuario.usuario",
   "pk": 8,
   "fields": {
-    "password": "contra23625894",
+    "password": "$2b$12$lcTd/MvQB9jBKFnikWN7POSBYC7h0A/GygvbT68XzpXk1B9bJFXkC",
     "last_login": "2024-06-02T01:35:25.581Z",
     "run": 23625894,
     "dv_run": "1",
@@ -171,7 +171,7 @@
   "model": "Usuario.usuario",
   "pk": 9,
   "fields": {
-    "password": "contra20567890",
+    "password": "$2b$12$6YM71OONcb68A8h3zeSIqu/ubPmAwYC7/q/fIqIE5YpVh63eV8bp.",
     "last_login": null,
     "run": 20567890,
     "dv_run": "2",
@@ -192,7 +192,7 @@
   "model": "Usuario.usuario",
   "pk": 10,
   "fields": {
-    "password": "contra17654329",
+    "password": "$2b$12$OSe5cEI9L2ANoONBeFO66edq98B.yHqB1O27hyfzPyKgRQiPq5mmC",
     "last_login": "2024-06-02T01:38:12.767Z",
     "run": 17654329,
     "dv_run": "6",
@@ -213,7 +213,7 @@
   "model": "Usuario.usuario",
   "pk": 11,
   "fields": {
-    "password": "contra20789012",
+    "password": "$2b$12$rnl7Wg9qzuB53sz928aRPO/wiNvDegm/k1G4.iJ9V4dcQrMUxA1Ae",
     "last_login": null,
     "run": 20789012,
     "dv_run": "7",
@@ -234,7 +234,7 @@
   "model": "Usuario.usuario",
   "pk": 12,
   "fields": {
-    "password": "contra19890123",
+    "password": "$2b$12$302uRPkwriYivADRV7M5ZOImLqnSy9JyLQjsLWD4JaxTfP.YPcWVO",
     "last_login": null,
     "run": 19890123,
     "dv_run": "7",
@@ -255,7 +255,7 @@
   "model": "Usuario.usuario",
   "pk": 13,
   "fields": {
-    "password": "contra20901234",
+    "password": "$2b$12$jaGB8zIhP0.0L84cuuXDhuzP18cMwWeXqZQicAfImZWz5MO1L8D02",
     "last_login": null,
     "run": 20901234,
     "dv_run": "3",
@@ -276,7 +276,7 @@
   "model": "Usuario.usuario",
   "pk": 14,
   "fields": {
-    "password": "contra17321098",
+    "password": "$2b$12$GMkN0HI1mOvqctuExg8JH.f7VFM5WczPDTqOeCOFnn49BcHY6.tqy",
     "last_login": null,
     "run": 17321098,
     "dv_run": "5",
@@ -297,7 +297,7 @@
   "model": "Usuario.usuario",
   "pk": 15,
   "fields": {
-    "password": "contra19223344",
+    "password": "$2b$12$6E0.4auHjD8WpVlojOUAEuR4ANQtbrTBlmvXoos2fHqDdiP74EYrm",
     "last_login": null,
     "run": 19223344,
     "dv_run": "8",
@@ -318,7 +318,7 @@
   "model": "Usuario.usuario",
   "pk": 16,
   "fields": {
-    "password": "contra20332211",
+    "password": "$2b$12$PHrXAmo3v2XIFtosMo3v1uVDB0hXuKQrAhhipo42W9GBZ08aGynei",
     "last_login": null,
     "run": 20332211,
     "dv_run": "K",
@@ -339,7 +339,7 @@
   "model": "Usuario.usuario",
   "pk": 17,
   "fields": {
-    "password": "contra20667788",
+    "password": "$2b$12$908CdoF0MMOpv265ZW9QzeBJShjak4Qo1KkvU3pK60UxlH/OPLSF2",
     "last_login": null,
     "run": 20667788,
     "dv_run": "9",
@@ -360,7 +360,7 @@
   "model": "Usuario.usuario",
   "pk": 18,
   "fields": {
-    "password": "contra18776655",
+    "password": "$2b$12$mavDYRePD4BEVpE7CTLbKOHNgHk8CosRe/Y217mODc5RPzYQvAQ0q",
     "last_login": null,
     "run": 18776655,
     "dv_run": "k",
@@ -381,7 +381,7 @@
   "model": "Usuario.usuario",
   "pk": 19,
   "fields": {
-    "password": "contra20887766",
+    "password": "$2b$12$81uEKafTR/pWIp0T/SmmNOIZnV66hrN.69heFaOsMQECqfwJDo8WC",
     "last_login": null,
     "run": 20887766,
     "dv_run": "8",
@@ -402,7 +402,7 @@
   "model": "Usuario.usuario",
   "pk": 20,
   "fields": {
-    "password": "contra19778899",
+    "password": "$2b$12$J3JM2AFy49X7RDWa06ErQuZjiLxw14IVIRdi4gg8/8mDxqlRL1cOe",
     "last_login": null,
     "run": 19778899,
     "dv_run": "5",
@@ -423,7 +423,7 @@
   "model": "Usuario.usuario",
   "pk": 21,
   "fields": {
-    "password": "contra20889900",
+    "password": "$2b$12$.DuOLnr8tzTO.2K44jHfKuxh5Sqz0kCEysmQKMgtYXqb2JhSrV0Ny",
     "last_login": null,
     "run": 20889900,
     "dv_run": "3",
@@ -444,7 +444,7 @@
   "model": "Usuario.usuario",
   "pk": 22,
   "fields": {
-    "password": "contra20009988",
+    "password": "$2b$12$BHiDUXrDthORR4tZxH21AuUf.wRQCj6r5vzeAKL82e4EfuzmIvYE2",
     "last_login": null,
     "run": 20009988,
     "dv_run": "K",
@@ -465,7 +465,7 @@
   "model": "Usuario.usuario",
   "pk": 23,
   "fields": {
-    "password": "contra22334455",
+    "password": "$2b$12$pt8.7TS7iDgYt8a5l97Nr.InrrPukKsFhMMJh1ktNzapdcE.1z6S.",
     "last_login": null,
     "run": 22334455,
     "dv_run": "9",
@@ -486,7 +486,7 @@
   "model": "Usuario.usuario",
   "pk": 24,
   "fields": {
-    "password": "contra21445566",
+    "password": "$2b$12$22IYV5U8ssgeBLkur24iLeL8Q0eSNm6AJfEZ9Z.GvXqnPFQ901gT2",
     "last_login": null,
     "run": 21445566,
     "dv_run": "4",
@@ -507,7 +507,7 @@
   "model": "Usuario.usuario",
   "pk": 25,
   "fields": {
-    "password": "contra20445577",
+    "password": "$2b$12$BI54bc/xBcoFd8SzBVWkIODGMY8aflnom.5XDHUS9xve0/Shocb8W",
     "last_login": null,
     "run": 20445577,
     "dv_run": "K",

@@ -1,3 +1,4 @@
+import bcrypt
 from django.http import Http404, JsonResponse
 from datetime import datetime
 from babel.dates import format_datetime
@@ -62,16 +63,18 @@ def logueo_administrador(request):
         password = request.POST.get('password')
         if username and password:
             try:
-                user = Administrador.objects.get(username=username, password=password)
-                if user.is_staff == True and user.is_active == True:
-                    request.session['is_administrador_logged_in'] = True
-                    print("Sesión establecida:", request.session['is_administrador_logged_in'])
-                    if not user.contrasena_cambiada:
-                        return redirect('activar_cuenta', id=user.id)
+                user = Administrador.objects.get(username=username)
+                if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+                    if user.is_staff and user.is_active:
+                        request.session['is_administrador_logged_in'] = True
+                        if not user.contrasena_cambiada:
+                            return redirect('activar_cuenta', id=user.id)
+                        else:
+                            return redirect('dashboard_administrador', id=user.id)
                     else:
-                        return redirect('dashboard_administrador', id=user.id)
+                        messages.error(request, 'Usuario no válido o no tienes permisos de administrador.')
                 else:
-                    messages.error(request, 'Usuario no válido o no tienes permisos de administrador.')
+                    messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
             except Administrador.DoesNotExist:
                 messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
         else:
@@ -86,11 +89,8 @@ def activar_cuenta(request, id):
     if request.method == 'POST':
         form = CambiarContrasenaAdministrador(request.POST)
         if form.is_valid():
-            password1 = form.cleaned_data['password1']
-            administrador.password = password1
-            administrador.contrasena_cambiada = True
-            administrador.save()
-            return redirect(reverse('dashboard_administrador', kwargs={'id': administrador.id}))
+            form.save(administrador)
+            return redirect('dashboard_administrador', id=administrador.id)
     else:
         form = CambiarContrasenaAdministrador()
     return render(request, 'administrador/activar_cuenta.html', {'form': form})
@@ -396,14 +396,16 @@ def logueo_cliente(request):
         password = request.POST.get('password')
         if username and password:
             try:
-                user = Cliente.objects.get(username=username, password=password)
-                if user.is_active:
-                    request.session['is_cliente_logged_in'] = True
-                    request.session['cliente_id'] = user.id
-                    login(request, user)
-                    return redirect('index_cliente')
+                user = Cliente.objects.get(username=username)
+                if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+                    if user.is_active:
+                        request.session['is_cliente_logged_in'] = True
+                        request.session['cliente_id'] = user.id
+                        return redirect('index_cliente')
+                    else:
+                        messages.error(request, 'Usuario no válido, intentelo nuevamente.')
                 else:
-                    messages.error(request, 'Usuario no válido, intentelo nuevamente.')
+                    messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
             except Cliente.DoesNotExist:
                 messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
         else:
@@ -527,13 +529,16 @@ def logueo_vendedor(request):
         password = request.POST.get('password')
         if username and password:
             try:
-                user = Vendedor.objects.get(username=username, password=password)
-                if user.is_active == True:
-                    request.session['is_vendedor_logged_in'] = True
-                    login(request, user)
-                    return redirect('index_vendedor')
+                user = Vendedor.objects.get(username=username)
+                if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+                    if user.is_active:
+                        request.session['is_vendedor_logged_in'] = True
+                        login(request, user)
+                        return redirect('index_vendedor')
+                    else:
+                        messages.error(request, 'Usuario no válido, comuniquese con el administrador.')
                 else:
-                    messages.error(request, 'Usuario no válido, comuniquese con el administrador.')
+                    messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
             except Vendedor.DoesNotExist:
                 messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
         else:
@@ -557,14 +562,17 @@ def logueo_bodeguero(request):
         password = request.POST.get('password')
         if username and password:
             try:
-                user = Bodeguero.objects.get(username=username, password=password)
-                if user.is_active == True:
-                    request.session['is_bodeguero_logged_in'] = True
-                    request.session['bodeguero_id'] = user.id
-                    login(request, user)
-                    return redirect('index_bodeguero')
+                user = Bodeguero.objects.get(username=username)
+                if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+                    if user.is_active:
+                        request.session['is_bodeguero_logged_in'] = True
+                        request.session['bodeguero_id'] = user.id
+                        login(request, user)
+                        return redirect('index_bodeguero')
+                    else:
+                        messages.error(request, 'Usuario no válido, comuniquese con el administrador.')
                 else:
-                    messages.error(request, 'Usuario no válido, comuniquese con el administrador.')
+                    messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
             except Bodeguero.DoesNotExist:
                 messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
         else:
@@ -661,13 +669,16 @@ def logueo_contador(request):
         password = request.POST.get('password')
         if username and password:
             try:
-                user = Contador.objects.get(username=username, password=password)
-                if user.is_active == True:
-                    request.session['is_contador_logged_in'] = True
-                    login(request, user)
-                    return redirect('index_contador')
+                user = Contador.objects.get(username=username)
+                if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+                    if user.is_active:
+                        request.session['is_contador_logged_in'] = True
+                        login(request, user)
+                        return redirect('index_contador')
+                    else:
+                        messages.error(request, 'Usuario no válido, comuniquese con el administrador.')
                 else:
-                    messages.error(request, 'Usuario no válido, comuniquese con el administrador.')
+                    messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
             except Contador.DoesNotExist:
                 messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
         else:
