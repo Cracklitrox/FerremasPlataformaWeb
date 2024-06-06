@@ -41,7 +41,9 @@ class Pedido(models.Model):
         (2, 'En proceso'),
         (3, 'Enviado'),
         (4, 'Entregado'),
-        (5, 'Cancelado')
+        (5, 'Cancelado'),
+        (6, 'Preparando despacho'),
+        (7, 'En transito'),
     )
     run = models.ForeignKey(
         Cliente,
@@ -50,8 +52,8 @@ class Pedido(models.Model):
     )
     estado = models.IntegerField(choices=ESTADO_OPCIONES, default=1)
     informacion_adicional = models.CharField(max_length=120)
-    fecha_recivo = models.DateTimeField(auto_now_add=True)
-    fecha_envio = models.DateTimeField()
+    fecha_recivo = models.DateTimeField(blank=True, null=True)
+    fecha_envio = models.DateTimeField(blank=True, null=True)
     activo = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
@@ -59,7 +61,6 @@ class Pedido(models.Model):
             self.fecha_envio = timezone.now()
         super(Pedido, self).save(*args, **kwargs)
 
-# Modelos temporales, posiblemente se deban borrar en un futuro
 class Compra(models.Model):
     usuario = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='compras')
     fecha_compra = models.DateTimeField(auto_now_add=True)
@@ -75,6 +76,7 @@ class Compra(models.Model):
     fecha_autorizacion = models.CharField(max_length=5, blank=True, null=True)
     fechaHora_autorizacion = models.DateTimeField(null=True, blank=True)
     saldo_transaccion = models.FloatField(null=True, blank=True)
+    decision_vendedor = models.BooleanField(default=False)
 
     def __str__(self):
         return f'Compra {self.id} - {self.usuario.username} - {self.fecha_compra}'

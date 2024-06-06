@@ -41,6 +41,9 @@ urlpatterns = [
     # VENDEDOR
     path('vendedor/logueo_vendedor/', views.logueo_vendedor, name='logueo_vendedor'),
     path('vendedor/index_vendedor/', views.index_vendedor, name='index_vendedor'),
+    path('vendedor/aprobar/<int:compra_id>/', views.aprobar_pedido, name='aprobar_pedido'),
+    path('vendedor/rechazar/<int:compra_id>/', views.rechazar_pedido, name='rechazar_pedido'),
+    path('vendedor/confirmar_despacho/<int:pedido_id>/', views.confirmar_despacho, name='confirmar_despacho'),
     # BODEGUERO
     path('bodeguero/logueo_bodeguero/', views.logueo_bodeguero, name='logueo_bodeguero'),
     path('bodeguero/index_bodeguero/', views.index_bodeguero, name='index_bodeguero'),

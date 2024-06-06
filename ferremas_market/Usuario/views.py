@@ -1,6 +1,6 @@
 import bcrypt
 from django.http import Http404, JsonResponse
-from datetime import datetime
+from django.utils import timezone
 from babel.dates import format_datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
@@ -17,6 +17,13 @@ from django.core.paginator import Paginator
 from .forms import CambiarContrasenaAdministrador
 
 # Create your views here.
+
+##################################
+##    Formato Fecha Funciones   ##
+##################################
+
+def formatear_fecha(fecha):
+    return format_datetime(fecha, "d 'de' MMMM y, h:mm a", locale='es')
 
 ##################################
 ##    Verificar tipo usuario    ##
@@ -427,9 +434,6 @@ def register_cliente(request):
         form = ClienteCreacionForm()
     return render(request, 'cliente/register_cliente.html', {'form': form})
 
-def formatear_fecha(fecha):
-    return format_datetime(fecha, "d 'de' MMMM y, h:mm a", locale='es')
-
 @mantener_sesion('cliente')
 def historial_compras(request):
     cliente_id = request.session.get('cliente_id')
@@ -443,7 +447,7 @@ def historial_compras(request):
         'NULLIFIED': 'Anulado',
         'PARTIALLY_NULLIFIED': 'Parcialmente anulado',
         'CAPTURED': 'Capturado',
-        'Pendiente': 'Pendiente'  # Este ya está en español
+        'Pendiente': 'Pendiente'
     }
 
     metodos_pago_traducidos = {
@@ -483,7 +487,7 @@ def detalles_compra(request, compra_id):
         'NULLIFIED': 'Anulado',
         'PARTIALLY_NULLIFIED': 'Parcialmente anulado',
         'CAPTURED': 'Capturado',
-        'Pendiente': 'Pendiente'  # Este ya está en español
+        'Pendiente': 'Pendiente'
     }
 
     metodos_pago_traducidos = {
@@ -549,7 +553,90 @@ def logueo_vendedor(request):
 
 @mantener_sesion('vendedor')
 def index_vendedor(request):
-    return render(request, 'vendedor/index_vendedor.html')
+    vendedor_id = request.session.get('vendedor_id')
+    compras = Compra.objects.filter(estado='AUTHORIZED', decision_vendedor=False)
+    pedidos_despacho = Pedido.objects.filter(estado=6)
+
+    estados_traducidos = {
+        'INITIALIZED': 'Iniciado',
+        'AUTHORIZED': 'Autorizado',
+        'REVERSED': 'Revertido',
+        'FAILED': 'Fallido',
+        'NULLIFIED': 'Anulado',
+        'PARTIALLY_NULLIFIED': 'Parcialmente anulado',
+        'CAPTURED': 'Capturado',
+        'Pendiente': 'Pendiente'
+    }
+
+    producto_nombre = request.GET.get('producto_nombre', '')
+    if producto_nombre:
+        productos = Producto.objects.filter(nombre__icontains=producto_nombre)[:3]
+    else:
+        productos = []
+
+    context = {
+        'vendedor_id': vendedor_id,
+        'compras': compras,
+        'productos': productos,
+        'estados_traducidos': estados_traducidos,
+        'pedidos_despacho': pedidos_despacho
+    }
+    return render(request, 'vendedor/index_vendedor.html', context)
+
+@mantener_sesion('vendedor')
+def aprobar_pedido(request, compra_id):
+    compra = get_object_or_404(Compra, id=compra_id)
+    cliente = compra.usuario
+
+    pedido = Pedido.objects.create(
+        run=cliente,
+        estado=2,
+        informacion_adicional=f'Pedido generado a partir de la compra {compra.id}',
+        fecha_recivo=timezone.now(),
+        fecha_envio=None,
+        activo=True
+    )
+    pedido.save()
+
+    compra.decision_vendedor = True
+    compra.save()
+
+    messages.success(request, 'Compra aprobada, enviando orden a bodeguero...')
+
+    return redirect('index_vendedor')
+
+@mantener_sesion('vendedor')
+def rechazar_pedido(request, compra_id):
+    compra = get_object_or_404(Compra, id=compra_id)
+    cliente = compra.usuario
+
+    pedido = Pedido.objects.create(
+        run=cliente,
+        estado=5,
+        informacion_adicional=f'Pedido generado a partir de la compra {compra.id}',
+        fecha_recivo=timezone.now(),
+        fecha_envio=None,
+        activo=True
+    )
+    pedido.save()
+
+    compra.decision_vendedor = True
+    compra.save()
+
+    messages.error(request, 'Compra rechazada, entregando mensaje al cliente...')
+
+    return redirect('index_vendedor')
+
+@mantener_sesion('vendedor')
+def confirmar_despacho(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+
+    pedido.estado = 7
+    pedido.fecha_envio = timezone.now()
+    pedido.save()
+
+    messages.success(request, 'Pedido confirmado y en tránsito.')
+    return redirect('index_vendedor')
 
 
 ##################################
@@ -658,7 +745,6 @@ def entregar_pedido(request, pedido_id):
     return redirect('listar_pedidos')
 
 
-
 ##################################
 ##           Contador           ##
 ##################################
@@ -746,22 +832,37 @@ def catalogo_productos(request):
     cliente_id = request.session.get('cliente_id')
     productos = Producto.objects.all()
 
-    # Filtros
     categoria_id = request.GET.get('categoria')
     precio_min = request.GET.get('precio_min')
     precio_max = request.GET.get('precio_max')
     activo = request.GET.get('activo')
 
-    if categoria_id and categoria_id != "":
-        productos = productos.filter(categoria_id=categoria_id)
+    # Asegurarse de que los valores 'None' no causen problemas
+    if categoria_id and categoria_id != 'None' and categoria_id != '':
+        try:
+            categoria_id = int(categoria_id)
+            productos = productos.filter(categoria_id=categoria_id)
+        except ValueError:
+            categoria_id = None
 
-    if precio_min and precio_max:
+    if precio_min and precio_min != 'None' and precio_min != '':
+        try:
+            precio_min = float(precio_min)
+        except ValueError:
+            precio_min = None
+
+    if precio_max and precio_max != 'None' and precio_max != '':
+        try:
+            precio_max = float(precio_max)
+        except ValueError:
+            precio_max = None
+
+    if precio_min is not None and precio_max is not None:
         productos = productos.filter(precio__gte=precio_min, precio__lte=precio_max)
 
-    if activo:
+    if activo and activo != 'None' and activo.lower() == 'true':
         productos = productos.filter(activo=True)
 
-    # Obtener precio mínimo y máximo de los productos
     precios = productos.aggregate(Min('precio'), Max('precio'))
     precio_min_valor = precios['precio__min'] if precios['precio__min'] is not None else 0
     precio_max_valor = precios['precio__max'] if precios['precio__max'] is not None else 0

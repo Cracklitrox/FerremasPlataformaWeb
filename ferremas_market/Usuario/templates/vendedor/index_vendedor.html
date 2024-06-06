@@ -1,20 +1,155 @@
-{% extends 'base_usuario.html' %}
+{% extends 'base_vendedor.html' %}
 
 {% load static %}
-{% block css %}
-{% endblock %}
+{% load crispy_forms_tags %}
 
 {% block title %}
-Pagina Vendedor
+Vendedor
 {% endblock %}
 
 {% block content %}
-{% load crispy_forms_tags %}
-<h1>Titulo</h1>
-<form action="{% url 'cerrar_sesion_vendedor' %}" method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-warning" onclick="return confirm('¿Estás seguro que deseas cerrar sesión?');">Cerrar Sesión</button>
-</form>
+<div class="container">
+    <nav class="sidebar">
+        <ul>
+            <li><a href="#productos">Productos Disponibles</a></li>
+            <li><a href="#ordenes">Órdenes del Pedido</a></li>
+            <li><a href="#despacho">Órdenes de Despacho</a></li>
+        </ul>
+    </nav>
+    <main class="content">
+        <section id="productos">
+            <form method="GET" action="{% url 'index_vendedor' %}">
+                <div class="filtro">
+                    <label for="producto_nombre">Nombre del Producto</label>
+                    <input type="text" id="producto_nombre" name="producto_nombre" placeholder="Ingresa nombre del producto">
+                </div>
+                <button type="submit">Buscar</button>
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if productos %}
+                        {% for producto in productos %}
+                            <tr>
+                                <td>{{ producto.nombre }}</td>
+                                <td>{{ producto.stock }}</td>
+                                <td>{{ producto.precio }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="3">No se encontraron productos.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </section>
+        <section id="ordenes">
+            <h2>Órdenes del Pedido</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Orden #</th>
+                        <th>Cliente</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for compra in compras %}
+                        <tr>
+                            <td>{{ compra.id }}</td>
+                            <td>{{ compra.usuario.username }}</td>
+                            <td class="estado">{{ compra.estado }}</td>
+                            <td>
+                                <form method="POST" action="{% url 'aprobar_pedido' compra.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit">Aprobar</button>
+                                </form>
+                                <form method="POST" action="{% url 'rechazar_pedido' compra.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit">Rechazar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        <section id="despacho">
+            <h2>Órdenes de Despacho</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Orden #</th>
+                        <th>Cliente</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in pedidos_despacho %}
+                        <tr>
+                            <td>{{ pedido.id }}</td>
+                            <td>{{ pedido.run.username }}</td>
+                            <td>{{ pedido.get_estado_display }}</td>
+                            <td>
+                                <form method="POST" action="{% url 'confirmar_despacho' pedido.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit">Confirmar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+<!-- Footer REMPLAZAR -->
+<footer class="bg-dark text-light py-4">
+    <div class="container text-center">
+        <p>&copy; 2024 Ferremas. Todos los derechos reservados.</p>
+        <!-- Agrega aquí otros elementos del footer, como enlaces a redes sociales o información de contacto -->
+    </div>
+</footer>
 {% endblock %}
 {% block js %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const estadosTraducidos = {
+            'INITIALIZED': 'Iniciado',
+            'AUTHORIZED': 'Autorizado',
+            'REVERSED': 'Revertido',
+            'FAILED': 'Fallido',
+            'NULLIFIED': 'Anulado',
+            'PARTIALLY_NULLIFIED': 'Parcialmente anulado',
+            'CAPTURED': 'Capturado',
+            'Pendiente': 'Pendiente'
+        };
+
+        document.querySelectorAll('.estado').forEach(function(element) {
+            const estado = element.textContent.trim();
+            element.textContent = estadosTraducidos[estado] || estado;
+        });
+
+        {% if messages %}
+            {% for message in messages %}
+                Swal.fire({
+                    title: "{{ message.tags|escapejs }}",
+                    text: "{{ message.message|escapejs }}",
+                    icon: "{{ message.tags|escapejs }}" === 'success' ? 'success' : 'error',
+                    confirmButtonText: 'Ok'
+                });
+            {% endfor %}
+        {% endif %}
+    });
+</script>
 {% endblock %}

@@ -89,7 +89,7 @@ body {
     border: none;
     cursor: pointer;
     color: white;
-    border-radius: 20px; /* Bordes redondeados */
+    border-radius: 20px;
   }
   
   #close-btn {
