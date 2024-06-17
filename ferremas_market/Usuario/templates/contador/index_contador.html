@@ -157,6 +157,37 @@
         outline: none;
         box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
     }
+
+    /* CSS específico para la sección de generar informes */
+    #generar-informes-section {
+        background-color: #f8f9fa;
+        padding: 1.5rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+
+    #generar-informes-section input {
+        width: calc(100% - 1.5rem);
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+
+    #generar-informes-section a {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.75rem 1.5rem;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    #generar-informes-section a:hover {
+        background-color: #0056b3;
+    }
 </style>
 {% endblock %}
 
@@ -208,21 +239,48 @@ Contador FERREMAS
         </table>
     </section>
 
-    <section class="form-section">
-        <h2>Registrar Entrega de Productos</h2>
-        <form id="registrar-entrega-form" action="{% url 'registrar_entrega' %}" method="post">
-            {% csrf_token %}
-            <label for="numero-orden">Número de Orden:</label>
-            <input type="text" id="numero-orden" name="numero-orden" required>
-            
-            <label for="cliente">Cliente:</label>
-            <input type="text" id="cliente" name="cliente" required>
-
-            <label for="fecha-entrega">Fecha de Entrega:</label>
-            <input type="date" id="fecha-entrega" name="fecha-entrega" required>
-            
-            <button type="submit">Registrar Entrega</button>
-        </form>
+    <section class="form-section" id="generar-informes-section">
+        <h2>Generar Informes</h2>
+        <input type="text" placeholder="Añadir Descripción" id="esc"><br><br>
+        <a href="javascript:genPDF()">Crear Informe en PDF</a>
+        <script type="text/javascript" src="jspdf.min.js"></script>
+        <script type="text/javascript">
+            function genPDF(){
+                var doc = new jsPDF();
+    
+                // Título del informe
+                doc.setFontSize(18);
+                doc.text('Informe FERREMAS', 20, 20);
+    
+                // Espacio para la descripción
+                doc.setFontSize(12);
+                let mensaje = document.getElementById('esc').value;
+                doc.text(mensaje, 20, 40);
+    
+                // Generar el PDF como blob
+                var pdfBlob = doc.output('blob');
+    
+                // Crear un FormData para enviar el blob
+                var formData = new FormData();
+                formData.append('pdf', pdfBlob, 'Informe_Ferremas.pdf'); // Titulo del PDF
+    
+                // Enviar el PDF al servidor
+                fetch('/guardar_pdf/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('PDF guardado correctamente');
+                })
+                .catch(error => {
+                    console.error('Error al guardar el PDF:', error);
+                });
+            }
+        </script>
     </section>
 </main>
 {% endblock %}
@@ -233,4 +291,5 @@ Contador FERREMAS
         document.getElementById('compra-' + id).style.display = 'none';
     }
 </script>
+<script src="{% static 'js/contador/index_contador.js' %}"></script>
 {% endblock %}

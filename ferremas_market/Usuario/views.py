@@ -1,7 +1,11 @@
+import os
 import bcrypt
+from django.conf import settings
 from django.http import Http404, JsonResponse
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 from babel.dates import format_datetime
+from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
@@ -777,6 +781,29 @@ def logueo_contador(request):
 def index_contador(request):
     compras = Compra.objects.all()
     return render(request, 'contador/index_contador.html', {'compras': compras})
+
+# Codigo para generar el PDF
+@csrf_exempt
+def guardar_pdf(request):
+    if request.method == 'POST':
+        pdf = request.FILES['pdf']
+        
+        fecha_actual = datetime.now()
+        ruta = os.path.join(settings.BASE_DIR, 'Usuario', 'informes',
+                            str(fecha_actual.year), 
+                            str(fecha_actual.month), 
+                            str(fecha_actual.day))
+        
+        os.makedirs(ruta, exist_ok=True)
+        
+        ruta_archivo = os.path.join(ruta, pdf.name)
+        
+        with open(ruta_archivo, 'wb+') as destino:
+            for chunk in pdf.chunks():
+                destino.write(chunk)
+        
+        return JsonResponse({'mensaje': 'PDF guardado correctamente'})
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 def confirmar_pago(request, compra_id):
     compra = get_object_or_404(Compra, id=compra_id)

@@ -54,6 +54,7 @@ urlpatterns = [
     # CONTADOR
     path('contador/logueo_contador/', views.logueo_contador, name='logueo_contador'),
     path('contador/index_contador/', views.index_contador, name='index_contador'),
+    path('guardar_pdf/', views.guardar_pdf, name='guardar_pdf'),
     path('confirmar_pago/<int:compra_id>/', views.confirmar_pago, name='confirmar_pago'),
     path('rechazar_pago/<int:compra_id>/', views.rechazar_pago, name='rechazar_pago'),
     path('registrar_entrega/', views.registrar_entrega, name='registrar_entrega'),

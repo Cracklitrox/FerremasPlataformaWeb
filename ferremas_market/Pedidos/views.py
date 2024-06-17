@@ -139,7 +139,7 @@ def confirmar_transaccion(request):
                 compra.save()
             
             return render(request, 'compra_anulada.html', {'compra': compra})
-        
+
         return redirect('/Usuario/')
 
     transaction = Transaction().configure_for_testing()
