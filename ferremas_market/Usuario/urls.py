@@ -27,6 +27,7 @@ urlpatterns = [
     # Usuarios
     # CLIENTE
     path('', views.index_cliente, name='index_cliente'),
+    path('cliente/contacto_cliente/', views.contacto_cliente, name='contacto_cliente'),
     path('cliente/producto_individual/<int:id>/', views.producto_individual, name='producto_individual'),
     path('cliente/carrito/', views.carrito, name='carrito'),
     path('cliente/logueo_cliente/', views.logueo_cliente, name='logueo_cliente'),

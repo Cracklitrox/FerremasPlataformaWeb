@@ -59,112 +59,86 @@ Inicio
 
 {% block content %}
 {% load crispy_forms_tags %}
-    <!--Banner-->
-    <div class="banner">
-        <div class="container">
-            <div class="slider-container has-scrollbar">
-                <div class="slider-item">
-                    <img src="{% static 'images/index_cliente/portada1.jpg' %}" alt="women's latest fashion sale" class="banner-img">
-                    <div class="banner-content">
-                        <p class="banner-subtitle">Herramientas Manuales</p>
-                        <h2 class="banner-title">Taladro Percutor Inalambrico 20V + Set De Accesorios</h2>
-                        <a href="#" class="banner-btn">Comprar</a>
-                    </div>
-                </div>
-                <div class="slider-item">
-                    <img src="{% static 'images/index_cliente/portada2.jpg' %}" alt="modern sunglasses" class="banner-img">
-                    <div class="banner-content">
-                        <p class="banner-subtitle">Herramientas Manuales</p>
-                        <h2 class="banner-title">Set 150 Piezas Herramientas Manuales - Maletín Portátil</h2>
-                        <a href="#" class="banner-btn">Comprar</a>
-                    </div>
-                </div>
-                <div class="slider-item">
-                    <img src="{% static 'images/index_cliente/portada3.jpg' %}" alt="new fashion summer sale" class="banner-img">
-                    <div class="banner-content">
-                        <p class="banner-subtitle">Pintura</p>
-                        <h2 class="banner-title">Esmalte al agua standard interior semibrillo blanco 1 galón</h2>
-                        <a href="#" class="banner-btn">Comprar</a>
-                    </div>
-                </div>
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Carrusel de Imagenes</h1>
+                <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
             </div>
         </div>
-    </div>
+    </header>
 
-      <!--PRODUCTOS-->
-
-    <section id="collection" class="py-5">
-        <div class="container">
-            <div class="title text-center">
-                <h2 class="position-relative d-inline-block">Productos</h2>
-            </div>
-            <div class="row g-0">
-                <div class="d-flex flex-wrap justify-content-center mt-5 filter-button-group">
-                    <button type="button" class="btn m-2 text-dark" onclick="window.location.href='{% url 'productos_todos' %}'">Todos</button>
-                    <button type="button" class="btn m-2 text-dark" onclick="window.location.href='{% url 'productos_mas_vendidos' %}'">Más vendidos</button>
-                    <button type="button" class="btn m-2 text-dark" onclick="window.location.href='{% url 'productos_nuevos' %}'">Nuevos</button>
-                </div>
-                <div class="collection-list mt-4 row gx-0 gy-3">
-                    {% load moneda_filtro %}
-                    {% for p in page_obj %}
-                    <div class="col-md-6 col-lg-4 col-xl-3 p-2 feat {{ p.categoria }}">
+    <!--PRODUCTOS-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% load moneda_filtro %}
+                {% for p in page_obj %}
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
                         <div class="collection-img position-relative">
                             <img src="{{ p.foto.url }}" class="w-100" style="height: 200px;">
-                        </div>
-                        <div class="text-center">
-                            <p class="text-capitalize my-1">{{ p.nombre }}</p>
-                            <span class="fw-bold">{{ p.precio|formateo_precio }}</span>
-                            <div>Stock: {{ p.stock }}</div>
-                            {% if p.activo %}
-                            <a href="{% url 'producto_individual' p.id %}" class="btn btn-info mb-2">Ver más</a>
-                            <button class="btn btn-success mb-2 add-to-cart" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Agregar al carrito</button>
-                            <button class="btn btn-primary mb-2 buy-now" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Comprar</button>
-                            {% else %}
-                            <button class="btn btn-secondary mb-2" disabled>Sin stock</button>
-                            {% endif %}
+                        </div>                        
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{ p.nombre }}</h5>
+                                <!-- Product price-->
+                                {{ p.precio|formateo_precio }}
+                                
+                                <div>Stock: {{ p.stock }}</div>
+                                {% if p.activo %}
+                                <a href="{% url 'producto_individual' p.id %}" class="btn btn-info mb-2">Ver más</a>
+                                <button class="btn btn-success mb-2 add-to-cart" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Agregar al carrito</button>
+                                <button class="btn btn-primary mb-2 buy-now" data-id="{{ p.id }}" data-name="{{ p.nombre }}" data-image="{{ p.foto.url }}" data-stock="{{ p.stock }}" data-price="{{ p.precio }}" data-logged-in="{{ request.session.is_cliente_logged_in }}">Comprar</button>
+                                {% else %}
+                                <button class="btn btn-secondary mb-2" disabled>Sin stock</button>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                    {% endfor %}
                 </div>
-            
-                <div class="pagination-container mt-4">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            {% if page_obj.has_previous %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Anterior">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            {% else %}
-                            <li class="page-item disabled">
-                                <span class="page-link">&laquo;</span>
-                            </li>
-                            {% endif %}
-                            
-                            {% for num in page_obj.paginator.page_range %}
-                            {% if page_obj.number == num %}
-                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-                            {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
-                            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                            {% endif %}
-                            {% endfor %}
-                            
-                            {% if page_obj.has_next %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Siguiente">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                            {% else %}
-                            <li class="page-item disabled">
-                                <span class="page-link">&raquo;</span>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </nav>
-                </div>
+                {% endfor %}
             </div>
+        </div>
+        <div class="pagination-container mt-4">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Anterior">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;</span>
+                    </li>
+                    {% endif %}
+                    
+                    {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Siguiente">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&raquo;</span>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
         </div>
     </section>
 {% endblock %}

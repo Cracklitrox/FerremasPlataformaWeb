@@ -1,0 +1,99 @@
+{% extends 'base_cliente.html' %}
+{% load static %}
+{% block css %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .content {
+            padding: 20px;
+            background: #fff;
+            margin-top: 20px;
+        }
+        .content h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .content h2 {
+            color: #333;
+        }
+        .content p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .hero {
+            background: url('{% static 'images/contacto_cliente/portada.jpg' %}') no-repeat center center/cover;
+            height: 400px;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}
+Ferremas - Sobre Nosotros
+{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+    <header>
+        <div class="container">
+            <h1>Ferremas</h1>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Sobre Nosotros</h1>
+    </section>
+
+    <div class="container">
+        <section class="content">
+            <h2>Nuestra Historia</h2>
+            <p>Ferremas es una destacada distribuidora de productos de ferretería y construcción en Chile, con una historia que se remonta a la década de los 80. Fundada en la comuna de Santiago, hemos crecido y evolucionado junto con la industria de la construcción y la ferretería en nuestro país.</p>
+            
+            <h2>El Comienzo</h2>
+            <p>Nuestro viaje comenzó en un pequeño local en Santiago, donde empezamos a ofrecer herramientas y materiales de construcción de alta calidad a precios competitivos. Desde el principio, nuestra misión ha sido proporcionar a nuestros clientes productos de excelente calidad, respaldados por un servicio al cliente excepcional.</p>
+            
+            <h2>Crecimiento y Expansión</h2>
+            <p>En los años 60, la industria de la ferretería y la construcción en Chile experimentó un crecimiento significativo. Este auge nos permitió expandir nuestras operaciones y abrir nuevas sucursales. Para los años 80, ya contábamos con varias tiendas en la región metropolitana y comenzamos a explorar oportunidades en otras regiones del país.</p>
+            
+            <h2>Adaptación a los Tiempos Modernos</h2>
+            <p>Con el tiempo, nos adaptamos a los cambios del mercado y adoptamos nuevas tecnologías para mejorar nuestra oferta. En respuesta a la pandemia de COVID-19 en 2020, identificamos la necesidad de una plataforma de ventas en línea para continuar sirviendo a nuestros clientes de manera eficiente. Esta transformación nos permitió mantener nuestras operaciones durante tiempos difíciles y seguir creciendo.</p>
+            
+            <h2>Nuestro Compromiso</h2>
+            <p>Hoy en día, Ferremas cuenta con cuatro sucursales en la región metropolitana y tres en otras regiones, con planes de seguir expandiéndonos a lo largo de Chile. Trabajamos con marcas reconocidas como Bosch, Makita, Stanley y Sika, garantizando la diversidad y calidad en nuestros productos. Nuestro equipo está compuesto por administradores, vendedores, bodegueros y contadores, todos dedicados a ofrecer el mejor servicio posible.</p>
+            
+            <h2>Visión de Futuro</h2>
+            <p>Nuestra visión es seguir siendo líderes en la distribución de productos de ferretería y construcción en Chile, expandiendo nuestra presencia y mejorando continuamente nuestros servicios para satisfacer las necesidades de nuestros clientes.</p>
+            <p>En Ferremas, estamos comprometidos con la excelencia y la innovación, y esperamos continuar sirviendo a nuestros clientes con la misma dedicación y pasión que nos ha caracterizado desde el principio.</p>
+        </section>
+    </div>
+{% endblock %}

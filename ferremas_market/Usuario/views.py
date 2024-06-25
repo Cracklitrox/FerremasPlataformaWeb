@@ -367,14 +367,23 @@ def index_cliente(request):
     }
     return render(request, 'cliente/index_cliente.html', context)
 
+def contacto_cliente(request):
+    return render(request, 'cliente/contacto_cliente.html')
+
 def producto_individual(request, id):
     cliente_id = request.session.get('cliente_id')
 
     producto = get_object_or_404(Producto, id=id)
     productos = Producto.objects.exclude(id=id)
+    
+    # Paginación para otros productos
+    paginator = Paginator(productos, 4)  # Muestra 4 productos por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     context = {
         'producto': producto,
-        'productos': productos,
+        'page_obj': page_obj,  # Pasa el objeto de paginación al contexto
         'cliente_id': cliente_id,
     }
     return render(request, 'cliente/producto_individual.html', context)

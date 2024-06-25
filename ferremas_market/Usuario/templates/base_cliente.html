@@ -1,7 +1,10 @@
 {% extends 'base_usuario.html' %}
 {% load static %}
 {% block css_cliente %}
-<link rel="stylesheet" href="{% static 'css/cliente/pagina_index_cliente.css' %}">
+<link rel="stylesheet" href="{% static 'css/cliente/index_cliente.css' %}">
+{% endblock %}
+
+{% block title %}
 {% endblock %}
 
 {% block cliente %}
@@ -9,81 +12,58 @@
 {% if cliente_id %}
 <input type="hidden" id="user-id" value="{{ cliente_id }}">
 {% endif %}
-<!--NavBar-->
-<nav class="navbar navbar-expand-lg bg-dark">
-    <div class="container">
-        <div class="w-100 d-flex justify-content-between">
-            <div>
-                <i class="fa-solid fa-envelope text-light contact-info"></i>
-                    <a href="" class="navbar-sm-brand text-light text-decoration-none contact-info">Ferremas@company.com</a>
-                <i class="fa-solid fa-phone contact-info text-light"></i>
-                    <a href="" class="navbar-sm-brand text-white text-decoration-none contact-info">+(56)98765435</a>
-            </div>
-            <div>
-                <a href="" class="text-white">
-                    <i class="fa-brands fa-facebook me-2"></i></a>
-                <a href="" class="text-white">
-                    <i class="fa-brands fa-instagram me-2"></i></a>
-                <a href="" class="text-white">
-                    <i class="fa-brands fa-linkedin me-2"></i></a>
-                <a href="" class="text-white">
-                    <i class="fa-brands fa-twitter me-2"></i></a>
-            </div>
-        </div>
-    </div>
-</nav>
-
 <!-- -main-nav - -->
 
-<nav class="navbar navbar-expand-lg bg-light">
-    <div class="container d-flex justify-content-between">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
         <div>
             <h1 class="text-success">Ferremas</h1>
         </div>
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item nav-items">
-                        <a class="nav-link nav-links" ria-current="page" href="{% url 'index_cliente' %}">Inicio</a>
-                    </li>
-                    <li class="nav-item nav-items">
-                        <a class="nav-link nav-links" href="{% url 'catalogo_productos' %}">Productos</a>
-                    </li>
-                    <li class="nav-item nav-items">
-                        <a class="nav-link nav-links" href="#">Tiendas</a>
-                    </li>
-                    <li class="nav-item nav-items">
-                        <a class="nav-link nav-links" href="#">Contacto</a>
-                    </li>
-                </ul>
-                <div class="position-relative d-flex align-items-center">
-                    <a href="" class="text-decoration-none text-dark">
-                        <i class="fa-solid fa-magnifying-glass nav-icon"></i>
-                    </a>
-                    {% if request.session.is_cliente_logged_in %}
-                    <form id="logout-form" action="{% url 'cerrar_sesion_cliente' %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-warning" id="logout-button" onclick="return confirm('¿Estás seguro que deseas cerrar sesión?');">Cerrar Sesión</button>
-                    </form>
-                    {% else %}
-                    <a href="{% url 'logueo_cliente' %}" class="text-decoration-none text-dark">
-                        <i class="fa-solid fa-sign-in nav-icon"></i>
-                    </a>
-                    <a href="{% url 'register_cliente' %}" class="text-decoration-none text-dark">
-                        <i class="fa-solid fa-user nav-icon"></i>
-                    </a>
-                    {% endif %}
-                    <button id="recibo-icon" class="text-decoration-none text-dark">
-                    🧾
-                    </button>
-                    <button id="cart-icon" class="text-decoration-none text-dark">
-                    🛒
-                    </button>
-                </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a href="{% url 'index_cliente' %}" class="nav-link active" aria-current="page">Inicio</a></li>
+                <li class="nav-item"><a href="{% url 'contacto_cliente' %}" class="nav-link" >Sobre Nosotros</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'catalogo_productos' %}">Productos</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="{% url 'productos_nuevos' %}">Últimos productos</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="d-flex">
+                {% if request.session.is_cliente_logged_in %}
+                <a id="cart-icon" href="#" class="btn btn-outline-dark me-2">
+                    <i class="fas fa-shopping-cart"></i>
+                    Carrito
+                </a>
+                <a id="notificaciones-icon" class="btn btn-outline-dark me-2">
+                    <i class="fas fa-bell"></i>
+                    Notificaciones
+                </a>
+                <a id="recibo-icon" class="btn btn-outline-dark me-2">
+                    <i class="fas fa-receipt"></i>
+                    Recibos
+                </a>
+                <form id="logout-form" action="{% url 'cerrar_sesion_cliente' %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-warning" id="logout-button" onclick="return confirm('¿Estás seguro que deseas cerrar sesión?');">Cerrar Sesión</button>
+                </form>
+                {% else %}
+                <a href="{% url 'logueo_cliente' %}" class="text-decoration-none text-dark me-2">
+                    <i class="fas fa-sign-in-alt"></i>
+                </a>
+                <a href="{% url 'register_cliente' %}" class="text-decoration-none text-dark me-2">
+                    <i class="fas fa-user-plus"></i>
+                </a>
+                {% endif %}
             </div>
         </div>
     </div>
 </nav>
+
 <div id="sidebar" class="sidebar">
     <ul id="cart-items">
         <!-- Aquí van los items del carrito -->
@@ -110,5 +90,6 @@
 </footer>
 {% endblock %}
 {% block js_cliente %}
+<script src="https://kit.fontawesome.com/d33f2bbb0e.js" crossorigin="anonymous"></script>
 <script src="{% static 'js/cliente/index_cliente.js' %}"></script>
 {% endblock %}
