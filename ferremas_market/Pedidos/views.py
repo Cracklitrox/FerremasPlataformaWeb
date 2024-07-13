@@ -154,8 +154,6 @@ def confirmar_transaccion(request):
         
         return render(request, 'compra_anulada.html', {'compra': compra})
 
-    print("Respuesta de Transbank:", response)
-
     if response['status'] == 'AUTHORIZED':
         compra_id = int(response['buy_order'])
         compra = Compra.objects.get(id=compra_id)
@@ -168,6 +166,18 @@ def confirmar_transaccion(request):
         compra.codigo_respuesta = str(response['response_code'])
         compra.estado = response['status']
         compra.numero_cuotas = response.get('installments_number', 0)
+
+        cliente = compra.usuario
+
+        pedido = Pedido(
+            run=cliente,
+            estado='1',
+            informacion_adicional=card_detail['card_number'],
+            fecha_recibo=response['transaction_date'],
+            activo=True
+        )
+        pedido.save()
+
         
         if compra.numero_cuotas > 0:
             compra.monto_cuota = round(compra.total / compra.numero_cuotas)

@@ -39,9 +39,10 @@
                     <i class="fas fa-shopping-cart"></i>
                     Carrito
                 </a>
-                <a id="notificaciones-icon" class="btn btn-outline-dark me-2">
+                <a id="notificaciones-icon" class="btn btn-outline-dark me-2" data-bs-toggle="popover" title="Notificaciones">
                     <i class="fas fa-bell"></i>
                     Notificaciones
+                    <span class="badge bg-secondary" id="notificaciones-badge">0</span>
                 </a>
                 <a id="recibo-icon" class="btn btn-outline-dark me-2">
                     <i class="fas fa-receipt"></i>
@@ -59,6 +60,9 @@
                     <i class="fas fa-user-plus"></i>
                 </a>
                 {% endif %}
+            </div>
+            <div id="notificaciones-content" class="d-none">
+                <!-- Aquí se mostrarán las notificaciones -->
             </div>
         </div>
     </div>
@@ -92,4 +96,48 @@
 {% block js_cliente %}
 <script src="https://kit.fontawesome.com/d33f2bbb0e.js" crossorigin="anonymous"></script>
 <script src="{% static 'js/cliente/index_cliente.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        // Inicializar popover
+        $('#notificaciones-icon').popover({
+            html: true,
+            content: function() {
+                return $('#notificaciones-content').html();
+            }
+        });
+    
+        // Mostrar notificaciones al hacer clic en el icono de notificaciones
+        $('#notificaciones-icon').on('click', function() {
+            // Cargar las notificaciones si aún no están cargadas
+            if ($('#notificaciones-content').is(':empty')) {
+                cargarNotificaciones();
+            }
+        });
+    });
+    
+    function cargarNotificaciones() {
+        const clienteId = $('#user-id').val();
+        console.log(`Cargando notificaciones para el cliente ${clienteId}`);
+    
+        fetch(`/cliente/notificaciones/${clienteId}/`)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Datos recibidos:', data);
+    
+                // Generar HTML para las notificaciones
+                let html = '';
+                data.notificaciones.forEach(notificacion => {
+                    html += `<div class="notificacion-item">${notificacion.id} - ${notificacion.estado}</div>`;
+                });
+                $('#notificaciones-content').html(html);
+                $('#notificaciones-badge').text(data.notificaciones.length); // Actualizar el número de notificaciones en el badge
+                $('#notificaciones-content').removeClass('d-none'); // Mostrar el contenido del popover
+    
+                console.log('Notificaciones cargadas correctamente.');
+            })
+            .catch(error => {
+                console.error('Error al cargar notificaciones:', error);
+            });
+    }
+</script>
 {% endblock %}

@@ -35,6 +35,7 @@ urlpatterns = [
     path('cliente/catalogo_productos/', views.catalogo_productos, name='catalogo_productos'),
     path('cliente/historial-compras/', views.historial_compras, name='historial_compras'),
     path('cliente/detalles-compra/<int:compra_id>/', views.detalles_compra, name='detalles_compra'),
+    path('cliente/notificaciones/<int:cliente_id>/', views.obtener_notificaciones_pedidos, name='notificaciones_pedidos'),
     # Filtros pagina Cliente de los Productos INDEX
     path('todos/', views.productos_todos, name='productos_todos'),
     path('mas-vendidos/', views.productos_mas_vendidos, name='productos_mas_vendidos'),

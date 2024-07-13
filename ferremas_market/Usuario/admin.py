@@ -19,7 +19,7 @@ class AdministradorAdmin(UserAdmin):
     list_display = ('primer_nombre', 'primer_apellido', 'correo', 'run', 'dv_run')
 
 admin.site.register(Administrador, AdministradorAdmin)
-admin.site.register(Cliente)
+admin.site.register(Cliente)    
 admin.site.register(Vendedor)
 admin.site.register(Bodeguero)
 admin.site.register(Contador)

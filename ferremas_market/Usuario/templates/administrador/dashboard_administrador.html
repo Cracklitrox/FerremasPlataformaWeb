@@ -2,6 +2,76 @@
 
 {% load static %}
 {% block css %}
+<style>
+    body {
+        background: #f4f4f4;
+    }
+    .sidebar {
+        background: #343a40;
+        color: #ffffff;
+        min-width: 200px;
+        padding: 20px;
+        height: 100vh;
+    }
+    .sidebar h2 {
+        text-align: center;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+    .sidebar a {
+        display: block;
+        color: #ffffff;
+        padding: 10px;
+        text-decoration: none;
+        font-size: 1.1em;
+    }
+    .sidebar a:hover {
+        background: #495057;
+        border-radius: 5px;
+    }
+    .sidebar a i {
+        margin-right: 10px;
+    }
+    .main-content {
+        flex: 1;
+        padding: 20px;
+    }
+    .dashboard {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .card {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        padding: 20px;
+        flex: 1 1 calc(50% - 40px);
+        position: relative;
+    }
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .card-header h3 {
+        margin: 0;
+        font-size: 1.5em;
+    }
+    .card-header .toggle-btn {
+        background: none;
+        border: none;
+        font-size: 1.2em;
+        cursor: pointer;
+    }
+    .chart {
+        height: 300px;
+    }
+    .btn-custom {
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        color: white;
+    }
+</style>
 {% endblock %}
 
 {% block title %}
@@ -10,6 +80,129 @@ Dashboard Administrador
 
 {% block content %}
 {% load crispy_forms_tags %}
+
+<div class="d-flex">
+    <div class="sidebar">
+        <h2>Menú</h2>
+        <a href="#"><i class="fas fa-chart-line"></i> Dashboard</a>
+        <a href="#"><i class="fas fa-boxes"></i> Productos</a>
+        <a href="#"><i class="fas fa-shopping-cart"></i> Pedidos</a>
+        <a href="#"><i class="fas fa-users"></i> Clientes</a>
+        <a href="#"><i class="fas fa-user-tie"></i> Vendedores</a>
+        <a href="#"><i class="fas fa-truck"></i> Bodegueros</a>
+        <a href="#"><i class="fas fa-file-invoice-dollar"></i> Compras</a>
+        <a href="#"><i class="fas fa-comments"></i> Suscripciones</a>
+    </div>
+
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-boxes"></i> Total de Productos
+                        </div>
+                        <div class="card-body">
+                            {% if total_productos %}
+                                <h3>{{ total_productos }}</h3>
+                                <p>Productos disponibles</p>
+                            {% else %}
+                                <p>No hay productos en el sistema.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-shopping-cart"></i> Total de Pedidos
+                        </div>
+                        <div class="card-body">
+                            {% if total_pedidos %}
+                                <h3>{{ total_pedidos }}</h3>
+                                <p>Pedidos en curso</p>
+                            {% else %}
+                                <p>No hay pedidos en el sistema.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-users"></i> Total de Clientes
+                        </div>
+                        <div class="card-body">
+                            {% if total_clientes %}
+                                <h3>{{ total_clientes }}</h3>
+                                <p>Clientes registrados</p>
+                            {% else %}
+                                <p>No hay clientes en el sistema.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Más secciones aquí -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-chart-line"></i> Reportes de Ventas
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Ventas Semanales</h5>
+                            <canvas id="ventasSemanales" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid mt-3">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="dashboard">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Ventas Mensuales</h3>
+                                    <button class="toggle-btn"><i class="fas fa-chevron-up"></i></button>
+                                </div>
+                                <canvas id="ventasMensuales" class="chart"></canvas>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Pedidos Recientes</h3>
+                                    <button class="toggle-btn"><i class="fas fa-chevron-up"></i></button>
+                                </div>
+                                <canvas id="pedidosRecientes" class="chart"></canvas>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Usuarios Activos</h3>
+                                    <button class="toggle-btn"><i class="fas fa-chevron-up"></i></button>
+                                </div>
+                                <canvas id="usuariosActivos" class="chart"></canvas>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Inventario de Productos</h3>
+                                    <button class="toggle-btn"><i class="fas fa-chevron-up"></i></button>
+                                </div>
+                                <canvas id="inventarioProductos" class="chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; 2024 Ferremas. Todos los derechos reservados.</p>
+</div>
 
 <br>
     <!-- Codigo para mover las paginas -->
@@ -72,6 +265,100 @@ Dashboard Administrador
             </script>
         {% endfor %}
     {% endif %}
-    {% block js %}
-    {% endblock %}
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const cardBody = this.closest('.card').querySelector('.chart');
+            if (cardBody.style.display === 'none') {
+                cardBody.style.display = 'block';
+                this.innerHTML = '<i class="fas fa-chevron-up"></i>';
+            } else {
+                cardBody.style.display = 'none';
+                this.innerHTML = '<i class="fas fa-chevron-down"></i>';
+            }
+        });
+    });
+
+    const ctx1 = document.getElementById('ventasMensuales').getContext('2d');
+    const ventas_mensuales = JSON.parse("{{ ventas_mensuales|safe }}");
+    const labels = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    new Chart(ctx1, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Ventas Mensuales',
+                data: ventas_mensuales,
+                backgroundColor: 'rgba(110, 142, 251, 0.2)',
+                borderColor: 'rgba(110, 142, 251, 1)',
+                borderWidth: 1
+            }]
+        }
+    });
+
+    const ctx2 = document.getElementById('pedidosRecientes').getContext('2d');
+    const labelsPedidosRecientes = JSON.parse("{{ labelsPedidosRecientes|safe }}");
+    const dataPedidosRecientes = JSON.parse("{{ dataPedidosRecientes|safe }}");
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: labelsPedidosRecientes,
+            datasets: [{
+                label: 'Total de Compras por Pedido',
+                data: dataPedidosRecientes,
+                backgroundColor: 'rgba(167, 119, 227, 0.2)',
+                borderColor: 'rgba(167, 119, 227, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    new Chart(ctx3, {
+        type: 'doughnut',
+        data: {
+            labels: ['Clientes', 'Vendedores', 'Contadores', 'Bodegueros'],
+            datasets: [{
+                label: 'Usuarios Activos',
+                data: [50, 30, 10, 10],
+                backgroundColor: [
+                    'rgba(110, 142, 251, 0.6)',
+                    'rgba(167, 119, 227, 0.6)',
+                    'rgba(255, 205, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(110, 142, 251, 1)',
+                    'rgba(167, 119, 227, 1)',
+                    'rgba(255, 205, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        }
+    });
+
+    new Chart(ctx4, {
+        type: 'horizontalBar',
+        data: {
+            labels: ['Producto 1', 'Producto 2', 'Producto 3', 'Producto 4'],
+            datasets: [{
+                label: 'Inventario de Productos',
+                data: [150, 200, 100, 300],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        }
+    });
+</script>
+{% endblock %}
 {% endblock %}

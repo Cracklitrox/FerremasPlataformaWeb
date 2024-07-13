@@ -1,5 +1,9 @@
 import os
 import bcrypt
+from django.db.models import Count
+from datetime import datetime, timedelta
+from calendar import monthrange
+from django.utils import timezone
 from django.conf import settings
 from django.http import Http404, JsonResponse
 from django.utils import timezone
@@ -108,9 +112,65 @@ def activar_cuenta(request, id):
 
 @mantener_sesion('administrador')
 def dashboard_administrador(request, id):
-    administrador = Administrador.objects.get(id=id)
+    administrador = get_object_or_404(Administrador, id=id)
     request.session['administrador_id'] = administrador.id
-    context = {'administrador': administrador}
+
+    # Obtener el año actual
+    current_year = timezone.now().year
+    
+    # Inicializar la lista de ventas mensuales con ceros para cada mes del año actual
+    ventas_mensuales = [0] * 12
+    
+    # Obtener todas las compras realizadas en el año actual
+    for month in range(1, 13):
+        # Obtener el primer y último día del mes actual
+        first_day = datetime(current_year, month, 1)
+        last_day = datetime(current_year, month, monthrange(current_year, month)[1], 23, 59, 59)
+
+        # Obtener las compras realizadas en el mes actual
+        compras_mes = Compra.objects.filter(fecha_compra__range=(first_day, last_day))
+
+        # Sumar el total de las compras de este mes a ventas_mensuales
+        for compra in compras_mes:
+            ventas_mensuales[month - 1] += compra.total
+    
+    # Obtener los últimos 3 pedidos con sus detalles de productos
+    pedidos_recientes = list(Compra.objects.order_by('-fecha_compra')[:3].values('fecha_compra', 'total'))
+
+    # Preparar los datos para el gráfico de pedidos recientes
+    labelsPedidosRecientes = [pedido['fecha_compra'].strftime('%d-%m-%Y') for pedido in pedidos_recientes]
+    dataPedidosRecientes = [pedido['total'] for pedido in pedidos_recientes]
+
+
+    # Obtener los datos de la base de datos
+    total_productos = Producto.objects.count()
+    total_pedidos = Pedido.objects.count()
+    total_clientes = Cliente.objects.count()
+    total_vendedores = Vendedor.objects.count()
+    total_bodegueros = Bodeguero.objects.count()
+
+    usuarios_activos = {
+        'clientes': total_clientes,
+        'vendedores': total_vendedores,
+        'contadores': Contador.objects.count(),
+        'bodegueros': total_bodegueros
+    }
+    inventario_productos = Producto.objects.all()[:4]  # Los primeros 4 productos para el inventario
+
+    context = {
+        'administrador': administrador,
+        'total_productos': total_productos,
+        'total_pedidos': total_pedidos,
+        'total_clientes': total_clientes,
+        'total_vendedores': total_vendedores,
+        'total_bodegueros': total_bodegueros,
+        'ventas_mensuales': ventas_mensuales,
+        'pedidos_recientes': pedidos_recientes,
+        'usuarios_activos': usuarios_activos,
+        'inventario_productos': inventario_productos,
+        'labelsPedidosRecientes': labelsPedidosRecientes,
+        'dataPedidosRecientes': dataPedidosRecientes
+    }
     return render(request, 'administrador/dashboard_administrador.html', context)
 
 # Metodos ADMINISTRADOR
@@ -354,17 +414,28 @@ def eliminar_contador(request, id):
 
 # Crear funcion de register y logueo
 
+
 def index_cliente(request):
     cliente_id = request.session.get('cliente_id')
     
-    productos = Producto.objects.all()
+    productos = Producto.objects.filter(activo=True)
     paginator = Paginator(productos, 16)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    
+    imagenes = [
+        {'url': 'static/images/index_cliente/portadas/portada1.jpg'},
+        {'url': 'static/images/index_cliente/portadas/portada2.jpg'},
+        {'url': 'static/images/index_cliente/portadas/portada3.png'},
+        {'url': 'static/images/index_cliente/portadas/portada4.jpg'},
+    ]
+    
     context = {
         'page_obj': page_obj,
         'cliente_id': cliente_id,
+        'imagenes': imagenes,
     }
+    
     return render(request, 'cliente/index_cliente.html', context)
 
 def contacto_cliente(request):
@@ -387,6 +458,21 @@ def producto_individual(request, id):
         'cliente_id': cliente_id,
     }
     return render(request, 'cliente/producto_individual.html', context)
+
+def obtener_notificaciones_pedidos(request, cliente_id):
+    # Obtener los últimos 3 pedidos del cliente
+    pedidos = Pedido.objects.filter(run_id=cliente_id).order_by('-id')[:3]
+    
+    # Preparar los datos para enviar como JSON
+    notificaciones = []
+    for pedido in pedidos:
+        notificaciones.append({
+            'id': pedido.id,
+            'estado': pedido.get_estado_display()  # Obtener el nombre del estado en lugar del valor numérico
+        })
+    
+    # Retornar los datos como JSON
+    return JsonResponse({'notificaciones': notificaciones})
 
 def carrito(request):
     cliente_id = request.session.get('cliente_id')
@@ -450,7 +536,10 @@ def register_cliente(request):
 @mantener_sesion('cliente')
 def historial_compras(request):
     cliente_id = request.session.get('cliente_id')
-    compras = Compra.objects.filter(usuario=cliente_id).order_by('-fecha_compra')
+    cliente = Cliente.objects.get(id=cliente_id)
+
+    compras = Compra.objects.filter(usuario=cliente).order_by('-fecha_compra')
+    pedidos = Pedido.objects.filter(run=cliente).order_by('-fecha_recibo')
 
     estados_traducidos = {
         'INITIALIZED': 'Iniciado',
@@ -481,8 +570,27 @@ def historial_compras(request):
         compra_traducida.fecha_compra_formateada = formatear_fecha(compra.fecha_compra)
         compras_traducidas.append(compra_traducida)
 
+    estados_pedido_traducidos = {
+        1: 'Pendiente',
+        2: 'En proceso',
+        3: 'Enviado',
+        4: 'Entregado',
+        5: 'Cancelado',
+        6: 'Preparando despacho',
+        7: 'En transito'
+    }
+
+    pedidos_traducidos = []
+    for pedido in pedidos:
+        pedido_traducido = pedido
+        pedido_traducido.estado_traducido = estados_pedido_traducidos.get(pedido.estado, pedido.estado)
+        pedido_traducido.fecha_recibo_formateada = formatear_fecha(pedido.fecha_recibo) if pedido.fecha_recibo else None
+        pedido_traducido.fecha_envio_formateada = formatear_fecha(pedido.fecha_envio) if pedido.fecha_envio else 'Pendiente'
+        pedidos_traducidos.append(pedido_traducido)
+
     context = {
         'compras': compras_traducidas,
+        'pedidos': pedidos_traducidos,
         'cliente_id': cliente_id,
     }
     return render(request, 'cliente/historial_compras.html', context)

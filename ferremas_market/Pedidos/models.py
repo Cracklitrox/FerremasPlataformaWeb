@@ -52,7 +52,7 @@ class Pedido(models.Model):
     )
     estado = models.IntegerField(choices=ESTADO_OPCIONES, default=1)
     informacion_adicional = models.CharField(max_length=120)
-    fecha_recivo = models.DateTimeField(blank=True, null=True)
+    fecha_recibo = models.DateTimeField(blank=True, null=True)
     fecha_envio = models.DateTimeField(blank=True, null=True)
     activo = models.BooleanField(default=True)
 

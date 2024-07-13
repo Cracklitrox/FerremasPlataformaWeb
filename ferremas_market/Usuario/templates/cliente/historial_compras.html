@@ -14,34 +14,34 @@ Historial de Compras
 {% load moneda_filtro %}
 <h1>Tus Compras</h1>
 <div class="compras-container">
+    {% if compras %}
     <table class="compras-table">
         <thead>
             <tr>
-                <th>Fecha de Compra</th>
-                <th>Total</th>
-                <th>Método de Pago</th>
-                <th>Número de Tarjeta</th>
-                <th>Código de Autorización</th>
                 <th>Estado</th>
-                <th>Detalles</th>
+                <th>Últimos 4 dígitos tarjeta</th>
+                <th>Fecha de recibo</th>
+                <th>Fecha de envío</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            {% for compra in compras %}
+            {% for pedido in pedidos %}
                 <tr>
-                    <td>{{ compra.fecha_compra_formateada }}</td>
-                    <td>{{ compra.total|formateo_precio }}</td>
-                    <td>{{ compra.metodo_pago_traducido }}</td>
-                    <td>{{ compra.numero_tarjeta }}</td>
-                    <td>{{ compra.codigo_autorizacion }}</td>
-                    <td>{{ compra.estado_traducido }}</td>
+                    <td>{{ pedido.estado_traducido }}</td>
+                    <td>{{ pedido.informacion_adicional }}</td>
+                    <td>{{ pedido.fecha_recibo_formateada }}</td>
+                    <td>{{ pedido.fecha_envio_formateada }}</td>
                     <td>
-                        <button class="detalles-button" onclick="mostrarDetalles({{ compra.id }})">Ver Detalles</button>
+                        <button class="detalles-button" onclick="mostrarDetalles({{ pedido.id }})">Ver más</button>
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <p>No has realizado compras aún.</p>
+    {% endif %}
 </div>
 {% endblock %}
 
